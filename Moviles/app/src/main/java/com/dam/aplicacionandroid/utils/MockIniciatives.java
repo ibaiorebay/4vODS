@@ -11,8 +11,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
-import io.realm.RealmList;
-
 public class MockIniciatives {
 
     private static final Random random = new Random();
@@ -37,30 +35,30 @@ public class MockIniciatives {
         return mockList;
     }
 
-    private static RealmList<Asignaturas> getMockAsignaturas() {
-        RealmList<Asignaturas> asignaturas = new RealmList<>();
+    private static ArrayList<Asignaturas> getMockAsignaturas() {
+        ArrayList<Asignaturas> asignaturas = new ArrayList<>();
         asignaturas.add(new Asignaturas(101, "Curso 1", "Matemáticas"));
         asignaturas.add(new Asignaturas(102, "Curso 2", "Historia"));
         asignaturas.add(new Asignaturas(103, "Curso 3", "Física"));
         return asignaturas;
     }
 
-    private static RealmList<Contratantes> getMockContratantes() {
-        RealmList<Contratantes> contratantes = new RealmList<>();
+    private static ArrayList<Contratantes> getMockContratantes() {
+        ArrayList<Contratantes> contratantes = new ArrayList<>();
         contratantes.add(new Contratantes(201, "Empresa A", "Empresa de tecnología"));
         contratantes.add(new Contratantes(202, "Empresa B", "Organización educativa"));
         return contratantes;
     }
 
-    private static RealmList<Profesores> getMockProfesores() {
-        RealmList<Profesores> profesores = new RealmList<>();
+    private static ArrayList<Profesores> getMockProfesores() {
+        ArrayList<Profesores> profesores = new ArrayList<>();
         profesores.add(new Profesores(301, "Juan", "Pérez", "Gómez", new Date(1980 - 1900, 5, 15)));
         profesores.add(new Profesores(302, "María", "López", "Fernández", new Date(1975 - 1900, 8, 20)));
         return profesores;
     }
 
-    private static RealmList<Metas> getMockMetas() {
-        RealmList<Metas> metas = new RealmList<>();
+    private static ArrayList<Metas> getMockMetas() {
+        ArrayList<Metas> metas = new ArrayList<>();
         metas.add(new Metas(1, "A", "Erradicar la pobreza extrema"));
         metas.add(new Metas(2, "B", "Garantizar la educación inclusiva"));
         metas.add(new Metas(3, "C", "Promover la igualdad de género"));

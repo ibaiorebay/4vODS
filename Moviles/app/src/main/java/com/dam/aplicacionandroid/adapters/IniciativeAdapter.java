@@ -1,13 +1,18 @@
 package com.dam.aplicacionandroid.adapters;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.dam.aplicacionandroid.R;
+import com.dam.aplicacionandroid.activities.InitiativeDetailsActivity;
 import com.dam.aplicacionandroid.models.Iniciatives;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -39,6 +44,13 @@ public class IniciativeAdapter extends RecyclerView.Adapter<IniciativeAdapter.Vi
         // Formatear fechas antes de mostrarlas
         holder.textViewFechaInicio.setText(formatDate(iniciativa.getFechaInicio()));
         holder.textViewFechaFinal.setText(formatDate(iniciativa.getFechaFinal()));
+
+        // Manejar clics en los elementos del RecyclerView
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), InitiativeDetailsActivity.class);
+            intent.putExtra("INICIATIVE", iniciativa); // Pasar la iniciativa seleccionada
+            v.getContext().startActivity(intent);
+        });
     }
 
     @Override

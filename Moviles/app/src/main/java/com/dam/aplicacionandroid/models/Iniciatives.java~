@@ -1,26 +1,28 @@
 package com.dam.aplicacionandroid.models;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import io.realm.RealmList;
 import io.realm.RealmObject;
 
-public class Iniciatives extends RealmObject {
+public class Iniciatives extends RealmObject implements Serializable {
     private int codIniciativa;
     private int horas;
     private String titulo;
     private Date fechaInicio;
     private Date fechaFinal;
 
-    private List<Asignaturas> asignaturas;
-    private List<Contratantes> contratantes;
-    private List<Profesores> profesores;
-    private List<Metas> metas;
+    private RealmList<Asignaturas> asignaturas;
+    private RealmList<Contratantes> contratantes;
+    private RealmList<Profesores> profesores;
+    private RealmList<Metas> metas;
 
     public Iniciatives() {
     }
 
-    public Iniciatives(int codIniciativa, int horas, String titulo, Date fechaInicio, Date fechaFinal, List<Asignaturas> asignaturas, List<Contratantes> contratantes, List<Profesores> profesores, List<Metas> metas) {
+    public Iniciatives(int codIniciativa, int horas, String titulo, Date fechaInicio, Date fechaFinal, RealmList<Asignaturas> asignaturas, RealmList<Contratantes> contratantes, RealmList<Profesores> profesores, RealmList<Metas> metas) {
         this.codIniciativa = codIniciativa;
         this.horas = horas;
         this.titulo = titulo;
@@ -72,35 +74,35 @@ public class Iniciatives extends RealmObject {
         this.fechaFinal = fechaFinal;
     }
 
-    public List<Asignaturas> getAsignaturas() {
+    public RealmList<Asignaturas> getAsignaturas() {
         return asignaturas;
     }
 
-    public void setAsignaturas(List<Asignaturas> asignaturas) {
+    public void setAsignaturas(RealmList<Asignaturas> asignaturas) {
         this.asignaturas = asignaturas;
     }
 
-    public List<Contratantes> getContratantes() {
+    public RealmList<Contratantes> getContratantes() {
         return contratantes;
     }
 
-    public void setContratantes(List<Contratantes> contratantes) {
+    public void setContratantes(RealmList<Contratantes> contratantes) {
         this.contratantes = contratantes;
     }
 
-    public List<Profesores> getProfesores() {
+    public RealmList<Profesores> getProfesores() {
         return profesores;
     }
 
-    public void setProfesores(List<Profesores> profesores) {
+    public void setProfesores(RealmList<Profesores> profesores) {
         this.profesores = profesores;
     }
 
-    public List<Metas> getMetas() {
+    public RealmList<Metas> getMetas() {
         return metas;
     }
 
-    public void setMetas(List<Metas> metas) {
+    public void setMetas(RealmList<Metas> metas) {
         this.metas = metas;
     }
 }
