@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         recycler = findViewById(R.id.recyclerView);
         searchEditText = findViewById(R.id.searchEditText);
 
+        // Cargar los datos simulados
         initiativesList = MockIniciatives.getMockIniciatives();
 
         adapter = new IniciativeAdapter(initiativesList);
@@ -56,9 +57,11 @@ public class MainActivity extends AppCompatActivity {
     private void filter(String text) {
         List<Iniciatives> filteredList = new ArrayList<>();
 
+        // Eliminar espacios al principio y al final del texto
         String trimmedText = text.trim();
 
         for (Iniciatives ini : initiativesList) {
+            // Comparar el título sin espacios adicionales
             if (ini.getTitulo().toLowerCase().contains(trimmedText.toLowerCase())) {
                 filteredList.add(ini);
             }
