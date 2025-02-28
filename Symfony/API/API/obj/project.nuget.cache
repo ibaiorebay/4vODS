@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "YgBorbi8cimMyQYPMsGgUhyiRKdsnUjZST2RIBjxxpoG0l60Jqw1Vhp+Pif3KTszpK0tEsjlTzCKnjGUGyQkAQ==",
+  "dgSpecHash": "iPAhvJBWYVQsvdA/ghpmXp8Hfg2RXLFGg18yyrqYVqdh7DLqllcgCMhGBMvx5aknparZAN2GAwtfVb9Lgbeong==",
   "success": true,
-  "projectFilePath": "C:\\Users\\youmo\\OneDrive\\Escritorio\\API\\API\\API\\API.csproj",
+  "projectFilePath": "C:\\Users\\youmo\\Downloads\\repositorio\\4vODS\\Symfony\\API\\API\\API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\youmo\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\youmo\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

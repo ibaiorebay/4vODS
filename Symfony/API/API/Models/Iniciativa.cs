@@ -1,30 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
 
 namespace API.Models;
 
-public partial class Iniciativa
+public partial class iniciativa
 {
-    [Key]
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int CodIniciativa { get; set; }
+    public int ID_INICIATIVA { get; set; }
 
-    public int Horas { get; set; }
+    public string? TITULO { get; set; }
 
-    public string Titulo { get; set; } = null!;
+    public int? HORAS { get; set; }
 
-    public DateOnly FechaInicio { get; set; }
+    public DateOnly? FECHA_INICIO { get; set; }
 
-    public DateOnly FechaFin { get; set; }
+    public DateOnly? FECHA_FIN { get; set; }
 
-    
-    public virtual ICollection<Asignatura> CodAsignaturas { get; set; } = new List<Asignatura>();
-    
-    public virtual ICollection<Contratante> CodContratantes { get; set; } = new List<Contratante>();
-    
-    public virtual ICollection<Profesore> IdProfesors { get; set; } = new List<Profesore>();
-    public virtual ICollection<Meta> Meta { get; set; } = new List<Meta>();
+    public string? DESCRIPCION { get; set; }
+
+    public string? TIPO { get; set; }
+
+    public string? PRODUCTO_FINAL { get; set; }
+
+    public bool? NUEVA { get; set; }
+
+    public string? DIFUSION { get; set; }
+
+    public virtual ICollection<asignatura> ID_ASIGNATURAs { get; set; } = new List<asignatura>();
+
+    public virtual ICollection<entidad> ID_ENTIDADs { get; set; } = new List<entidad>();
+
+    public virtual ICollection<meta> ID_METAs { get; set; } = new List<meta>();
+
+    public virtual ICollection<profesore> ID_PROFESORs { get; set; } = new List<profesore>();
 }
