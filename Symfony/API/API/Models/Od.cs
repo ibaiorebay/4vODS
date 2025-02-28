@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace API.Models;
 
-public partial class Od
+public partial class od
 {
-    public int NumeroOds { get; set; }
+    public int ID_ODS { get; set; }
 
-    public string Nombre { get; set; } = null!;
+    public string? NOMBRE { get; set; }
 
-    public string? Descripcion { get; set; }
+    public string? DESCRIPCION { get; set; }
 
-    public virtual ICollection<Meta> Meta { get; set; } = new List<Meta>();
+    public string? DIMENSION { get; set; }
+    [JsonIgnore]
+    public virtual ICollection<meta> meta { get; set; } = new List<meta>();
 }

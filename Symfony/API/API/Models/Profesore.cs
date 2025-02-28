@@ -4,18 +4,17 @@ using System.Text.Json.Serialization;
 
 namespace API.Models;
 
-public partial class Profesore
+public partial class profesore
 {
-    public int IdProfesor { get; set; }
+    public int ID_PROFESOR { get; set; }
 
-    public string NombreProfesor { get; set; } = null!;
+    public string? NOMBRE { get; set; }
 
-    public string Apellido1 { get; set; } = null!;
+    public string? APELLIDO1 { get; set; }
 
-    public string Apellido2 { get; set; } = null!;
+    public string? APELLIDO2 { get; set; }
 
-    public DateOnly FechaNacimiento { get; set; }
-
+    public DateOnly? FECHA_NACIMIENTO { get; set; }
     [JsonIgnore]
-    public virtual ICollection<Iniciativa> CodIniciativas { get; set; } = new List<Iniciativa>();
+    public virtual ICollection<iniciativa> ID_INICIATIVAs { get; set; } = new List<iniciativa>();
 }

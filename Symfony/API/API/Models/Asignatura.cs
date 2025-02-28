@@ -4,17 +4,15 @@ using System.Text.Json.Serialization;
 
 namespace API.Models;
 
-public partial class Asignatura
+public partial class asignatura
 {
-    public int CodAsignatura { get; set; }
+    public int ID_ASIGNATURA { get; set; }
 
-    public string? NombreCurso { get; set; }
+    public int? ID_CURSO { get; set; }
 
-    public string NombreAsignatura { get; set; } = null!;
-
+    public string? NOMBRE { get; set; }
     [JsonIgnore]
-    public virtual Curso? NombreCursoNavigation { get; set; }
+    public virtual curso? ID_CURSONavigation { get; set; }
 
-    [JsonIgnore]
-    public virtual ICollection<Iniciativa> CodIniciativas { get; set; } = new List<Iniciativa>();
+    public virtual ICollection<iniciativa> ID_INICIATIVAs { get; set; } = new List<iniciativa>();
 }

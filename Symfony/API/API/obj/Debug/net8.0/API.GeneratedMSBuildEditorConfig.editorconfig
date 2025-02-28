@@ -17,35 +17,55 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = API
 build_property.RootNamespace = API
-build_property.ProjectDir = C:\Users\youmo\OneDrive\Escritorio\API\API\API\
+build_property.ProjectDir = C:\Users\youmo\Downloads\repositorio\4vODS\Symfony\API\API\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\youmo\OneDrive\Escritorio\API\API\API
+build_property.MSBuildProjectDirectory = C:\Users\youmo\Downloads\repositorio\4vODS\Symfony\API\API
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/youmo/OneDrive/Escritorio/API/API/API/Views/Asignaturas/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNpZ25hdHVyYXNcQ3JlYXRlLmNzaHRtbA==
+[C:/Users/youmo/Downloads/repositorio/4vODS/Symfony/API/API/Views/entidads/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcZW50aWRhZHNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/youmo/OneDrive/Escritorio/API/API/API/Views/Asignaturas/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNpZ25hdHVyYXNcRGVsZXRlLmNzaHRtbA==
+[C:/Users/youmo/Downloads/repositorio/4vODS/Symfony/API/API/Views/entidads/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcZW50aWRhZHNcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/youmo/OneDrive/Escritorio/API/API/API/Views/Asignaturas/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNpZ25hdHVyYXNcRGV0YWlscy5jc2h0bWw=
+[C:/Users/youmo/Downloads/repositorio/4vODS/Symfony/API/API/Views/entidads/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcZW50aWRhZHNcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/youmo/OneDrive/Escritorio/API/API/API/Views/Asignaturas/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNpZ25hdHVyYXNcRWRpdC5jc2h0bWw=
+[C:/Users/youmo/Downloads/repositorio/4vODS/Symfony/API/API/Views/entidads/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcZW50aWRhZHNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/youmo/OneDrive/Escritorio/API/API/API/Views/Asignaturas/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXNpZ25hdHVyYXNcSW5kZXguY3NodG1s
+[C:/Users/youmo/Downloads/repositorio/4vODS/Symfony/API/API/Views/entidads/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcZW50aWRhZHNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/youmo/OneDrive/Escritorio/API/API/API/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/youmo/Downloads/repositorio/4vODS/Symfony/API/API/Views/iniciativas/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcaW5pY2lhdGl2YXNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/youmo/Downloads/repositorio/4vODS/Symfony/API/API/Views/iniciativas/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcaW5pY2lhdGl2YXNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/youmo/Downloads/repositorio/4vODS/Symfony/API/API/Views/iniciativas/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcaW5pY2lhdGl2YXNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/youmo/Downloads/repositorio/4vODS/Symfony/API/API/Views/iniciativas/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcaW5pY2lhdGl2YXNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/youmo/Downloads/repositorio/4vODS/Symfony/API/API/Views/iniciativas/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcaW5pY2lhdGl2YXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/youmo/Downloads/repositorio/4vODS/Symfony/API/API/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
