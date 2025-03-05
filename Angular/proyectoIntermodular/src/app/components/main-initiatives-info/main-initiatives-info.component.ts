@@ -91,5 +91,14 @@ export class MainInitiativesInfoComponent {
       }
     }
   ];
+
+
+  edit() {
+    console.log("Editando tarjeta");
+  }
+
+  delete() {
+    console.log("Borrando tarjeta");
+  }
   
 }

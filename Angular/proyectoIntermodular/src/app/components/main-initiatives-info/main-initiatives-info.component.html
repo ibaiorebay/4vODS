@@ -1,4 +1,4 @@
-<div class="container mt-4">
+<!-- <div class="container mt-4">
     <div class="row">
         <div class="col-md-4" *ngFor="let card of cards">
             <div class="card p-3 shadow-sm">
@@ -7,5 +7,19 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
+
+<ng-container *ngFor="let card of cards">
+    <div class="bg-light m-3 p-3 shadow-lg">
+        <div class="">
+            <h5>{{ card.title }}</h5>
+            <p>{{ card.description }}</p>
+        </div>
+        <div>
+            trespuntitos
+            <button class="btn btn-primary" (click)="edit()">Editar</button>
+            <button class="btn btn-danger" (click)="delete()">Eliminar</button>
+        </div>
+    </div>    
+</ng-container>
     
