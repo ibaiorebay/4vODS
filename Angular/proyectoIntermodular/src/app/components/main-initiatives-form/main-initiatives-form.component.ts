@@ -3,13 +3,13 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-modal-form',
-  standalone: true, 
-  imports: [CommonModule, ReactiveFormsModule], 
-  templateUrl: './modal-form.component.html',
-  styleUrls: ['./modal-form.component.scss']
+  selector: 'app-main-initiatives-form',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
+  templateUrl: './main-initiatives-form.component.html',
+  styleUrl: './main-initiatives-form.component.scss'
 })
-export class ModalFormComponent {
+export class MainInitiativesFormComponent {
   form: FormGroup;
 
   constructor(private fb: FormBuilder) {
@@ -28,4 +28,5 @@ export class ModalFormComponent {
       console.log("Formulario inválido");
     }
   }
+
 }
