@@ -1,8 +1,10 @@
 <!-- main.component.html -->
 <div class="container mt-5">
+
     <div class="row">
+    <h1>Listado de ODS</h1>
       <!-- Usamos un *ngFor para iterar sobre las 17 imágenes -->
-      <div class="col-lg-3 col-md-4 col-sm-6 col-12 mb-4" *ngFor="let foto of listaFotos">
+      <div class="col-lg-2 col-md-3 col-sm-4 col-12 mb-3" *ngFor="let foto of listaFotos">
         <div class="card shadow-sm">
           <img [src]="foto" class="card-img-top" alt="Imagen">
         </div>

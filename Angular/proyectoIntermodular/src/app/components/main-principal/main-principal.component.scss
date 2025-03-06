@@ -5,6 +5,7 @@ $gradient-start: #1e3c72;
 $gradient-end: #2a5298;
 $text-color: #ffffff;
 
+
 .container {
   margin-top: 50px;
 
@@ -16,20 +17,18 @@ $text-color: #ffffff;
   }
 
   .card {
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    flex-wrap: wrap;
     border-radius: 8px;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
-    overflow: hidden; // Para recortar la imagen en el borde de la card
+    overflow: hidden; 
     transition: transform 0.3s ease-in-out;
     
     &:hover {
       transform: scale(1.05); // Efecto al pasar el ratón
       box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
-    }
-
-    .card-img-top {
-      
-      width: 50%;
-      height: 50%;
     }
 
     .card-body {
