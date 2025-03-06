@@ -1,10 +1,8 @@
-<!-- Sección 1: Introducción a la Agenda 2030 -->
 <div class="container section-header">
   <h2>Proyecto Agenda 2030</h2>
   <p>Un compromiso global para transformar el mundo en 2030.</p>
 </div>
 
-<!-- Sección 2: Descripción del Proyecto con Imagen -->
 <div class="container section-content">
   <div class="row p-5">
       <div class="col-md-4">
@@ -18,33 +16,25 @@
   </div>
 </div>
 
-<!-- Sección 3: Objetivos de Desarrollo Sostenible (ODS) -->
-<div class="container section-header">
-  <h3>Los 17 Objetivos de Desarrollo Sostenible</h3>
-  <p>Acciones para cambiar el mundo</p>
-</div>
+
 
 <div class="container">
   <div class="row text-center">
-      <!-- ODS 1 -->
       <div class="col-md-3">
           <i class="bi bi-people-fill" style="font-size: 3rem;"></i>
           <h4>Fin de la pobreza</h4>
           <p>Erradicar la pobreza en todas sus formas y en todas partes del mundo.</p>
       </div>
-      <!-- ODS 2 -->
       <div class="col-md-3">
           <i class="bi bi-egg-fill" style="font-size: 3rem;"></i>
           <h4>Hambre cero</h4>
           <p>Erradicar el hambre, lograr la seguridad alimentaria, mejorar la nutrición y promover la agricultura sostenible.</p>
       </div>
-      <!-- ODS 3 -->
       <div class="col-md-3">
           <i class="bi bi-heart-fill" style="font-size: 3rem;"></i>
           <h4>Salud y bienestar</h4>
           <p>Asegurar una vida sana y promover el bienestar para todos en todas las edades.</p>
       </div>
-      <!-- ODS 4 -->
       <div class="col-md-3">
           <i class="bi bi-book-half" style="font-size: 3rem;"></i>
           <h4>Educación de calidad</h4>
@@ -53,14 +43,46 @@
   </div>
 </div>
 
-<!-- Sección 4: Llamado a la acción con botón -->
-<div class="container section-content">
-  <h3>Únete a la Agenda 2030</h3>
-  <p>Haz tu parte para contribuir a los Objetivos de Desarrollo Sostenible. Juntos podemos cambiar el mundo.</p>
-  <button class="btn btn-custom">Actúa ahora</button>
+
+<div class="container section-header">
+  <h3>Los 17 Objetivos de Desarrollo Sostenible</h3>
+  <p>Acciones para cambiar el mundo</p>
 </div>
 
-<!-- Sección 5: Contacto y más información -->
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-lg-2 col-md-3 col-sm-4 col-12 mb-3" *ngFor="let foto of listaFotos">
+      <div class="card shadow-sm">
+        <img [src]="foto" class="card-img-top" alt="Imagen">
+      </div>
+    </div>
+  </div>
+</div> 
+
+<div class="container section-content py-5">
+  <div class="row align-items-center">
+    <h3 class="mb-4">Únete a la Agenda 2030</h3>
+    <!-- Columna de texto -->
+    <div class="col-md-6 text-left">
+      <p>
+        La Agenda 2030 para el Desarrollo Sostenible es un compromiso global que busca construir un mundo más justo, equitativo y sostenible. A través de sus 17 Objetivos de Desarrollo Sostenible (ODS), nos invita a tomar acción para erradicar la pobreza, proteger el planeta y garantizar el bienestar de todas las personas.
+      </p>
+      <p>
+        Cada acción, por pequeña que parezca, tiene un impacto. Desde reducir el consumo de plásticos, apoyar la educación, promover la igualdad de género o participar en iniciativas ambientales, todos podemos contribuir a este cambio positivo. La cooperación entre gobiernos, empresas, organizaciones y ciudadanos es fundamental para lograr estos objetivos antes de 2030.
+      </p>
+      <p>
+        El futuro del planeta y de las próximas generaciones depende de las decisiones que tomemos hoy. Participar activamente en la Agenda 2030 significa ser parte de la solución y trabajar juntos para construir un mundo más sostenible, inclusivo y próspero para todos.
+      </p>
+      <button class="btn btn-custom mt-3" onclick="window.open('https://www.un.org/sustainabledevelopment/es/development-agenda/')">Actúa ahora</button>
+    </div>
+    
+    <!-- Columna de imagen o icono -->
+    <div class="col-md-5 text-center">
+      <img src="https://th.bing.com/th/id/R.fcf230596abc2bc6ce6775362d2cd4c4?rik=CL2OF%2borW2sX1w&riu=http%3a%2f%2ffarm5.static.flickr.com%2f4080%2f4899406321_bb7d7aab03_z.jpg&ehk=42WsGkO%2fksusnHW5mpTURg94mBrKunCbkjzdqpDHmk0%3d&risl=&pid=ImgRaw&r=0" alt="Agenda 2030" class="img-fluid rounded shadow-lg" style="max-width: 80%;">
+    </div>
+  </div>
+</div>
+
 <div class="container section-content">
   <div class="row">
       <div class="col-md-6">
@@ -79,16 +101,5 @@
 
 
 
-<!-- main.component.html -->
-<div class="container mt-5">
-    <div class="row">
-    <h1>Listado de ODS</h1>
-      <!-- Usamos un *ngFor para iterar sobre las 17 imágenes -->
-      <div class="col-lg-2 col-md-3 col-sm-4 col-12 mb-3" *ngFor="let foto of listaFotos">
-        <div class="card shadow-sm">
-          <img [src]="foto" class="card-img-top" alt="Imagen">
-        </div>
-      </div>
-    </div>
-  </div> 
+
   
