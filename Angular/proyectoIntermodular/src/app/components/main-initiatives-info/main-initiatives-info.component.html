@@ -1,25 +1,16 @@
-<!-- <div class="container mt-4">
+<div class="container mt-5">
     <div class="row">
-        <div class="col-md-4" *ngFor="let card of cards">
-            <div class="card p-3 shadow-sm">
-                <h5>{{ card.title }}</h5>
-                <p>{{ card.description }}</p>
+        @for(iniciativa of iniciativas;track iniciativa){
+        <div class="col-md-4">
+            <div class="custom-card">
+                <h5>{{ iniciativa.Titulo }}</h5>
+                <p>{{ iniciativa.Descripcion }}</p>
+                <div class="d-flex justify-content-between">
+                    <button class="btn btn-edit" (click)="edit()">Editar</button>
+                    <button class="btn btn-delete" (click)="delete(iniciativa.Id)">Eliminar</button>
+                </div>
             </div>
         </div>
+        }
     </div>
-</div> -->
-
-<ng-container *ngFor="let card of cards">
-    <div class="bg-light m-3 p-3 shadow-lg">
-        <div class="">
-            <h5>{{ card.title }}</h5>
-            <p>{{ card.description }}</p>
-        </div>
-        <div>
-            trespuntitos
-            <button class="btn btn-primary" (click)="edit()">Editar</button>
-            <button class="btn btn-danger" (click)="delete()">Eliminar</button>
-        </div>
-    </div>    
-</ng-container>
-    
+</div>

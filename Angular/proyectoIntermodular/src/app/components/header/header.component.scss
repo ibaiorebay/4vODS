@@ -1,0 +1,78 @@
+// Variables de colores
+$primary-color: #007bff;
+$secondary-color: #6c757d;
+$hover-color: #0056b3;
+$gradient-start: #1f721e; // Azul oscuro
+$gradient-end: #2a5298;   // Azul más claro
+$text-color: #ffffff;
+
+// Animación del degradado en movimiento
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+// Estilos del header
+.custom-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, $gradient-start, $gradient-end);
+  background-size: 200% 200%; // Hace que la animación tenga espacio para moverse
+  color: $text-color;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  border-bottom: 3px solid $primary-color;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    animation: gradientMove 3s infinite ease-in-out; // Aplica la animación cuando se hace hover
+  }
+
+  h1 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: transform 0.3s ease-in-out;
+
+    &:hover {
+      transform: scale(1.05);
+      color: $primary-color;
+    }
+  }
+
+  .nav {
+    display: flex;
+    gap: 1rem;
+
+    .nav-item {
+      list-style: none;
+
+      .nav-link {
+        font-size: 1rem;
+        font-weight: 600;
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        color: $text-color;
+        background-color: transparent;
+        border-radius: 5px;
+        transition: all 0.3s ease-in-out;
+
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.2);
+          color: white;
+          box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.3);
+          transform: translateY(-2px);
+        }
+      }
+    }
+  }
+}

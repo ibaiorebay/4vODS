@@ -1,0 +1,81 @@
+// Variables de colores
+$primary-color: #007bff;
+$delete-color: #dc3545;
+$gradient-start: #1e3c72; // Azul oscuro
+$gradient-end: #2a5298;   // Azul más claro
+$text-color: #ffffff;
+
+// Animación del degradado en movimiento
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+// Estilos de las tarjetas
+.custom-card {
+  background: linear-gradient(135deg, $gradient-start, $gradient-end);
+  background-size: 200% 200%;
+  color: $text-color;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-in-out;
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    animation: gradientMove 3s infinite ease-in-out;
+    transform: scale(1.03);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  h5 {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .btn {
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+  }
+
+  .btn-edit {
+    background-color: $primary-color;
+    color: white;
+    border: none;
+
+    &:hover {
+      background-color: darken($primary-color, 10%);
+      box-shadow: 0px 4px 8px rgba(0, 123, 255, 0.3);
+      transform: translateY(-2px);
+    }
+  }
+
+  .btn-delete {
+    background-color: $delete-color;
+    color: white;
+    border: none;
+
+    &:hover {
+      background-color: darken($delete-color, 10%);
+      box-shadow: 0px 4px 8px rgba(220, 53, 69, 0.3);
+      transform: translateY(-2px);
+    }
+  }
+}
