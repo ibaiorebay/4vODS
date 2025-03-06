@@ -3,7 +3,7 @@ $primary-color: #007bff;
 $secondary-color: #6c757d;
 $hover-color: #0056b3;
 $gradient-start: #1f721e; // Azul oscuro
-$gradient-end: #2a5298;   // Azul más claro
+$gradient-end: #2a5298; // Azul más claro
 $text-color: #ffffff;
 
 // Animación del degradado en movimiento
@@ -11,9 +11,11 @@ $text-color: #ffffff;
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0% 50%;
   }
@@ -43,10 +45,16 @@ $text-color: #ffffff;
     letter-spacing: 1px;
     transition: transform 0.3s ease-in-out;
 
-    &:hover {
-      transform: scale(1.05);
-      color: $primary-color;
+    a {
+      text-decoration: none;
+      color: white;
+
+      &:hover {
+        transform: scale(1.05);
+        color: $primary-color;
+      }
     }
+
   }
 
   .nav {
