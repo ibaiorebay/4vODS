@@ -28,4 +28,6 @@ export class MainPrincipalComponent {
     "../../assets/ods/S-WEB-Goal-16.png",
     "../../assets/ods/S-WEB-Goal-17.png",    
   ];
+
+  
 }

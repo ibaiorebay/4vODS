@@ -1,51 +1,243 @@
-// main.component.scss
-
+// Colores y fuentes
 $primary-color: #007bff;
+$secondary-color: #f8f9fa;
 $gradient-start: #1e3c72;
 $gradient-end: #2a5298;
 $text-color: #ffffff;
+$button-bg-color: #28a745;
+$button-text-color: #fff;
+$heading-color: #333;
+
+// Sección 1: Estilos para la introducción de la Agenda 2030
+
+.section-header {
+  background: linear-gradient(135deg, #1e3c72, #2a5298); // Fondo con degradado
+  padding: 60px 0;
+  text-align: center;
+  color: $text-color; // Blanco para el texto
+  border-radius: 12px;
+
+  // Animación para la carga
+  opacity: 0;
+  transform: translateY(-20px);
+  animation: fadeInUp 1s ease-out forwards;
+
+  h2 {
+    font-family: 'Pacifico', sans-serif; // Fuente bonita
+    font-size: 3rem; // Título grande
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px; // Espaciado entre letras
+  }
+
+  p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    margin-top: 10px;
+  }
+}
+
+// Animación para el fade-in y subida
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 
-.container {
-  margin-top: 50px;
+// Sección 2: Descripción del Proyecto con Imagen
+.section-content {
+  padding: 40px 0;
+
+  .row {
+    align-items: center;
+  }
+
+  .col-md-6 {
+    margin-bottom: 30px;
+  }
+
+  img {
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: $heading-color;
+    margin-top: 20px;
+  }
+
+  p {
+    font-size: 1rem;
+    color: $heading-color;
+    opacity: 0.8;
+  }
+
+  .btn-custom {
+    background-color: $button-bg-color;
+    color: $button-text-color;
+    border-radius: 8px;
+    padding: 10px 20px;
+    margin-top: 20px;
+
+    &:hover {
+      background-color: darken($button-bg-color, 10%);
+      cursor: pointer;
+    }
+  }
+}
+
+// Sección 3: Estilos para los Objetivos de Desarrollo Sostenible (ODS)
+.section-header {
+  margin-top: 40px;
+}
+
+.text-center {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.col-md-3 {
+  text-align: center;
+  padding: 20px;
+
+  i {
+    color: $primary-color;
+    margin-bottom: 15px;
+  }
+
+  h4 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: $heading-color;
+  }
+
+  p {
+    font-size: 0.95rem;
+    color: $heading-color;
+    opacity: 0.7;
+  }
+}
+
+
+// Sección 4: Llamado a la acción con botón
+.section-content {
+  background-color: #f9f9f9;
+  padding: 40px 0;
+  text-align: center;
+
+  h3 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: $heading-color;
+  }
+
+  p {
+    font-size: 1.2rem;
+    color: $heading-color;
+    opacity: 0.8;
+  }
+
+  .btn-custom {
+    background-color: $primary-color;
+    color: $text-color;
+    border-radius: 8px;
+    padding: 15px 30px;
+    font-size: 1rem;
+    margin-top: 20px;
+
+    &:hover {
+      background-color: darken($primary-color, 10%);
+      cursor: pointer;
+    }
+  }
+}
+
+// Sección 5: Contacto y más información
+.section-content {
+  padding: 40px 0;
 
   .row {
     display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    justify-content: center;
+    justify-content: space-between;
+    gap: 20px;
   }
 
-  .card {
-    display: flex;
-    justify-content: space-around;
-    align-content: center;
-    flex-wrap: wrap;
-    border-radius: 8px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
-    overflow: hidden; 
-    transition: transform 0.3s ease-in-out;
-    
-    &:hover {
-      transform: scale(1.05); // Efecto al pasar el ratón
-      box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+  .col-md-6 {
+    text-align: center;
+    padding: 20px;
+
+    h3 {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 15px;
+      color: $heading-color;
     }
 
-    .card-body {
-      background: linear-gradient(135deg, $gradient-start, $gradient-end);
-      color: $text-color;
-      padding: 1.5rem;
-      text-align: center;
+    p {
+      font-size: 1rem;
+      color: $heading-color;
+      opacity: 0.8;
+    }
 
-      .card-title {
-        font-weight: bold;
-        font-size: 1.2rem;
-      }
+    .btn-custom {
+      background-color: $button-bg-color;
+      color: $button-text-color;
+      border-radius: 8px;
+      padding: 10px 20px;
+      margin-top: 20px;
 
-      .card-text {
-        font-size: 1rem;
-        opacity: 0.8;
+      &:hover {
+        background-color: darken($button-bg-color, 10%);
+        cursor: pointer;
       }
+    }
+  }
+}
+
+// Estilos adicionales para el listado de ODS
+.card {
+  transition: transform 0.3s ease-in-out;
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+  }
+
+  .card-img-top {
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .card-body {
+    padding: 15px;
+    text-align: center;
+    background: linear-gradient(135deg, $gradient-start, $gradient-end);
+    color: $text-color;
+
+    .card-title {
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .card-text {
+      font-size: 1rem;
+      opacity: 0.8;
     }
   }
 }
