@@ -17,7 +17,7 @@ export class Asignatura {
         this.id = id;
     }
 
-    public getNombreCurso(): string {
+    get getNombreCurso(): string {
         return this.nombreCurso;
     }   
 
@@ -25,7 +25,7 @@ export class Asignatura {
         this.nombreCurso = nombreCurso;
     }
 
-    public getNombreAsignatura(): string {
+    get getNombreAsignatura(): string {
         return this.nombreAsignatura;
     }
 

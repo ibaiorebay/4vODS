@@ -20,10 +20,43 @@ $text-color: #ffffff;
   }
 }
 
+.fontSize-small {
+  // font-size: 0.8rem;
+}
+
+.dropdownButton {
+  padding: 0.6rem 0.8rem;
+  display: flex;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.dropdownMenu {
+  width: 10rem;
+  position: absolute;
+  top: 3rem;
+  left: -3rem;
+  z-index: 10;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.25em 0.4em;
+  margin-right: 0.8rem;
+  margin-bottom: 1rem;
+  font-size: 0.8rem;
+  font-weight: 300;
+  text-align: center;
+  border-radius: 0.25rem;
+  color: #75b798;
+  background-color: black;
+  border: 1px solid #0f5132;
+}
 
 // Estilos de las tarjetas
 .custom-card {
-  background: linear-gradient(135deg, $gradient-start, $gradient-end);
+  // background: linear-gradient(135deg, $gradient-start, $gradient-end);
+  background-color: gray;
   background-size: 200% 200%;
   color: $text-color;
   padding: 1.5rem;
@@ -46,13 +79,15 @@ $text-color: #ffffff;
   }
 
   p {
-    font-size: 1rem;
-    margin-bottom: 1rem;
+    // font-size: 1rem;
+    font-size: 0.8rem;
+    // margin-bottom: 1rem;
+    margin-bottom: 0rem;
   }
 
   .btn {
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
+    // padding: 0.5rem 1rem;
+    // border-radius: 5px;
     font-weight: bold;
     transition: all 0.3s ease-in-out;
     cursor: pointer;

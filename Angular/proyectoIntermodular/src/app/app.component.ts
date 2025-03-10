@@ -2,12 +2,14 @@ import { Component } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive, Router, NavigationEnd } from '@angular/router';
 import { HeaderComponent } from "./components/header/header.component";
 import { MainPrincipalComponent } from "./components/main-principal/main-principal.component";
+import { CommonModule } from '@angular/common';
+
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, RouterLink, RouterLinkActive, MainPrincipalComponent],
+  imports: [RouterOutlet, HeaderComponent, RouterLink, RouterLinkActive, MainPrincipalComponent, CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

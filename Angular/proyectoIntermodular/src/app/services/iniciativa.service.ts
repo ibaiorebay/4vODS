@@ -11,15 +11,30 @@ import { Asignatura } from '../models/asignatura';
 })
 export class IniciativaService {
 
-  metas : Meta[] = [
+  metas: Meta[] = [
     new Meta(4, "7", "Garantizar que todos los alumnos adquieran los conocimientos teóricos y prácticos necesarios para promover el desarrollo sostenible."),
     new Meta(11, "6", "Reducir la contaminación y la generación de residuos."),
-    new Meta(12, "0", "Fomentar la adopción de prácticas sostenibles."),];
+    new Meta(12, "0", "Fomentar la adopción de prácticas sostenibles."),
+    new Meta(1, "1", "Erradicar la pobreza extrema para todas las personas en el mundo."),
+    new Meta(2, "2", "Poner fin al hambre y garantizar el acceso a una alimentación segura y nutritiva."),
+    new Meta(3, "4", "Reducir en un tercio la mortalidad prematura por enfermedades no transmisibles."),
+    new Meta(5, "5", "Asegurar la participación plena y efectiva de las mujeres y la igualdad de oportunidades de liderazgo."),
+    new Meta(6, "1", "Lograr el acceso universal y equitativo al agua potable a un precio asequible."),
+    new Meta(7, "2", "Aumentar considerablemente la proporción de energía renovable en el conjunto de fuentes energéticas."),
+    new Meta(8, "3", "Promover políticas que apoyen el crecimiento económico sostenido y el trabajo decente."),
+    new Meta(9, "4", "Modernizar la infraestructura y reconvertir las industrias para que sean sostenibles."),
+    new Meta(10, "2", "Potenciar y promover la inclusión social, económica y política de todas las personas."),
+    new Meta(13, "1", "Fortalecer la resiliencia y la capacidad de adaptación a los riesgos relacionados con el clima."),
+    new Meta(14, "1", "Prevenir y reducir significativamente la contaminación marina de todo tipo."),
+    new Meta(15, "2", "Promover la gestión sostenible de todos los tipos de bosques."),
+    new Meta(16, "3", "Promover el estado de derecho y garantizar la igualdad de acceso a la justicia."),
+    new Meta(17, "1", "Fortalecer la movilización de recursos internos para mejorar la capacidad nacional."),
+  ];
 
   iniciativas : Iniciativa[] = [
 
-    new Iniciativa(1, 100, "Reciclaje Inteligente en Madrid","Descripcion1", new Date("2024-09-15"), new Date("2025-06-20"), [this.metas[1]], [new EntidadExterior(1,"hola", "Chao")], [new Profesor(1,"profe", "apell1", "apell2", new Date("1999-02-02"))], [new Asignatura(1, "DAM", "Desarrollo de Aplicaciones Multiplataforma")]),
-    new Iniciativa(2, 200, "Inclusión digital en zonas rurales", "Descripción2", new Date("2024-11-01"), new Date("2025-04-30"), [this.metas[2]], [new EntidadExterior(2,"hola", "Chao")], [new Profesor(2,"profe", "apell1", "apell2", new Date("1999-02-02"))], [new Asignatura(2, "DAM", "Desarrollo de Aplicaciones Multiplataforma")]),
+    new Iniciativa(1, 100, "Reciclaje Inteligente en Madrid","Reciclaje Inteligente en Madrid optimiza la gestión de residuos con tecnología, promoviendo un reciclaje eficiente y sostenible. ♻️", new Date("2024-09-15"), new Date("2025-06-20"), [this.metas[1]], [new EntidadExterior(1,"Alboan", "Descripcion de alboan blablabala"), new EntidadExterior(1,"Cistek", "Descripcion de cistek blablabala")], [new Profesor(1,"Miguel", "Goyena", "apell2", new Date("1999-02-02"))], [new Asignatura(1, "2ºDAM", "DI"), new Asignatura(1, "2ºDAM", "Acc.Datos")]),
+    new Iniciativa(2, 200, "Inclusión digital en zonas rurales", "Descripción2", new Date("2024-11-01"), new Date("2025-04-30"), [this.metas[2]], [new EntidadExterior(2,"hola", "Chao")], [new Profesor(2,"David", "Noya", "apell2", new Date("1999-02-02"))], [new Asignatura(2, "DAM", "Desarrollo de Aplicaciones Multiplataforma")]),
     new Iniciativa(3, 300, "Proyecto 3","Descripcion 3", new Date("2024-11-01"), new Date("2025-04-30"), [this.metas[0]], [new EntidadExterior(3,"hola", "Chao")], [new Profesor(3,"profe", "apell1", "apell2", new Date("1999-02-02"))], [new Asignatura(3, "DAM", "Desarrollo de Aplicaciones Multiplataforma")]),
     new Iniciativa(4, 400, "Proyecto 4","Descripcion 4", new Date("2024-11-01"), new Date("2025-04-30"), [this.metas[0]], [new EntidadExterior(4,"hola", "Chao")], [new Profesor(4,"profe", "apell1", "apell2", new Date("1999-02-02"))], [new Asignatura(4, "DAM", "Desarrollo de Aplicaciones Multiplataforma")]),
     new Iniciativa(5, 500, "Proyecto 5","Descripcion 5", new Date("2024-11-01"), new Date("2025-04-30"), [this.metas[0]], [new EntidadExterior(5,"hola", "Chao")], [new Profesor(5,"profe", "apell1", "apell2", new Date("1999-02-02"))], [new Asignatura(5, "DAM", "Desarrollo de Aplicaciones Multiplataforma")]),

@@ -2,12 +2,44 @@
     <div class="row">
         @for(iniciativa of iniciativas;track iniciativa){
         <div class="col-md-4 pt-4 pb-4">
-            <div class="custom-card">
-                <h5>{{ iniciativa.Titulo }}</h5>
-                <p>{{ iniciativa.Descripcion }}</p>
+            <div class="custom-card p-relative">
                 <div class="d-flex justify-content-between">
-                    <button class="btn btn-edit" (click)="edit()">Editar</button>
-                    <button class="btn btn-delete" (click)="delete(iniciativa.Id)">Eliminar</button>
+                    <h5>{{ iniciativa.Titulo }}</h5>
+                    <div class="position-relative">
+                        <!-- Botón del menú desplegable -->
+                        <button class="btn btn-outline-light dropdownButton" (click)="toggleDropdown()" ><img src="../../../assets/three-dots-vertical.svg" alt=""></button>
+                        <!-- Menú desplegable -->
+                        <div *ngIf="isDropdownOpen" class="dropdownMenu hidden list-group text-center">
+                            <button class=" list-group-item list-group-item-action" (click)="edit()">Editar</button>
+                            <button class=" list-group-item list-group-item-action text-danger" (click)="delete(iniciativa.Id)">Eliminar</button>
+                        </div>
+                    </div>
+                </div>
+                <span class="charla-badge badge">
+                    Charla
+                </span>
+                <span class="innovador-badge badge">
+                    Innovador
+                </span>
+                
+
+
+                
+                <p class="mb-0">Líder del proyecto: {{iniciativa.Profesores[0].Nombre+" "+iniciativa.Profesores[0].Apellido1}}</p>
+                <p class="d-inline fontSize-small me-5">Fecha de inicio: {{iniciativa.FechaInicio.toLocaleDateString()}}</p>
+                <p class="d-inline fontSize-small">Fecha de fin: {{iniciativa.FechaFin.toLocaleDateString()}}</p>
+                <p class="fontSize-small mb-0">Curso: 24-25</p>
+                <p>Descripción: {{iniciativa.Descripcion}}</p>
+                <ng-container *ngIf="iniciativa?.EntidadesExteriores?.length">
+                <p>Entidades externas: {{obtenerEntidades(iniciativa.EntidadesExteriores)}}</p>
+                </ng-container>
+                <p>Clases: {{obtenerNombresCursos(iniciativa.Asignaturas)}}</p>
+                <p>Módulos: {{obtenerModulosYCursos(iniciativa.Asignaturas)}}</p>
+                <p>Ubicación: Sala Azul</p>
+                <p>ODS: {{obtenerODS(iniciativa.Metas)}}</p>
+                <p>Metas: {{obtenerMetas(iniciativa.Metas)}}</p>
+                <div class="d-flex justify-content-between">
+                    
                 </div>
             </div>
         </div>

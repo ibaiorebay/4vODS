@@ -8,6 +8,7 @@ export class EntidadExterior {
         this.nombre = nombre;
         this.descripcion = descripcion;
     }
+    
 
     get Id(): number {
         return this.id;
