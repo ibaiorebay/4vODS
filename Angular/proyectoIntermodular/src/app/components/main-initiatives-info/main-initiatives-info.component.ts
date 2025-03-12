@@ -76,6 +76,13 @@ export class MainInitiativesInfoComponent {
     return result;
   }
 
+  selectedTipoIniciativa: string = 'Todos';
+  selectTypeInitiative(selectedTipoIniciativa: string): void {
+    this.selectedTipoIniciativa = selectedTipoIniciativa;
+    this.iniciativas = this.iniciativaService.filterInitiatives(selectedTipoIniciativa);
+  }
+
+
   ngOnInit(): void {
     this.iniciativas = this.iniciativaService.Iniciativas;
   }

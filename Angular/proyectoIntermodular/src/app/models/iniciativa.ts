@@ -15,9 +15,11 @@ export class Iniciativa {
     private entidadesExteriores: EntidadExterior[];
     private profesores: Profesor[];
     private asignaturas: Asignatura[];
+     tipoIniciativa: string;
 
-    constructor(id: number, horas: number,titulo:string, descripcion: string, fechaInicio: Date, fechaFin: Date, metas:Meta[], entidadesExteriores: EntidadExterior[], profesores: Profesor[], asignaturas: Asignatura[]) {
+    constructor(id: number, tipoIniciativa: string, horas: number,titulo:string, descripcion: string, fechaInicio: Date, fechaFin: Date, metas:Meta[], entidadesExteriores: EntidadExterior[], profesores: Profesor[], asignaturas: Asignatura[]) {
         this.id = id;
+        this.tipoIniciativa = tipoIniciativa;
         this.horas = horas;
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -34,6 +36,14 @@ export class Iniciativa {
 
     set Id(id: number) {
         this.id = id;
+    }
+
+    get TipoIniciativa(): string {
+        return this.tipoIniciativa;
+    }
+
+    set TipoIniciativa(tipoIniciativa: string) {
+        this.tipoIniciativa = tipoIniciativa;
     }
 
     get Horas(): number {

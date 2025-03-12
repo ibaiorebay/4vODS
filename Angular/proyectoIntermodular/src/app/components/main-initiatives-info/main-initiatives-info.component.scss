@@ -51,7 +51,34 @@ $text-color: #ffffff;
   color: #75b798;
   background-color: black;
   border: 1px solid #0f5132;
-}
+
+  &.badge-charla-taller {
+    color: #f2801d; 
+    border: 1px solid #ce6000; 
+  }
+
+  &.badge-salida {
+    background-color: #17a2b8;
+    border: 1px solid #147d8e;
+  }
+
+  &.badge-proyecto {
+    color: #ffc107;
+    background-color: #856404;
+  }
+
+  &.badge-acciones-internas {
+    color: #dc3545; /* Rojo */
+    border: 1px solid #721c24; /* Rojo oscuro */
+  }
+
+  &.badge-otros {
+    color: #6c757d; /* Gris */
+    border: 1px solid #343a40; /* Gris oscuro */
+  }
+} 
+
+
 
 // Estilos de las tarjetas
 .custom-card {
