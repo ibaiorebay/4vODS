@@ -1,6 +1,7 @@
 package com.dam.aplicacionandroid.adapters;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +12,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dam.aplicacionandroid.R;
 import com.dam.aplicacionandroid.activities.InitiativeDetailsActivity;
+import com.dam.aplicacionandroid.models.Asignaturas;
+import com.dam.aplicacionandroid.models.Contratantes;
 import com.dam.aplicacionandroid.models.Iniciatives;
+import com.dam.aplicacionandroid.models.Metas;
+import com.dam.aplicacionandroid.models.Profesores;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -21,10 +28,17 @@ import java.util.Locale;
 public class IniciativeAdapter extends RecyclerView.Adapter<IniciativeAdapter.ViewHolder> {
 
     private List<Iniciatives> iniciativas;
-    private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
+    private OnItemClickListener itemListener;
 
-    public IniciativeAdapter(List<Iniciatives> iniciativas) {
+    // SimpleDateFormat para analizar las fechas en el formato 'yyyy-MM-dd' de la API
+    private final SimpleDateFormat apiDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+
+    // SimpleDateFormat para mostrar las fechas en el formato 'dd-MM-yyyy'
+    private final SimpleDateFormat displayDateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+
+    public IniciativeAdapter(List<Iniciatives> iniciativas, OnItemClickListener listener) {
         this.iniciativas = iniciativas;
+        this.itemListener = listener;
     }
 
     @NonNull
@@ -38,20 +52,36 @@ public class IniciativeAdapter extends RecyclerView.Adapter<IniciativeAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Iniciatives iniciativa = iniciativas.get(position);
 
+        Log.d("IniciativeAdapter", "Iniciativa en posición " + position + ": " + iniciativa.getTitulo());
+
         holder.textViewTitulo.setText(iniciativa.getTitulo());
         holder.textViewHoras.setText(iniciativa.getHoras() + " h");
 
-        // Formatear fechas antes de mostrarlas
-        holder.textViewFechaInicio.setText(formatDate(iniciativa.getFechaInicio()));
-        holder.textViewFechaFinal.setText(formatDate(iniciativa.getFechaFinal()));
+        String fechaInicio = iniciativa.getFechaInicio();
+        String fechaFinal = iniciativa.getFechaFinal();
 
-        // Manejar clics en los elementos del RecyclerView
-        holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(v.getContext(), InitiativeDetailsActivity.class);
-            intent.putExtra("INICIATIVE", iniciativa); // Pasar la iniciativa seleccionada
-            v.getContext().startActivity(intent);
-        });
+        Log.d("IniciativeAdapter", "Fecha Inicio: " + fechaInicio);
+        Log.d("IniciativeAdapter", "Fecha Fin: " + fechaFinal);
+
+        if (fechaInicio != null) {
+            holder.textViewFechaInicio.setText(fechaInicio);
+        } else {
+            holder.textViewFechaInicio.setText("Fecha no disponible");
+        }
+
+        if (fechaFinal != null) {
+            holder.textViewFechaFinal.setText(fechaFinal);
+        } else {
+            holder.textViewFechaFinal.setText("Fecha no disponible");
+        }
+
+        holder.asingData(iniciativas.get(position).getCodIniciativa(), iniciativas.get(position).getTitulo(),
+                iniciativas.get(position).getHoras(), iniciativas.get(position).getFechaInicio(),
+                iniciativas.get(position).getFechaFinal(), iniciativas.get(position).getAsignaturas(),
+                iniciativas.get(position).getContratantes(), iniciativas.get(position).getProfesores(),
+                iniciativas.get(position).getMetas(), itemListener);
     }
+
 
     @Override
     public int getItemCount() {
@@ -73,9 +103,25 @@ public class IniciativeAdapter extends RecyclerView.Adapter<IniciativeAdapter.Vi
             textViewFechaInicio = itemView.findViewById(R.id.textViewFechaInicio);
             textViewFechaFinal = itemView.findViewById(R.id.textViewFechaFinal);
         }
+
+        public void asingData(int codigo, String titulo, int horas, String fechaInicio, String fechaFinal,
+                              ArrayList<Asignaturas> asignaturas, ArrayList<Contratantes> contratantes,
+                              ArrayList<Profesores> profesores, ArrayList<Metas> metas,
+                              OnItemClickListener onItemClickListener) {
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onItemClickListener.onItemClick(codigo, titulo, horas, fechaInicio, fechaFinal,
+                            asignaturas, contratantes, profesores, metas);
+                }
+            });
+        }
     }
 
-    private String formatDate(Date date) {
-        return (date != null) ? dateFormat.format(date) : "Fecha no disponible";
+    public interface OnItemClickListener {
+        void onItemClick(int codigo, String titulo, int horas, String fechaInicio, String fechaFinal,
+                         ArrayList<Asignaturas> asignaturas, ArrayList<Contratantes> contratantes,
+                         ArrayList<Profesores> profesores, ArrayList<Metas> metas);
     }
 }

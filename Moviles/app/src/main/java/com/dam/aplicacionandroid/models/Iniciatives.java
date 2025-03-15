@@ -1,15 +1,19 @@
 package com.dam.aplicacionandroid.models;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.ArrayList;
 
-public class Iniciatives implements Serializable {
+public class Iniciatives {
     private int codIniciativa;
     private int horas;
     private String titulo;
-    private Date fechaInicio;
-    private Date fechaFinal;
+    @SerializedName("fechA_INICIO")
+    private String fechaInicio;
+    @SerializedName("fechA_FIN")
+    private String fechaFinal;
 
     private ArrayList<Asignaturas> asignaturas;
     private ArrayList<Contratantes> contratantes;
@@ -19,7 +23,7 @@ public class Iniciatives implements Serializable {
     public Iniciatives() {
     }
 
-    public Iniciatives(int codIniciativa, int horas, String titulo, Date fechaInicio, Date fechaFinal, ArrayList<Asignaturas> asignaturas, ArrayList<Contratantes> contratantes, ArrayList<Profesores> profesores, ArrayList<Metas> metas) {
+    public Iniciatives(int codIniciativa, int horas, String titulo, String fechaInicio, String fechaFinal, ArrayList<Asignaturas> asignaturas, ArrayList<Contratantes> contratantes, ArrayList<Profesores> profesores, ArrayList<Metas> metas) {
         this.codIniciativa = codIniciativa;
         this.horas = horas;
         this.titulo = titulo;
@@ -55,19 +59,19 @@ public class Iniciatives implements Serializable {
         this.titulo = titulo;
     }
 
-    public Date getFechaInicio() {
+    public String getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
+    public void setFechaInicio(String fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public Date getFechaFinal() {
+    public String getFechaFinal() {
         return fechaFinal;
     }
 
-    public void setFechaFinal(Date fechaFinal) {
+    public void setFechaFinal(String fechaFinal) {
         this.fechaFinal = fechaFinal;
     }
 
