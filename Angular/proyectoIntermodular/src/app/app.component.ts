@@ -1,16 +1,30 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, RouterLink, RouterLinkActive, Router, NavigationEnd } from '@angular/router';
 import { HeaderComponent } from "./components/header/header.component";
-import { ModalFormComponent } from "./components/modal-form/modal-form.component";
-import { MainPageComponent } from "./components/main-page/main-page.component";
+import { MainPrincipalComponent } from "./components/main-principal/main-principal.component";
+import { CommonModule } from '@angular/common';
+
+
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, ModalFormComponent, MainPageComponent],
+  imports: [RouterOutlet, HeaderComponent, RouterLink, RouterLinkActive, MainPrincipalComponent, CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'proyectoIntermodular';
+  isRouteActive = false;
+
+  constructor(private router: Router) {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.isRouteActive = event.url !== '/';
+      }
+    });
+  }
+
+  onRouteActivate() {
+    this.isRouteActive = true;
+  }
 }

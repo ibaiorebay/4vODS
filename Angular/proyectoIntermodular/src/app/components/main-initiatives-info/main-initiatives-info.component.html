@@ -1,0 +1,67 @@
+<!-- Filtro de tipos de mascota -->
+<div class="filters bg-light p-4 d-flex">
+    <h2>Tipo de Iniciativa:</h2>
+
+    <button *ngFor="let type of ['Todos', 'Charla/Taller', 'Salida', 'Proyecto', 'Acciones Internas', 'Otros']"
+            [class.active]="selectedTipoIniciativa === type"
+            (click)="selectTypeInitiative(type)"
+            class="mx-3 btn">
+            {{ type === 'Todos' ? 'Todos' : type }}
+    </button>
+
+
+</div>
+
+
+<div class="container pt-5 pb-5 d-flex justify-content-between">
+    <div class="row">
+        @for(iniciativa of iniciativas;track iniciativa){
+        <div class="col-md-4 pt-4 pb-4">
+            <div class="custom-card p-relative">
+                <div class="d-flex justify-content-between">
+                    <h5>{{ iniciativa.Titulo }}</h5>
+                    <div class="position-relative">
+                        <!-- Botón del menú desplegable -->
+                        <button class="btn btn-outline-light dropdownButton" (click)="toggleDropdown()" ><img src="../../../assets/three-dots-vertical.svg" alt=""></button>
+                        <!-- Menú desplegable -->
+                        <div *ngIf="isDropdownOpen" class="dropdownMenu hidden list-group text-center">
+                            <button class=" list-group-item list-group-item-action" (click)="edit()">Editar</button>
+                            <button class=" list-group-item list-group-item-action text-danger" (click)="delete(iniciativa.Id)">Eliminar</button>
+                        </div>
+                    </div>
+                </div>
+                <span class="badge-charla-taller badge">
+                    {{iniciativa.TipoIniciativa}}
+                </span>
+                <span class="innovador-badge badge">
+                    Innovador
+                </span>
+                
+
+
+                <br>
+                <p class="mb-0"><span class="fw-bold">Líder del proyecto:</span> {{iniciativa.Profesores[0].Nombre+" "+iniciativa.Profesores[0].Apellido1}}</p>
+                <p class="d-inline fontSize-small me-5"><span class="fw-bold">Fecha de inicio:</span> {{iniciativa.FechaInicio.toLocaleDateString()}}</p>
+                <p class="d-inline fontSize-small"><span class="fw-bold">Fecha de fin:</span> {{iniciativa.FechaFin.toLocaleDateString()}}</p>
+                <p class="fontSize-small mb-0"><span class="fw-bold">Curso:</span> 24-25</p>
+                <p class="mb-3"><span class="fw-bold">Ubicación:</span> Sala Azul</p>
+                <p><span class="fw-bold">Descripción:</span> {{iniciativa.Descripcion}}</p>
+                <ng-container *ngIf="iniciativa?.EntidadesExteriores?.length">
+                <p><span class="fw-bold">Entidades externas:</span> {{obtenerEntidades(iniciativa.EntidadesExteriores)}}</p>
+                </ng-container>
+                <p><span class="fw-bold">Clases:</span> {{obtenerNombresCursos(iniciativa.Asignaturas)}}</p>
+                <p><span class="fw-bold">Módulos:</span> {{obtenerModulosYCursos(iniciativa.Asignaturas)}}</p>
+                <p><span class="fw-bold">ODS:</span> {{obtenerODS(iniciativa.Metas)}}</p>
+                <p><span class="fw-bold">Metas:</span> {{obtenerMetas(iniciativa.Metas)}}</p>
+                <div class="d-flex justify-content-end">
+                    <ul class="list-unstyled">
+                        <li class="">
+                            <a href="#" class="text-decoration-none"><img src="../../../assets/linkedin.svg" alt="linkedin-icon" class=""></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>

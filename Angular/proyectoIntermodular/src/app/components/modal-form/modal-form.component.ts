@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
   standalone: true, 
   imports: [CommonModule, ReactiveFormsModule], 
   templateUrl: './modal-form.component.html',
-  styleUrls: ['./modal-form.component.css']
+  styleUrls: ['./modal-form.component.scss']
 })
 export class ModalFormComponent {
   form: FormGroup;

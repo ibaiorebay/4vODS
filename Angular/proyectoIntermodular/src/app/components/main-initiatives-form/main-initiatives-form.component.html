@@ -1,0 +1,28 @@
+<div class="custom-modal-container">
+    <div class="custom-modal">
+        <div class="custom-modal-header">
+            <h5>Nueva Iniciativa</h5>
+        </div>
+        <div class="custom-modal-body">
+            <form [formGroup]="form">
+                <div class="mb-3">
+                    <label for="titulo">Título de Iniciativa</label>
+                    <input id="titulo" type="text" class="form-control" formControlName="titulo">
+                </div>
+                <div class="mb-3">
+                    <label for="horas">Horas</label>
+                    <input id="horas" type="number" class="form-control" formControlName="horas">
+                </div>
+                <div class="mb-3">
+                    <label for="fechaInicio">Fecha Inicio</label>
+                    <input id="fechaInicio" type="date" class="form-control" formControlName="fechaInicio">
+                </div>
+                <div class="mb-3">
+                    <label for="fechaFin">Fecha Fin</label>
+                    <input id="fechaFin" type="date" class="form-control" formControlName="fechaFin">
+                </div>
+                <button class="btn btn-save" (click)="save()">Guardar</button>
+            </form>
+        </div>
+    </div>
+</div>
