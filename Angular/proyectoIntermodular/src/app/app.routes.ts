@@ -6,5 +6,6 @@ import { MainPrincipalComponent } from './components/main-principal/main-princip
 export const routes: Routes = [
     {path: 'initiatives-info', component: MainInitiativesInfoComponent},
     {path: 'initiatives-form', component: MainInitiativesFormComponent},
+    {path: 'initiatives-form/:id', component: MainInitiativesFormComponent},
     {path: 'main', component: MainPrincipalComponent},
 ];

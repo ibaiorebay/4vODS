@@ -1,28 +1,104 @@
 <div class="custom-modal-container">
     <div class="custom-modal">
-        <div class="custom-modal-header">
-            <h5>Nueva Iniciativa</h5>
-        </div>
-        <div class="custom-modal-body">
-            <form [formGroup]="form">
-                <div class="mb-3">
-                    <label for="titulo">Título de Iniciativa</label>
-                    <input id="titulo" type="text" class="form-control" formControlName="titulo">
-                </div>
-                <div class="mb-3">
-                    <label for="horas">Horas</label>
-                    <input id="horas" type="number" class="form-control" formControlName="horas">
-                </div>
-                <div class="mb-3">
-                    <label for="fechaInicio">Fecha Inicio</label>
-                    <input id="fechaInicio" type="date" class="form-control" formControlName="fechaInicio">
-                </div>
-                <div class="mb-3">
-                    <label for="fechaFin">Fecha Fin</label>
-                    <input id="fechaFin" type="date" class="form-control" formControlName="fechaFin">
-                </div>
-                <button class="btn btn-save" (click)="save()">Guardar</button>
-            </form>
-        </div>
+      <div class="custom-modal-header">
+        <h5>Nueva Iniciativa</h5>
+      </div>
+      <div class="custom-modal-body">
+        <form [formGroup]="form">
+          <div class="mb-3">
+            <label for="titulo">Título de Iniciativa</label>
+            <input id="titulo" type="text" class="form-control" formControlName="titulo">
+          </div>
+          <div class="mb-3">
+            <label for="horas">Horas</label>
+            <input id="horas" type="number" class="form-control" formControlName="horas">
+          </div>
+          <div class="d-flex">
+              <div class="mb-3 me-5">
+                <label for="fechaInicio">Fecha Inicio</label>
+                <input id="fechaInicio" type="date" class="form-control" formControlName="fechaInicio">
+              </div>
+              <div class="mb-3">
+                <label for="fechaFin">Fecha Fin</label>
+                <input id="fechaFin" type="date" class="form-control" formControlName="fechaFin">
+              </div>
+          </div>
+          
+          <!-- Select para Asignaturas -->
+          <div class="mb-3">
+            <label for="asignaturas">Asignaturas</label>
+            <select id="asignaturas" class="form-control" formControlName="asignaturas" (change)="addAsignatura($event)">
+              <option *ngFor="let asignatura of asignaturasOptions" [value]="asignatura.id">{{ asignatura.nombre }}</option>
+            </select>
+          </div>
+          <!-- Badges de Asignaturas Seleccionadas -->
+          <div class="mb-3">
+            <label>Asignaturas Seleccionadas</label>
+            <div *ngFor="let asignatura of selectedAsignaturas" class="badge-container">
+              <span class="badge badge-pill badge-primary">
+                {{ asignatura.nombre }}
+                <span class="badge badge-close" (click)="removeAsignatura(asignatura)">X</span>
+              </span>
+            </div>
+          </div>
+  
+          <!-- Select para Entidades -->
+          <div class="mb-3">
+            <label for="entidades">Entidades Externas</label>
+            <select id="entidades" class="form-control" formControlName="entidades" (change)="addEntidad($event)">
+              <option *ngFor="let entidad of entidadesOptions" [value]="entidad.id">{{ entidad.nombre }}</option>
+            </select>
+          </div>
+          <!-- Badges de Entidades Seleccionadas -->
+          <div class="mb-3">
+            <label>Entidades Seleccionadas</label>
+            <div *ngFor="let entidad of selectedEntidades" class="badge-container">
+              <span class="badge badge-pill badge-info">
+                {{ entidad.nombre }}
+                <span class="badge badge-close" (click)="removeEntidad(entidad)">X</span>
+              </span>
+            </div>
+          </div>
+  
+          <!-- Select para Metas de la ODS -->
+          <div class="mb-3">
+            <label for="metas">Metas de la ODS</label>
+            <select id="metas" class="form-control" formControlName="metas" (change)="addMeta($event)">
+              <option *ngFor="let meta of metasOptions" [value]="meta.id">{{ meta.nombre }}</option>
+            </select>
+          </div>
+          <!-- Badges de Metas Seleccionadas -->
+          <div class="mb-3">
+            <label>Metas Seleccionadas</label>
+            <div *ngFor="let meta of selectedMetas" class="badge-container">
+              <span class="badge badge-pill badge-success d-inline-block">
+                {{ meta.nombre }}
+                <span class="badge badge-close" (click)="removeMeta(meta)">X</span>
+              </span>
+            </div>
+          </div>
+  
+          <!-- Select para Profesores -->
+          <div class="mb-3">
+            <label for="profesores">Profesores</label>
+            <select id="profesores" class="form-control" formControlName="profesores" (change)="addProfesor($event)">
+              <option *ngFor="let profesor of profesoresOptions" [value]="profesor.id">{{ profesor.nombre }}</option>
+            </select>
+          </div>
+          <!-- Badges de Profesores Seleccionados -->
+          <div class="mb-3">
+            <label>Profesores Seleccionados</label>
+            <div *ngFor="let profesor of selectedProfesores" class="badge-container">
+              <span class="badge badge-pill badge-warning">
+                {{ profesor.nombre }}
+                <span class="badge badge-close" (click)="removeProfesor(profesor)">X</span>
+              </span>
+            </div>
+          </div>
+  
+          <button class="btn btn-save" (click)="save()">Guardar</button>
+        </form>
+      </div>
     </div>
-</div>
+  </div>
+  

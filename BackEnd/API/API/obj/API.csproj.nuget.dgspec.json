@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\youmo\\Downloads\\repositorio\\4vODS\\Symfony\\API\\API\\API.csproj": {}
+    "C:\\Users\\Danie\\OneDrive\\Documents\\Asignaturas GS DAM 2\\ProyectoIntermodular\\4vODS\\BackEnd\\API\\API\\API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\youmo\\Downloads\\repositorio\\4vODS\\Symfony\\API\\API\\API.csproj": {
+    "C:\\Users\\Danie\\OneDrive\\Documents\\Asignaturas GS DAM 2\\ProyectoIntermodular\\4vODS\\BackEnd\\API\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\youmo\\Downloads\\repositorio\\4vODS\\Symfony\\API\\API\\API.csproj",
+        "projectUniqueName": "C:\\Users\\Danie\\OneDrive\\Documents\\Asignaturas GS DAM 2\\ProyectoIntermodular\\4vODS\\BackEnd\\API\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "C:\\Users\\youmo\\Downloads\\repositorio\\4vODS\\Symfony\\API\\API\\API.csproj",
-        "packagesPath": "C:\\Users\\youmo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\youmo\\Downloads\\repositorio\\4vODS\\Symfony\\API\\API\\obj\\",
+        "projectPath": "C:\\Users\\Danie\\OneDrive\\Documents\\Asignaturas GS DAM 2\\ProyectoIntermodular\\4vODS\\BackEnd\\API\\API\\API.csproj",
+        "packagesPath": "C:\\Users\\Danie\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Danie\\OneDrive\\Documents\\Asignaturas GS DAM 2\\ProyectoIntermodular\\4vODS\\BackEnd\\API\\API\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\youmo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Danie\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -34,7 +38,13 @@
           "warnAsError": [
             "NU1605"
           ]
-        }
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "all"
+        },
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
         "net8.0": {
@@ -100,7 +110,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

@@ -6,12 +6,15 @@ $text-color: #ffffff;
 $input-border: #ccc;
 $shadow-color: rgba(0, 0, 0, 0.2);
 
+
+
+
 // Contenedor que utiliza Flexbox para centrar el modal
 .custom-modal-container {
+    margin: 3rem auto;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     width: 100%;
     background-image: url(../../assets/p3.jpg);
     background-repeat: no-repeat;
@@ -20,18 +23,14 @@ $shadow-color: rgba(0, 0, 0, 0.2);
 
     .custom-modal {
         width: 100%;
-        max-width: 500px;
+        max-width: 750px;
         background: linear-gradient(135deg, $gradient-start, $gradient-end);
         color: $text-color;
         padding: 2rem;
         border-radius: 10px;
         box-shadow: 0px 4px 12px $shadow-color;
-        transition: transform 0.2s ease-in-out;
 
         // Hover para darle un pequeño efecto de elevación
-        &:hover {
-            transform: scale(1.02);
-        }
 
         .custom-modal-header {
             text-align: center;
@@ -86,3 +85,47 @@ $shadow-color: rgba(0, 0, 0, 0.2);
         }
     }
 }
+
+  /* Estilos de los badges */
+.badge-container {
+    display: inline-block;
+  }
+  
+  .badge {
+    margin-right: 5px;
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+  }
+  
+  .badge-close {
+    margin-left: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #fff;
+    background: red;
+    border: none;
+  }
+  
+  .badge-primary {
+    background-color: #007bff;
+  }
+  
+  .badge-info {
+    background-color: #17a2b8;
+  }
+  
+  .badge-success {
+    background-color: #28a745;
+  }
+  
+  .badge-warning {
+    background-color: #ffc107;
+  }
+  
+  .badge-light {
+    background-color: #f8f9fa;
+  }
+  

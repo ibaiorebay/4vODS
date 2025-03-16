@@ -1,6 +1,6 @@
 export class Asignatura {
     private id: number;
-    private nombreCurso: string;
+    private nombreCurso: string;//TODO DEVUELVE ID AHORA
     private nombreAsignatura: string;
 
     constructor(id: number, nombreCurso: string, nombreAsignatura: string) {
@@ -9,6 +9,14 @@ export class Asignatura {
         this.nombreAsignatura = nombreAsignatura;
     }
 
+    // Constructor que recibe un objeto de datos de la API
+    // constructor(data: any) {
+    //     this.id = data.iD_ASIGNATURA;  // Mapeamos el valor de `iD_ASIGNATURA` de la API
+    //     this.nombreCurso = data.nombreCurso || '';  // Asignamos nombreCurso, con valor vacío si no viene
+    //     this.nombreAsignatura = data.nombre || '';  // Asignamos nombreAsignatura, con valor vacío si no viene
+    // }
+
+    
     public getId(): number {
         return this.id;
     }

@@ -8,7 +8,13 @@ export class EntidadExterior {
         this.nombre = nombre;
         this.descripcion = descripcion;
     }
-    
+
+    // Constructor que recibe un objeto de datos
+    // constructor(data: any) {
+    //     this.id = data.iD_ENTIDAD;  // Asumiendo que `iD_ENTIDAD` es el campo correspondiente en la API
+    //     this.nombre = data.nombre || '';  // Asignamos nombre, o un valor vacío si no viene
+    //     this.descripcion = data.descripcion || '';  // Asignamos descripcion, o un valor vacío si no viene
+    // }
 
     get Id(): number {
         return this.id;
