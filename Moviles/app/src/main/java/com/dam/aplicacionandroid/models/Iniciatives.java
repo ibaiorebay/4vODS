@@ -1,26 +1,29 @@
 package com.dam.aplicacionandroid.models;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+import java.util.ArrayList;
 
-import io.realm.RealmObject;
-
-public class Iniciatives extends RealmObject {
+public class Iniciatives {
     private int codIniciativa;
     private int horas;
     private String titulo;
-    private Date fechaInicio;
-    private Date fechaFinal;
+    @SerializedName("fechA_INICIO")
+    private String fechaInicio;
+    @SerializedName("fechA_FIN")
+    private String fechaFinal;
 
-    private List<Asignaturas> asignaturas;
-    private List<Contratantes> contratantes;
-    private List<Profesores> profesores;
-    private List<Metas> metas;
+    private ArrayList<Asignaturas> asignaturas;
+    private ArrayList<Contratantes> contratantes;
+    private ArrayList<Profesores> profesores;
+    private ArrayList<Metas> metas;
 
     public Iniciatives() {
     }
 
-    public Iniciatives(int codIniciativa, int horas, String titulo, Date fechaInicio, Date fechaFinal, List<Asignaturas> asignaturas, List<Contratantes> contratantes, List<Profesores> profesores, List<Metas> metas) {
+    public Iniciatives(int codIniciativa, int horas, String titulo, String fechaInicio, String fechaFinal, ArrayList<Asignaturas> asignaturas, ArrayList<Contratantes> contratantes, ArrayList<Profesores> profesores, ArrayList<Metas> metas) {
         this.codIniciativa = codIniciativa;
         this.horas = horas;
         this.titulo = titulo;
@@ -56,51 +59,51 @@ public class Iniciatives extends RealmObject {
         this.titulo = titulo;
     }
 
-    public Date getFechaInicio() {
+    public String getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
+    public void setFechaInicio(String fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public Date getFechaFinal() {
+    public String getFechaFinal() {
         return fechaFinal;
     }
 
-    public void setFechaFinal(Date fechaFinal) {
+    public void setFechaFinal(String fechaFinal) {
         this.fechaFinal = fechaFinal;
     }
 
-    public List<Asignaturas> getAsignaturas() {
+    public ArrayList<Asignaturas> getAsignaturas() {
         return asignaturas;
     }
 
-    public void setAsignaturas(List<Asignaturas> asignaturas) {
+    public void setAsignaturas(ArrayList<Asignaturas> asignaturas) {
         this.asignaturas = asignaturas;
     }
 
-    public List<Contratantes> getContratantes() {
+    public ArrayList<Contratantes> getContratantes() {
         return contratantes;
     }
 
-    public void setContratantes(List<Contratantes> contratantes) {
+    public void setContratantes(ArrayList<Contratantes> contratantes) {
         this.contratantes = contratantes;
     }
 
-    public List<Profesores> getProfesores() {
+    public ArrayList<Profesores> getProfesores() {
         return profesores;
     }
 
-    public void setProfesores(List<Profesores> profesores) {
+    public void setProfesores(ArrayList<Profesores> profesores) {
         this.profesores = profesores;
     }
 
-    public List<Metas> getMetas() {
+    public ArrayList<Metas> getMetas() {
         return metas;
     }
 
-    public void setMetas(List<Metas> metas) {
+    public void setMetas(ArrayList<Metas> metas) {
         this.metas = metas;
     }
 }

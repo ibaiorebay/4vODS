@@ -1,5 +1,7 @@
 package com.dam.aplicacionandroid.models;
 
+import java.io.Serializable;
+
 import io.realm.RealmObject;
 
 public class Asignaturas extends RealmObject {

@@ -1,8 +1,10 @@
 package com.dam.aplicacionandroid.models;
 
+import java.io.Serializable;
+
 import io.realm.RealmObject;
 
-public class Metas extends RealmObject {
+public class Metas extends RealmObject{
     private int numOds;
     private String letra;
     private String descripcion;

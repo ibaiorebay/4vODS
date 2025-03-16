@@ -1,8 +1,10 @@
 package com.dam.aplicacionandroid.models;
 
+import java.io.Serializable;
+
 import io.realm.RealmObject;
 
-public class Contratantes extends RealmObject {
+public class Contratantes extends RealmObject{
     private int codigo;
     private String nombre;
     private String descripcion;
