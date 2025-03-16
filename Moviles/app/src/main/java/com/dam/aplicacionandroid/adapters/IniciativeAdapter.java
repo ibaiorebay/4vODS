@@ -22,9 +22,6 @@ public class IniciativeAdapter extends RecyclerView.Adapter<IniciativeAdapter.Vi
     private List<Iniciatives> initiatives;
     private OnItemClickListener itemListener;
 
-    // Formato para mostrar las fechas en 'dd-MM-yyyy'
-    private final SimpleDateFormat displayDateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-
     public IniciativeAdapter(List<Iniciatives> initiatives, OnItemClickListener listener) {
         this.initiatives = initiatives;
         this.itemListener = listener;
@@ -47,17 +44,17 @@ public class IniciativeAdapter extends RecyclerView.Adapter<IniciativeAdapter.Vi
         holder.textViewHoras.setText(initiative.getHoras() + " h");
 
         // Formatear y mostrar las fechas si están disponibles
-        Date fechaInicio = initiative.getFechaInicio();
-        Date fechaFin = initiative.getFechaFin();
+        String fechaInicio = initiative.getFechaInicio();
+        String fechaFin = initiative.getFechaFin();
 
         if (fechaInicio != null) {
-            holder.textViewFechaInicio.setText(displayDateFormat.format(fechaInicio));
+            holder.textViewFechaInicio.setText(fechaInicio);
         } else {
             holder.textViewFechaInicio.setText("Fecha no disponible");
         }
 
         if (fechaFin != null) {
-            holder.textViewFechaFinal.setText(displayDateFormat.format(fechaFin));
+            holder.textViewFechaFinal.setText(fechaFin);
         } else {
             holder.textViewFechaFinal.setText("Fecha no disponible");
         }
@@ -102,8 +99,8 @@ public class IniciativeAdapter extends RecyclerView.Adapter<IniciativeAdapter.Vi
         public void bindData(final int idIniciativa,
                              final String titulo,
                              final int horas,
-                             final Date fechaInicio,
-                             final Date fechaFin,
+                             final String fechaInicio,
+                             final String fechaFin,
                              final String descripcion,
                              final String tipo,
                              final String productoFinal,
@@ -135,8 +132,8 @@ public class IniciativeAdapter extends RecyclerView.Adapter<IniciativeAdapter.Vi
         void onItemClick(int idIniciativa,
                          String titulo,
                          int horas,
-                         Date fechaInicio,
-                         Date fechaFin,
+                         String fechaInicio,
+                         String fechaFin,
                          String descripcion,
                          String tipo,
                          String productoFinal,

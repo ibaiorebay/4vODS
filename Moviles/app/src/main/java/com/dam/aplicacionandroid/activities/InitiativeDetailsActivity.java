@@ -46,16 +46,8 @@ public class InitiativeDetailsActivity extends AppCompatActivity {
             boolean nueva = bundle.getBoolean("Nueva");
             String difusion = bundle.getString("Difusion");
 
-            // Parsear las fechas (suponiendo formato "yyyy-MM-dd")
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-            Date fechaInicio = null;
-            Date fechaFin = null;
-            try {
-                fechaInicio = sdf.parse(fechaInicioStr);
-                fechaFin = sdf.parse(fechaFinStr);
-            } catch(Exception e) {
-                e.printStackTrace();
-            }
+            String fechaInicio = fechaInicioStr;
+            String fechaFin = fechaFinStr;
 
             // Crear instancia de Initiative (nueva entidad)
             Iniciatives initiative = new Iniciatives(idIniciativa, titulo, horas, fechaInicio, fechaFin, descripcion, tipo, productoFinal, nueva, difusion);
@@ -63,8 +55,8 @@ public class InitiativeDetailsActivity extends AppCompatActivity {
             // Asignar los datos a los TextViews
             tvTitle.setText(initiative.getTitulo());
             tvHours.setText("Horas: " + initiative.getHoras());
-            tvStartDate.setText("Fecha de inicio: " + (initiative.getFechaInicio() != null ? sdf.format(initiative.getFechaInicio()) : "N/A"));
-            tvEndDate.setText("Fecha de fin: " + (initiative.getFechaFin() != null ? sdf.format(initiative.getFechaFin()) : "N/A"));
+            tvStartDate.setText("Fecha de inicio: " + initiative.getFechaInicio());
+            tvEndDate.setText("Fecha de fin: " + initiative.getFechaFin());
             tvDescription.setText("Descripción: " + initiative.getDescripcion());
             tvType.setText("Tipo: " + initiative.getTipo());
             tvProductFinal.setText("Producto Final: " + initiative.getProductoFinal());

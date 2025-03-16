@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "juu1aL0LZXLVeYaIonXYnmRZeiSF14pJB/0HYGFJquI=",
+  "Hash": "TPjrei+rLsmBA/+KWqftgqgbF4JWoJDLVKGuuiAB3h4=",
   "Source": "API",
   "BasePath": "_content/API",
   "Mode": "Default",
@@ -51,10 +51,10 @@
       "OriginalItemSpec": "C:\\Users\\Danie\\.nuget\\packages\\microsoft.aspnetcore.components.quickgrid\\8.0.11\\staticwebassets\\QuickGrid.razor.js"
     },
     {
-      "Identity": "C:\\Users\\Danie\\OneDrive\\Documents\\Asignaturas GS DAM 2\\ProyectoIntermodular\\4vODS\\API-BUENO\\API\\API\\obj\\Debug\\net8.0\\scopedcss\\bundle\\API.styles.css",
+      "Identity": "C:\\Users\\Danie\\OneDrive\\Documents\\Asignaturas GS DAM 2\\ProyectoIntermodular\\4vODS\\BackEnd\\API\\API\\obj\\Debug\\net8.0\\scopedcss\\bundle\\API.styles.css",
       "SourceId": "API",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\Danie\\OneDrive\\Documents\\Asignaturas GS DAM 2\\ProyectoIntermodular\\4vODS\\API-BUENO\\API\\API\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
+      "ContentRoot": "C:\\Users\\Danie\\OneDrive\\Documents\\Asignaturas GS DAM 2\\ProyectoIntermodular\\4vODS\\BackEnd\\API\\API\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
       "BasePath": "_content/API",
       "RelativePath": "API#[.{fingerprint}]?.styles.css",
       "AssetKind": "All",
@@ -69,7 +69,7 @@
       "Integrity": "yJzMRujk3CbSbBe5hogvoEpcGbz0ThnTl058XcI1svI=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\Danie\\OneDrive\\Documents\\Asignaturas GS DAM 2\\ProyectoIntermodular\\4vODS\\API-BUENO\\API\\API\\obj\\Debug\\net8.0\\scopedcss\\bundle\\API.styles.css"
+      "OriginalItemSpec": "C:\\Users\\Danie\\OneDrive\\Documents\\Asignaturas GS DAM 2\\ProyectoIntermodular\\4vODS\\BackEnd\\API\\API\\obj\\Debug\\net8.0\\scopedcss\\bundle\\API.styles.css"
     }
   ],
   "Endpoints": [
@@ -149,7 +149,7 @@
     },
     {
       "Route": "API.02jfxhbwsz.styles.css",
-      "AssetFile": "C:\\Users\\Danie\\OneDrive\\Documents\\Asignaturas GS DAM 2\\ProyectoIntermodular\\4vODS\\API-BUENO\\API\\API\\obj\\Debug\\net8.0\\scopedcss\\bundle\\API.styles.css",
+      "AssetFile": "C:\\Users\\Danie\\OneDrive\\Documents\\Asignaturas GS DAM 2\\ProyectoIntermodular\\4vODS\\BackEnd\\API\\API\\obj\\Debug\\net8.0\\scopedcss\\bundle\\API.styles.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -198,7 +198,7 @@
     },
     {
       "Route": "API.styles.css",
-      "AssetFile": "C:\\Users\\Danie\\OneDrive\\Documents\\Asignaturas GS DAM 2\\ProyectoIntermodular\\4vODS\\API-BUENO\\API\\API\\obj\\Debug\\net8.0\\scopedcss\\bundle\\API.styles.css",
+      "AssetFile": "C:\\Users\\Danie\\OneDrive\\Documents\\Asignaturas GS DAM 2\\ProyectoIntermodular\\4vODS\\BackEnd\\API\\API\\obj\\Debug\\net8.0\\scopedcss\\bundle\\API.styles.css",
       "Selectors": [],
       "ResponseHeaders": [
         {

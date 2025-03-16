@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "sOR+CKTCibs=",
+  "dgSpecHash": "1toCtlYtoNs=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Danie\\OneDrive\\Documents\\Asignaturas GS DAM 2\\ProyectoIntermodular\\4vODS\\API-BUENO\\API\\API\\API.csproj",
+  "projectFilePath": "C:\\Users\\Danie\\OneDrive\\Documents\\Asignaturas GS DAM 2\\ProyectoIntermodular\\4vODS\\BackEnd\\API\\API\\API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Danie\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\Danie\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

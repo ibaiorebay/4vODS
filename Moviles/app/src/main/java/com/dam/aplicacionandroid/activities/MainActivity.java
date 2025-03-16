@@ -75,17 +75,15 @@ public class MainActivity extends AppCompatActivity {
                     initiativesList = response.body();
                     adapter = new IniciativeAdapter(initiativesList, new IniciativeAdapter.OnItemClickListener() {
                         @Override
-                        public void onItemClick(int idIniciativa, String titulo, int horas, java.util.Date fechaInicio, java.util.Date fechaFin,
+                        public void onItemClick(int idIniciativa, String titulo, int horas, String fechaInicio, String fechaFin,
                                                 String descripcion, String tipo, String productoFinal, boolean nueva, String difusion) {
                             Intent intent = new Intent(MainActivity.this, InitiativeDetailsActivity.class);
                             intent.putExtra("Codigo", idIniciativa);
                             intent.putExtra("Titulo", titulo);
                             intent.putExtra("Horas", horas);
 
-                            // Convertir las fechas a String con el formato 'yyyy-MM-dd'
-                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-                            intent.putExtra("FechaInicio", fechaInicio != null ? sdf.format(fechaInicio) : "");
-                            intent.putExtra("FechaFinal", fechaFin != null ? sdf.format(fechaFin) : "");
+                            intent.putExtra("FechaInicio", fechaInicio);
+                            intent.putExtra("FechaFinal", fechaFin);
 
                             intent.putExtra("Descripcion", descripcion);
                             intent.putExtra("Tipo", tipo);

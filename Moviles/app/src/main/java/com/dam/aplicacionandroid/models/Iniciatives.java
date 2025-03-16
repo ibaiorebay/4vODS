@@ -1,46 +1,35 @@
 package com.dam.aplicacionandroid.models;
 
+
 import com.google.gson.annotations.SerializedName;
-import java.io.Serializable;
-import java.util.Date;
 
-public class Iniciatives implements Serializable {
+public class Iniciatives{
 
-    @SerializedName("ID_INICIATIVA")
     private int idIniciativa;
 
-    @SerializedName("TITULO")
     private String titulo;
 
-    @SerializedName("HORAS")
     private int horas;
+    @SerializedName("fechA_INICIO")
+    private String fechaInicio;
+    @SerializedName("fechA_FIN")
+    private String fechaFin;
 
-    @SerializedName("FECHA_INICIO")
-    private Date fechaInicio;
-
-    @SerializedName("FECHA_FIN")
-    private Date fechaFin;
-
-    @SerializedName("DESCRIPCION")
     private String descripcion;
 
-    @SerializedName("TIPO")
     private String tipo;
-
-    @SerializedName("PRODUCTO_FINAL")
+    @SerializedName("productO_FINAL")
     private String productoFinal;
 
-    @SerializedName("NUEVA")
     private boolean nueva;
 
-    @SerializedName("DIFUSION")
     private String difusion;
 
     // Constructor vacío
     public Iniciatives() {}
 
     // Constructor con todos los campos
-    public Iniciatives(int idIniciativa, String titulo, int horas, Date fechaInicio, Date fechaFin,
+    public Iniciatives(int idIniciativa, String titulo, int horas, String fechaInicio, String fechaFin,
                       String descripcion, String tipo, String productoFinal, boolean nueva, String difusion) {
         this.idIniciativa = idIniciativa;
         this.titulo = titulo;
@@ -79,19 +68,19 @@ public class Iniciatives implements Serializable {
         this.horas = horas;
     }
 
-    public Date getFechaInicio() {
+    public String getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
+    public void setFechaInicio(String fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public Date getFechaFin() {
+    public String getFechaFin() {
         return fechaFin;
     }
 
-    public void setFechaFin(Date fechaFin) {
+    public void setFechaFin(String fechaFin) {
         this.fechaFin = fechaFin;
     }
 
