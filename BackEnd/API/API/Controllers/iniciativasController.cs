@@ -120,36 +120,72 @@ namespace API.Controllers
 
         // PUT: api/iniciativas/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutIniciativa(int id, iniciativa iniciativa)
+        public async Task<IActionResult> Update(int id, [FromBody] iniciativa iniciativa)
         {
-            if (id != iniciativa.ID_INICIATIVA)
+            if (iniciativa == null || id != iniciativa.ID_INICIATIVA)
             {
-                return BadRequest("El ID de la iniciativa no coincide.");
+                return BadRequest("Datos inválidos o ID incorrecto.");
             }
 
-            _context.Entry(iniciativa).State = EntityState.Modified;
+            var iniciativaExistente = await _context.iniciativas
+                .Include(i => i.ID_ASIGNATURAs)
+                .Include(i => i.ID_ENTIDADs)
+                .Include(i => i.ID_METAs)
+                .Include(i => i.ID_PROFESORs)
+                .FirstOrDefaultAsync(i => i.ID_INICIATIVA == id);
+
+            if (iniciativaExistente == null)
+            {
+                return NotFound("Iniciativa no encontrada.");
+            }
 
             try
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!_context.iniciativas.Any(e => e.ID_INICIATIVA == id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                // **1. ACTUALIZAR LOS CAMPOS DE LA INICIATIVA**
+                iniciativaExistente.TITULO = iniciativa.TITULO;
+                iniciativaExistente.HORAS = iniciativa.HORAS;
+                iniciativaExistente.FECHA_INICIO = iniciativa.FECHA_INICIO;
+                iniciativaExistente.FECHA_FIN = iniciativa.FECHA_FIN;
+                iniciativaExistente.DESCRIPCION = iniciativa.DESCRIPCION;
+                iniciativaExistente.TIPO = iniciativa.TIPO;
+                iniciativaExistente.PRODUCTO_FINAL = iniciativa.PRODUCTO_FINAL;
+                iniciativaExistente.NUEVA = iniciativa.NUEVA;
+                iniciativaExistente.DIFUSION = iniciativa.DIFUSION;
 
-            return NoContent();
+                // **2. ACTUALIZAR RELACIONES**
+                iniciativaExistente.ID_ASIGNATURAs = iniciativa.ID_ASIGNATURAs != null
+                    ? await _context.asignaturas.Where(a => iniciativa.ID_ASIGNATURAs.Select(ia => ia.ID_ASIGNATURA).Contains(a.ID_ASIGNATURA)).ToListAsync()
+                    : new List<asignatura>();
+
+                iniciativaExistente.ID_ENTIDADs = iniciativa.ID_ENTIDADs != null
+                    ? await _context.entidads.Where(e => iniciativa.ID_ENTIDADs.Select(ie => ie.ID_ENTIDAD).Contains(e.ID_ENTIDAD)).ToListAsync()
+                    : new List<entidad>();
+
+                iniciativaExistente.ID_METAs = iniciativa.ID_METAs != null
+                    ? await _context.metas.Where(m => iniciativa.ID_METAs.Select(im => im.ID_META).Contains(m.ID_META)).ToListAsync()
+                    : new List<meta>();
+
+                iniciativaExistente.ID_PROFESORs = iniciativa.ID_PROFESORs != null
+                    ? await _context.profesores.Where(p => iniciativa.ID_PROFESORs.Select(ip => ip.ID_PROFESOR).Contains(p.ID_PROFESOR)).ToListAsync()
+                    : new List<profesore>();
+
+                // **3. GUARDAR CAMBIOS**
+                await _context.SaveChangesAsync();
+
+                return Ok(iniciativaExistente);
+            }
+            catch (DbUpdateException ex)
+            {
+                return StatusCode(500, $"Error al actualizar la base de datos: {ex.InnerException?.Message ?? ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error interno del servidor: {ex.Message}");
+            }
         }
 
-        // DELETE: api/iniciativas/5
-        [HttpDelete("{id}")]
+    // DELETE: api/iniciativas/5
+    [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteIniciativa(int id)
         {
             var iniciativa = await _context.iniciativas

@@ -13,6 +13,6 @@ public partial class asignatura
     public string? NOMBRE { get; set; }
     [JsonIgnore]
     public virtual curso? ID_CURSONavigation { get; set; }
-
+    [JsonIgnore]
     public virtual ICollection<iniciativa> ID_INICIATIVAs { get; set; } = new List<iniciativa>();
 }
