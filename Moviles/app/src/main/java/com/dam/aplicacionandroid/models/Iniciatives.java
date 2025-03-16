@@ -1,54 +1,66 @@
 package com.dam.aplicacionandroid.models;
 
 import com.google.gson.annotations.SerializedName;
-
 import java.io.Serializable;
 import java.util.Date;
-import java.util.ArrayList;
 
-public class Iniciatives {
-    private int codIniciativa;
-    private int horas;
+public class Iniciatives implements Serializable {
+
+    @SerializedName("ID_INICIATIVA")
+    private int idIniciativa;
+
+    @SerializedName("TITULO")
     private String titulo;
-    @SerializedName("fechA_INICIO")
-    private String fechaInicio;
-    @SerializedName("fechA_FIN")
-    private String fechaFinal;
 
-    private ArrayList<Asignaturas> asignaturas;
-    private ArrayList<Contratantes> contratantes;
-    private ArrayList<Profesores> profesores;
-    private ArrayList<Metas> metas;
+    @SerializedName("HORAS")
+    private int horas;
 
-    public Iniciatives() {
-    }
+    @SerializedName("FECHA_INICIO")
+    private Date fechaInicio;
 
-    public Iniciatives(int codIniciativa, int horas, String titulo, String fechaInicio, String fechaFinal, ArrayList<Asignaturas> asignaturas, ArrayList<Contratantes> contratantes, ArrayList<Profesores> profesores, ArrayList<Metas> metas) {
-        this.codIniciativa = codIniciativa;
-        this.horas = horas;
+    @SerializedName("FECHA_FIN")
+    private Date fechaFin;
+
+    @SerializedName("DESCRIPCION")
+    private String descripcion;
+
+    @SerializedName("TIPO")
+    private String tipo;
+
+    @SerializedName("PRODUCTO_FINAL")
+    private String productoFinal;
+
+    @SerializedName("NUEVA")
+    private boolean nueva;
+
+    @SerializedName("DIFUSION")
+    private String difusion;
+
+    // Constructor vacío
+    public Iniciatives() {}
+
+    // Constructor con todos los campos
+    public Iniciatives(int idIniciativa, String titulo, int horas, Date fechaInicio, Date fechaFin,
+                      String descripcion, String tipo, String productoFinal, boolean nueva, String difusion) {
+        this.idIniciativa = idIniciativa;
         this.titulo = titulo;
-        this.fechaInicio = fechaInicio;
-        this.fechaFinal = fechaFinal;
-        this.asignaturas = asignaturas;
-        this.contratantes = contratantes;
-        this.profesores = profesores;
-        this.metas = metas;
-    }
-
-    public int getCodIniciativa() {
-        return codIniciativa;
-    }
-
-    public void setCodIniciativa(int codIniciativa) {
-        this.codIniciativa = codIniciativa;
-    }
-
-    public int getHoras() {
-        return horas;
-    }
-
-    public void setHoras(int horas) {
         this.horas = horas;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+        this.descripcion = descripcion;
+        this.tipo = tipo;
+        this.productoFinal = productoFinal;
+        this.nueva = nueva;
+        this.difusion = difusion;
+    }
+
+    // Getters y Setters
+    public int getIdIniciativa() {
+        return idIniciativa;
+    }
+
+    public void setIdIniciativa(int idIniciativa) {
+        this.idIniciativa = idIniciativa;
     }
 
     public String getTitulo() {
@@ -59,51 +71,67 @@ public class Iniciatives {
         this.titulo = titulo;
     }
 
-    public String getFechaInicio() {
+    public int getHoras() {
+        return horas;
+    }
+
+    public void setHoras(int horas) {
+        this.horas = horas;
+    }
+
+    public Date getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(String fechaInicio) {
+    public void setFechaInicio(Date fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public String getFechaFinal() {
-        return fechaFinal;
+    public Date getFechaFin() {
+        return fechaFin;
     }
 
-    public void setFechaFinal(String fechaFinal) {
-        this.fechaFinal = fechaFinal;
+    public void setFechaFin(Date fechaFin) {
+        this.fechaFin = fechaFin;
     }
 
-    public ArrayList<Asignaturas> getAsignaturas() {
-        return asignaturas;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setAsignaturas(ArrayList<Asignaturas> asignaturas) {
-        this.asignaturas = asignaturas;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
-    public ArrayList<Contratantes> getContratantes() {
-        return contratantes;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setContratantes(ArrayList<Contratantes> contratantes) {
-        this.contratantes = contratantes;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
-    public ArrayList<Profesores> getProfesores() {
-        return profesores;
+    public String getProductoFinal() {
+        return productoFinal;
     }
 
-    public void setProfesores(ArrayList<Profesores> profesores) {
-        this.profesores = profesores;
+    public void setProductoFinal(String productoFinal) {
+        this.productoFinal = productoFinal;
     }
 
-    public ArrayList<Metas> getMetas() {
-        return metas;
+    public boolean isNueva() {
+        return nueva;
     }
 
-    public void setMetas(ArrayList<Metas> metas) {
-        this.metas = metas;
+    public void setNueva(boolean nueva) {
+        this.nueva = nueva;
+    }
+
+    public String getDifusion() {
+        return difusion;
+    }
+
+    public void setDifusion(String difusion) {
+        this.difusion = difusion;
     }
 }

@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.dam.aplicacionandroid.R;
 import com.dam.aplicacionandroid.models.Iniciatives;
+import com.dam.aplicacionandroid.models.Initiative;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

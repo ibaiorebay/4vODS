@@ -2,6 +2,8 @@ package com.dam.aplicacionandroid.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -11,17 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dam.aplicacionandroid.R;
 import com.dam.aplicacionandroid.adapters.IniciativeAdapter;
-import com.dam.aplicacionandroid.models.Asignaturas;
-import com.dam.aplicacionandroid.models.Contratantes;
 import com.dam.aplicacionandroid.models.Iniciatives;
-import com.dam.aplicacionandroid.models.Metas;
-import com.dam.aplicacionandroid.models.Profesores;
 import com.dam.aplicacionandroid.services.RetrofitClient;
 import com.dam.aplicacionandroid.services.IniciativasApi;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,11 +44,13 @@ public class MainActivity extends AppCompatActivity {
         recycler.setLayoutManager(new LinearLayoutManager(this));
 
         // Llamar a la API para obtener las iniciativas
-        fetchIniciatives();
+        fetchInitiatives();
 
-        searchEditText.addTextChangedListener(new android.text.TextWatcher() {
+        searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // No se requiere acción antes del cambio
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -57,11 +58,13 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void afterTextChanged(android.text.Editable s) {}
+            public void afterTextChanged(Editable s) {
+                // No se requiere acción después del cambio
+            }
         });
     }
 
-    private void fetchIniciatives() {
+    private void fetchInitiatives() {
         IniciativasApi apiService = RetrofitClient.getApi();
         Call<List<Iniciatives>> call = apiService.getIniciativas();
 
@@ -72,17 +75,24 @@ public class MainActivity extends AppCompatActivity {
                     initiativesList = response.body();
                     adapter = new IniciativeAdapter(initiativesList, new IniciativeAdapter.OnItemClickListener() {
                         @Override
-                        public void onItemClick(int codigo, String titulo, int horas, String fechaInicio, String fechaFinal, ArrayList<Asignaturas> asignaturas, ArrayList<Contratantes> contratantes, ArrayList<Profesores> profesores, ArrayList<Metas> metas) {
+                        public void onItemClick(int idIniciativa, String titulo, int horas, java.util.Date fechaInicio, java.util.Date fechaFin,
+                                                String descripcion, String tipo, String productoFinal, boolean nueva, String difusion) {
                             Intent intent = new Intent(MainActivity.this, InitiativeDetailsActivity.class);
-                            intent.putExtra("Codigo", codigo);
+                            intent.putExtra("Codigo", idIniciativa);
                             intent.putExtra("Titulo", titulo);
                             intent.putExtra("Horas", horas);
-                            intent.putExtra("FechaInicio", fechaInicio);
-                            intent.putExtra("FechaFinal", fechaFinal);
-                            intent.putExtra("Asignaturas", asignaturas);
-                            intent.putExtra("Contratantes", contratantes);
-                            intent.putExtra("Profesores", profesores);
-                            intent.putExtra("Metas", metas);
+
+                            // Convertir las fechas a String con el formato 'yyyy-MM-dd'
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                            intent.putExtra("FechaInicio", fechaInicio != null ? sdf.format(fechaInicio) : "");
+                            intent.putExtra("FechaFinal", fechaFin != null ? sdf.format(fechaFin) : "");
+
+                            intent.putExtra("Descripcion", descripcion);
+                            intent.putExtra("Tipo", tipo);
+                            intent.putExtra("ProductoFinal", productoFinal);
+                            intent.putExtra("Nueva", nueva);
+                            intent.putExtra("Difusion", difusion);
+
                             startActivity(intent);
                         }
                     });
@@ -104,9 +114,9 @@ public class MainActivity extends AppCompatActivity {
 
         String trimmedText = text.trim();
 
-        for (Iniciatives ini : initiativesList) {
-            if (ini.getTitulo().toLowerCase().contains(trimmedText.toLowerCase())) {
-                filteredList.add(ini);
+        for (Iniciatives initiative : initiativesList) {
+            if (initiative.getTitulo().toLowerCase().contains(trimmedText.toLowerCase())) {
+                filteredList.add(initiative);
             }
         }
 
