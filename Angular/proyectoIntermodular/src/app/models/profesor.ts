@@ -21,6 +21,11 @@ export class Profesor {
         this.id = id;
     }
 
+    get NombreCompleto(): string {
+        return this.nombre + " " + this.apellido1 + " " + this.apellido2;
+    }
+
+
     get Nombre(): string {
         return this.nombre;
     }
