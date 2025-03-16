@@ -1,16 +1,15 @@
 package com.dam.aplicacionandroid.adapters;
 
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dam.aplicacionandroid.R;
-import com.dam.aplicacionandroid.activities.InitiativeDetailsActivity;
 import com.dam.aplicacionandroid.models.Iniciatives;
 
 import java.text.SimpleDateFormat;
@@ -20,11 +19,12 @@ import java.util.Locale;
 
 public class IniciativeAdapter extends RecyclerView.Adapter<IniciativeAdapter.ViewHolder> {
 
-    private List<Iniciatives> iniciativas;
-    private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
+    private List<Iniciatives> initiatives;
+    private OnItemClickListener itemListener;
 
-    public IniciativeAdapter(List<Iniciatives> iniciativas) {
-        this.iniciativas = iniciativas;
+    public IniciativeAdapter(List<Iniciatives> initiatives, OnItemClickListener listener) {
+        this.initiatives = initiatives;
+        this.itemListener = listener;
     }
 
     @NonNull
@@ -36,30 +36,52 @@ public class IniciativeAdapter extends RecyclerView.Adapter<IniciativeAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Iniciatives iniciativa = iniciativas.get(position);
+        Iniciatives initiative = initiatives.get(position);
 
-        holder.textViewTitulo.setText(iniciativa.getTitulo());
-        holder.textViewHoras.setText(iniciativa.getHoras() + " h");
+        Log.d("InitiativeAdapter", "Initiative at position " + position + ": " + initiative.getTitulo());
 
-        // Formatear fechas antes de mostrarlas
-        holder.textViewFechaInicio.setText(formatDate(iniciativa.getFechaInicio()));
-        holder.textViewFechaFinal.setText(formatDate(iniciativa.getFechaFinal()));
+        holder.textViewTitulo.setText(initiative.getTitulo());
+        holder.textViewHoras.setText(initiative.getHoras() + " h");
 
-        // Manejar clics en los elementos del RecyclerView
-        holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(v.getContext(), InitiativeDetailsActivity.class);
-            intent.putExtra("INICIATIVE", iniciativa); // Pasar la iniciativa seleccionada
-            v.getContext().startActivity(intent);
-        });
+        // Formatear y mostrar las fechas si están disponibles
+        String fechaInicio = initiative.getFechaInicio();
+        String fechaFin = initiative.getFechaFin();
+
+        if (fechaInicio != null) {
+            holder.textViewFechaInicio.setText(fechaInicio);
+        } else {
+            holder.textViewFechaInicio.setText("Fecha no disponible");
+        }
+
+        if (fechaFin != null) {
+            holder.textViewFechaFinal.setText(fechaFin);
+        } else {
+            holder.textViewFechaFinal.setText("Fecha no disponible");
+        }
+
+        // Configurar el listener con los nuevos parámetros de la entidad
+        holder.bindData(
+                initiative.getIdIniciativa(),
+                initiative.getTitulo(),
+                initiative.getHoras(),
+                fechaInicio,
+                fechaFin,
+                initiative.getDescripcion(),
+                initiative.getTipo(),
+                initiative.getProductoFinal(),
+                initiative.isNueva(),
+                initiative.getDifusion(),
+                itemListener
+        );
     }
 
     @Override
     public int getItemCount() {
-        return iniciativas.size();
+        return initiatives.size();
     }
 
-    public void updateData(List<Iniciatives> newIniciativas) {
-        this.iniciativas = newIniciativas;
+    public void updateData(List<Iniciatives> newInitiatives) {
+        this.initiatives = newInitiatives;
         notifyDataSetChanged();
     }
 
@@ -73,9 +95,49 @@ public class IniciativeAdapter extends RecyclerView.Adapter<IniciativeAdapter.Vi
             textViewFechaInicio = itemView.findViewById(R.id.textViewFechaInicio);
             textViewFechaFinal = itemView.findViewById(R.id.textViewFechaFinal);
         }
+
+        public void bindData(final int idIniciativa,
+                             final String titulo,
+                             final int horas,
+                             final String fechaInicio,
+                             final String fechaFin,
+                             final String descripcion,
+                             final String tipo,
+                             final String productoFinal,
+                             final boolean nueva,
+                             final String difusion,
+                             final OnItemClickListener onItemClickListener) {
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemClickListener.onItemClick(
+                            idIniciativa,
+                            titulo,
+                            horas,
+                            fechaInicio,
+                            fechaFin,
+                            descripcion,
+                            tipo,
+                            productoFinal,
+                            nueva,
+                            difusion
+                    );
+                }
+            });
+        }
     }
 
-    private String formatDate(Date date) {
-        return (date != null) ? dateFormat.format(date) : "Fecha no disponible";
+    public interface OnItemClickListener {
+        void onItemClick(int idIniciativa,
+                         String titulo,
+                         int horas,
+                         String fechaInicio,
+                         String fechaFin,
+                         String descripcion,
+                         String tipo,
+                         String productoFinal,
+                         boolean nueva,
+                         String difusion);
     }
 }

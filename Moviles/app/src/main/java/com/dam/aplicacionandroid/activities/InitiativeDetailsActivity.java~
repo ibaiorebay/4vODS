@@ -7,63 +7,70 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.dam.aplicacionandroid.R;
 import com.dam.aplicacionandroid.models.Iniciatives;
+import com.dam.aplicacionandroid.models.Initiative;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class InitiativeDetailsActivity extends AppCompatActivity {
 
-    private TextView titleTextView;
-    private TextView hoursTextView;
-    private TextView startDateTextView;
-    private TextView endDateTextView;
-    private TextView asignaturasTextView;
-    private TextView contratantesTextView;
-    private TextView profesoresTextView;
-    private TextView metasTextView;
+    private TextView tvTitle, tvHours, tvStartDate, tvEndDate, tvDescription, tvType, tvProductFinal, tvNueva, tvDifusion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initiative_details);
 
-        titleTextView = findViewById(R.id.titleTextView);
-        hoursTextView = findViewById(R.id.hoursTextView);
-        startDateTextView = findViewById(R.id.startDateTextView);
-        endDateTextView = findViewById(R.id.endDateTextView);
-        asignaturasTextView = findViewById(R.id.asignaturasTextView);
-        contratantesTextView = findViewById(R.id.contratantesTextView);
-        profesoresTextView = findViewById(R.id.profesoresTextView);
-        metasTextView = findViewById(R.id.metasTextView);
+        // Vincular los TextViews definidos en el layout
+        tvTitle = findViewById(R.id.tvTitle);
+        tvHours = findViewById(R.id.tvHours);
+        tvStartDate = findViewById(R.id.tvStartDate);
+        tvEndDate = findViewById(R.id.tvEndDate);
+        tvDescription = findViewById(R.id.tvDescription);
+        tvType = findViewById(R.id.tvType);
+        tvProductFinal = findViewById(R.id.tvProductFinal);
+        tvNueva = findViewById(R.id.tvNueva);
+        tvDifusion = findViewById(R.id.tvDifusion);
 
-        Iniciatives initiative = (Iniciatives) getIntent().getSerializableExtra("INICIATIVE");
+        // Recuperar datos del Bundle recibido
+        Bundle bundle = getIntent().getExtras();
+        if(bundle != null) {
+            int idIniciativa = bundle.getInt("Codigo");
+            String titulo = bundle.getString("Titulo");
+            int horas = bundle.getInt("Horas");
+            String fechaInicioStr = bundle.getString("FechaInicio");
+            String fechaFinStr = bundle.getString("FechaFin");
+            String descripcion = bundle.getString("Descripcion");
+            String tipo = bundle.getString("Tipo");
+            String productoFinal = bundle.getString("ProductoFinal");
+            boolean nueva = bundle.getBoolean("Nueva");
+            String difusion = bundle.getString("Difusion");
 
-        if (initiative != null) {
-            titleTextView.setText(initiative.getTitulo());
-            hoursTextView.setText("Horas: " + initiative.getHoras());
-            startDateTextView.setText("Fecha de inicio: " + initiative.getFechaInicio().toString());
-            endDateTextView.setText("Fecha de fin: " + initiative.getFechaFin().toString());
-
-            StringBuilder asignaturas = new StringBuilder("Asignaturas:\n");
-            for (Asignaturas asignatura : initiative.getAsignaturas()) {
-                asignaturas.append(asignatura.getNombre()).append("\n");
+            // Parsear las fechas (suponiendo formato "yyyy-MM-dd")
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            Date fechaInicio = null;
+            Date fechaFin = null;
+            try {
+                fechaInicio = sdf.parse(fechaInicioStr);
+                fechaFin = sdf.parse(fechaFinStr);
+            } catch(Exception e) {
+                e.printStackTrace();
             }
-            asignaturasTextView.setText(asignaturas.toString());
 
-            StringBuilder contratantes = new StringBuilder("Contratantes:\n");
-            for (Contratantes contratante : initiative.getContratantes()) {
-                contratantes.append(contratante.getNombre()).append("\n");
-            }
-            contratantesTextView.setText(contratantes.toString());
+            // Crear instancia de Initiative (nueva entidad)
+            Iniciatives initiative = new Iniciatives(idIniciativa, titulo, horas, fechaInicio, fechaFin, descripcion, tipo, productoFinal, nueva, difusion);
 
-            StringBuilder profesores = new StringBuilder("Profesores:\n");
-            for (Profesores profesor : initiative.getProfesores()) {
-                profesores.append(profesor.getNombre()).append(" ").append(profesor.getApellido1()).append("\n");
-            }
-            profesoresTextView.setText(profesores.toString());
-
-            StringBuilder metas = new StringBuilder("Metas:\n");
-            for (Metas meta : initiative.getMetas()) {
-                metas.append(meta.getDescripcion()).append("\n");
-            }
-            metasTextView.setText(metas.toString());
+            // Asignar los datos a los TextViews
+            tvTitle.setText(initiative.getTitulo());
+            tvHours.setText("Horas: " + initiative.getHoras());
+            tvStartDate.setText("Fecha de inicio: " + (initiative.getFechaInicio() != null ? sdf.format(initiative.getFechaInicio()) : "N/A"));
+            tvEndDate.setText("Fecha de fin: " + (initiative.getFechaFin() != null ? sdf.format(initiative.getFechaFin()) : "N/A"));
+            tvDescription.setText("Descripción: " + initiative.getDescripcion());
+            tvType.setText("Tipo: " + initiative.getTipo());
+            tvProductFinal.setText("Producto Final: " + initiative.getProductoFinal());
+            tvNueva.setText("Nueva: " + (initiative.isNueva() ? "Sí" : "No"));
+            tvDifusion.setText("Difusión: " + initiative.getDifusion());
         }
     }
 }
