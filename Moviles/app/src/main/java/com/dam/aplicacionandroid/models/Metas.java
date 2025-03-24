@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import io.realm.RealmObject;
 
-public class Metas extends RealmObject{
+public class Metas{
     private int numOds;
     private String letra;
     private String descripcion;

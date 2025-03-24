@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import io.realm.RealmObject;
 
-public class Contratantes extends RealmObject{
+public class Contratantes{
     private int codigo;
     private String nombre;
     private String descripcion;

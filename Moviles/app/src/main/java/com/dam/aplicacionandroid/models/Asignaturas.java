@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import io.realm.RealmObject;
 
-public class Asignaturas extends RealmObject {
+public class Asignaturas{
     private int codigo;
     private String curso;
     private String nombre;

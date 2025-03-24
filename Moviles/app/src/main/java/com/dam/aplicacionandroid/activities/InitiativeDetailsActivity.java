@@ -39,7 +39,7 @@ public class InitiativeDetailsActivity extends AppCompatActivity {
             String titulo = bundle.getString("Titulo");
             int horas = bundle.getInt("Horas");
             String fechaInicioStr = bundle.getString("FechaInicio");
-            String fechaFinStr = bundle.getString("FechaFin");
+            String fechaFinStr = bundle.getString("FechaFinal");
             String descripcion = bundle.getString("Descripcion");
             String tipo = bundle.getString("Tipo");
             String productoFinal = bundle.getString("ProductoFinal");

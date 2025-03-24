@@ -5,7 +5,7 @@ import java.util.Date;
 
 import io.realm.RealmObject;
 
-public class Profesores extends RealmObject{
+public class Profesores{
     private int id;
     private String nombre;
     private String apellido1;

@@ -10,8 +10,10 @@ public class Iniciatives{
     private String titulo;
 
     private int horas;
+
     @SerializedName("fechA_INICIO")
     private String fechaInicio;
+
     @SerializedName("fechA_FIN")
     private String fechaFin;
 
