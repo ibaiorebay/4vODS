@@ -4,16 +4,15 @@ using System.Text.Json.Serialization;
 
 namespace API.Models;
 
-public partial class Meta
+public partial class meta
 {
-    public int NumeroOds { get; set; }
+    public int ID_META { get; set; }
 
-    public string CaracterMeta { get; set; } = null!;
+    public int? ID_ODS { get; set; }
 
-    public string? Descripcion { get; set; }
-
-    public virtual Od NumeroOdsNavigation { get; set; } = null!;
-
+    public string? DESCRIPCION { get; set; }
     [JsonIgnore]
-    public virtual ICollection<Iniciativa> CodIniciativas { get; set; } = new List<Iniciativa>();
+    public virtual od? ID_ODSNavigation { get; set; }
+    [JsonIgnore]
+    public virtual ICollection<iniciativa> ID_INICIATIVAs { get; set; } = new List<iniciativa>();
 }

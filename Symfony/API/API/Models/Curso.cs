@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace API.Models;
 
-public partial class Curso
+public partial class curso
 {
-    public string NombreCurso { get; set; } = null!;
+    public int ID_CURSO { get; set; }
 
-    public virtual ICollection<Asignatura> Asignaturas { get; set; } = new List<Asignatura>();
+    public string? NOMBRE { get; set; }
+    [JsonIgnore]
+    public virtual ICollection<asignatura> asignaturas { get; set; } = new List<asignatura>();
 }

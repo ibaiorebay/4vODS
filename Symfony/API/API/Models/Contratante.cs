@@ -13,5 +13,5 @@ public partial class Contratante
     public string? Descripcion { get; set; }
 
     [JsonIgnore]
-    public virtual ICollection<Iniciativa> CodIniciativas { get; set; } = new List<Iniciativa>();
+    public virtual ICollection<iniciativa> CodIniciativas { get; set; } = new List<iniciativa>();
 }

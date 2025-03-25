@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ADUghcoG2uTWk2O7W5faeDF5TNeBFCo0A6i9IqWXEMs=",
+  "Hash": "KuUorxdfXE6va7MDiqkgIObks6P5Ng96Dt8BDGo5QmA=",
   "Source": "API",
   "BasePath": "_content/API",
   "Mode": "Default",
@@ -47,10 +47,10 @@
       "OriginalItemSpec": "C:\\Users\\youmo\\.nuget\\packages\\microsoft.aspnetcore.components.quickgrid\\8.0.11\\staticwebassets\\QuickGrid.razor.js"
     },
     {
-      "Identity": "C:\\Users\\youmo\\OneDrive\\Escritorio\\API\\API\\API\\obj\\Debug\\net8.0\\scopedcss\\bundle\\API.styles.css",
+      "Identity": "C:\\Users\\youmo\\OneDrive\\Escritorio\\REPO-DEFINITIVO\\4vODS\\BackEnd\\API\\API\\obj\\Debug\\net8.0\\scopedcss\\bundle\\API.styles.css",
       "SourceId": "API",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\youmo\\OneDrive\\Escritorio\\API\\API\\API\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
+      "ContentRoot": "C:\\Users\\youmo\\OneDrive\\Escritorio\\REPO-DEFINITIVO\\4vODS\\BackEnd\\API\\API\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
       "BasePath": "_content/API",
       "RelativePath": "API.styles.css",
       "AssetKind": "All",
@@ -63,7 +63,7 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\youmo\\OneDrive\\Escritorio\\API\\API\\API\\obj\\Debug\\net8.0\\scopedcss\\bundle\\API.styles.css"
+      "OriginalItemSpec": "C:\\Users\\youmo\\OneDrive\\Escritorio\\REPO-DEFINITIVO\\4vODS\\BackEnd\\API\\API\\obj\\Debug\\net8.0\\scopedcss\\bundle\\API.styles.css"
     }
   ]
 }

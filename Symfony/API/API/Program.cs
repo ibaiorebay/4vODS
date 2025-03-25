@@ -4,10 +4,11 @@ using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddDbContext<IniciativasdbContext>(options =>
+builder.Services.AddDbContext<_4vodsContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("development"),
     new MySqlServerVersion(new Version(8, 0, 32)))); builder.Services.AddControllers();
+
+builder.Services.AddSwaggerGen();
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>

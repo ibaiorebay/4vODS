@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\youmo\\OneDrive\\Escritorio\\API\\API\\API\\API.csproj": {}
+    "C:\\Users\\youmo\\OneDrive\\Escritorio\\REPO-DEFINITIVO\\4vODS\\BackEnd\\API\\API\\API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\youmo\\OneDrive\\Escritorio\\API\\API\\API\\API.csproj": {
+    "C:\\Users\\youmo\\OneDrive\\Escritorio\\REPO-DEFINITIVO\\4vODS\\BackEnd\\API\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\youmo\\OneDrive\\Escritorio\\API\\API\\API\\API.csproj",
+        "projectUniqueName": "C:\\Users\\youmo\\OneDrive\\Escritorio\\REPO-DEFINITIVO\\4vODS\\BackEnd\\API\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "C:\\Users\\youmo\\OneDrive\\Escritorio\\API\\API\\API\\API.csproj",
+        "projectPath": "C:\\Users\\youmo\\OneDrive\\Escritorio\\REPO-DEFINITIVO\\4vODS\\BackEnd\\API\\API\\API.csproj",
         "packagesPath": "C:\\Users\\youmo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\youmo\\OneDrive\\Escritorio\\API\\API\\API\\obj\\",
+        "outputPath": "C:\\Users\\youmo\\OneDrive\\Escritorio\\REPO-DEFINITIVO\\4vODS\\BackEnd\\API\\API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\youmo\\AppData\\Roaming\\NuGet\\NuGet.Config",
