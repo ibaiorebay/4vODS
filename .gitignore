@@ -1,0 +1,32 @@
+# Archivos y carpetas de Visual Studio
+.vs/
+*.suo
+*.db
+*.vscode
+
+# Archivos de configuración y caché
+*.cache
+*.log
+*.vsidx
+*.v2
+*.bin
+*.json
+
+# Archivos de salida de compilación
+bin/
+obj/
+Debug/
+Release/
+
+# Dependencias y paquetes
+node_modules/
+vendor/
+.env
+.env.local
+.env.*.local
+
+# Archivos específicos de Symfony y API
+var/
+var/cache/
+var/logs/
+var/sessions/
