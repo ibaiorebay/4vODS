@@ -10,8 +10,6 @@
 *.vsidx
 *.v2
 *.bin
-*.json
-
 # Archivos de salida de compilación
 bin/
 obj/
