@@ -1,6 +1,9 @@
 package com.dam.aplicacionandroid.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -63,5 +66,13 @@ public class InitiativeDetailsActivity extends AppCompatActivity {
             tvNueva.setText("Nueva: " + (initiative.isNueva() ? "Sí" : "No"));
             tvDifusion.setText("Difusión: " + initiative.getDifusion());
         }
+        Button btn = (Button) findViewById(R.id.back);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(InitiativeDetailsActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

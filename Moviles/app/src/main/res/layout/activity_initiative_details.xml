@@ -99,6 +99,12 @@
                 android:textSize="16sp"
                 android:layout_marginTop="8dp" />
 
+            <Button
+                android:id="@+id/back"
+                android:layout_width="115dp"
+                android:layout_height="wrap_content"
+                android:text="Regresar" />
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </ScrollView>
