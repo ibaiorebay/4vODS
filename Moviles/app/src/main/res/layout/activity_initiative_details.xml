@@ -1,110 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <androidx.cardview.widget.CardView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        card_view:cardCornerRadius="8dp"
-        card_view:cardElevation="4dp"
-        android:layout_margin="8dp">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/back"
+        android:paddingBottom="16dp">
 
-        <LinearLayout
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            card_view:cardCornerRadius="8dp"
+            card_view:cardElevation="4dp"
+            android:layout_margin="8dp">
 
-            <!-- Título -->
-            <TextView
-                android:id="@+id/tvTitle"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Título de la iniciativa"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                android:orientation="vertical"
+                android:padding="16dp">
 
-            <!-- Horas -->
-            <TextView
-                android:id="@+id/tvHours"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Horas: "
-                android:textSize="16sp"
-                android:layout_marginTop="8dp" />
+                <!-- Título -->
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Título de la iniciativa"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
 
-            <!-- Fecha de Inicio -->
-            <TextView
-                android:id="@+id/tvStartDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Fecha de inicio: "
-                android:textSize="16sp"
-                android:layout_marginTop="8dp" />
+                <!-- Horas -->
+                <TextView
+                    android:id="@+id/tvHours"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Horas: "
+                    android:textSize="16sp"
+                    android:layout_marginTop="8dp" />
 
-            <!-- Fecha de Fin -->
-            <TextView
-                android:id="@+id/tvEndDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Fecha de fin: "
-                android:textSize="16sp"
-                android:layout_marginTop="8dp" />
+                <!-- Fecha de Inicio -->
+                <TextView
+                    android:id="@+id/tvStartDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Fecha de inicio: "
+                    android:textSize="16sp"
+                    android:layout_marginTop="8dp" />
 
-            <!-- Descripción -->
-            <TextView
-                android:id="@+id/tvDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Descripción: "
-                android:textSize="16sp"
-                android:layout_marginTop="8dp" />
+                <!-- Fecha de Fin -->
+                <TextView
+                    android:id="@+id/tvEndDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Fecha de fin: "
+                    android:textSize="16sp"
+                    android:layout_marginTop="8dp" />
 
-            <!-- Tipo -->
-            <TextView
-                android:id="@+id/tvType"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Tipo: "
-                android:textSize="16sp"
-                android:layout_marginTop="8dp" />
+                <!-- Descripción -->
+                <TextView
+                    android:id="@+id/tvDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Descripción: "
+                    android:textSize="16sp"
+                    android:layout_marginTop="8dp" />
 
-            <!-- Producto Final -->
-            <TextView
-                android:id="@+id/tvProductFinal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Producto Final: "
-                android:textSize="16sp"
-                android:layout_marginTop="8dp" />
+                <!-- Tipo -->
+                <TextView
+                    android:id="@+id/tvType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tipo: "
+                    android:textSize="16sp"
+                    android:layout_marginTop="8dp" />
 
-            <!-- Nueva -->
-            <TextView
-                android:id="@+id/tvNueva"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Nueva: "
-                android:textSize="16sp"
-                android:layout_marginTop="8dp" />
+                <!-- Producto Final -->
+                <TextView
+                    android:id="@+id/tvProductFinal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Producto Final: "
+                    android:textSize="16sp"
+                    android:layout_marginTop="8dp" />
 
-            <!-- Difusión -->
-            <TextView
-                android:id="@+id/tvDifusion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Difusión: "
-                android:textSize="16sp"
-                android:layout_marginTop="8dp" />
+                <!-- Nueva -->
+                <TextView
+                    android:id="@+id/tvNueva"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nueva: "
+                    android:textSize="16sp"
+                    android:layout_marginTop="8dp" />
 
-            <Button
-                android:id="@+id/back"
-                android:layout_width="115dp"
-                android:layout_height="wrap_content"
-                android:text="Regresar" />
+                <!-- Difusión -->
+                <TextView
+                    android:id="@+id/tvDifusion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Difusión: "
+                    android:textSize="16sp"
+                    android:layout_marginTop="8dp" />
 
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-</ScrollView>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </ScrollView>
+
+    <!-- Botón en la parte inferior -->
+    <Button
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Regresar"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"/>
+</RelativeLayout>
