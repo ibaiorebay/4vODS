@@ -18,7 +18,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/iniciativa"
+                    "$ref": "#/components/schemas/IniciativaDTO"
                   }
                 }
               },
@@ -26,7 +26,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/iniciativa"
+                    "$ref": "#/components/schemas/IniciativaDTO"
                   }
                 }
               },
@@ -34,7 +34,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/iniciativa"
+                    "$ref": "#/components/schemas/IniciativaDTO"
                   }
                 }
               }
@@ -174,6 +174,104 @@
         }
       }
     },
+    "/api/iniciativas/entidadesExternas/{id}": {
+      "get": {
+        "tags": [
+          "Iniciativas"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/entidad"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/entidad"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/entidad"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/iniciativas/IniciativasNuevas/{id}": {
+      "get": {
+        "tags": [
+          "Iniciativas"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IniciativaDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IniciativaDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IniciativaDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/entidades": {
       "get": {
         "tags": [
@@ -210,11 +308,143 @@
             }
           }
         }
+      },
+      "post": {
+        "tags": [
+          "entidads"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/entidad"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/entidad"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/entidad"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/entidad"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/entidad"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/entidad"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/entidades/{id}": {
+      "put": {
+        "tags": [
+          "entidads"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/entidad"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/entidad"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/entidad"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "entidads"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
       }
     }
   },
   "components": {
     "schemas": {
+      "AsignaturaDTO": {
+        "type": "object",
+        "properties": {
+          "iD_ASIGNATURA": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "iD_CURSO": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "nombrE_CURSO": {
+            "type": "string",
+            "nullable": true
+          },
+          "nombre": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "DateOnly": {
         "type": "object",
         "properties": {
@@ -258,6 +488,111 @@
         ],
         "type": "integer",
         "format": "int32"
+      },
+      "IniciativaDTO": {
+        "type": "object",
+        "properties": {
+          "iD_INICIATIVA": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "titulo": {
+            "type": "string",
+            "nullable": true
+          },
+          "horas": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "fechA_INICIO": {
+            "type": "string",
+            "nullable": true
+          },
+          "fechA_FIN": {
+            "type": "string",
+            "nullable": true
+          },
+          "descripcion": {
+            "type": "string",
+            "nullable": true
+          },
+          "tipo": {
+            "type": "string",
+            "nullable": true
+          },
+          "productO_FINAL": {
+            "type": "string",
+            "nullable": true
+          },
+          "nueva": {
+            "type": "boolean"
+          },
+          "difusion": {
+            "type": "string",
+            "nullable": true
+          },
+          "iD_ASIGNATURAs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AsignaturaDTO"
+            },
+            "nullable": true
+          },
+          "iD_ENTIDADs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/entidad"
+            },
+            "nullable": true
+          },
+          "iD_METAs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MetasDTO"
+            },
+            "nullable": true
+          },
+          "iD_PROFESORs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/profesore"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MetasDTO": {
+        "type": "object",
+        "properties": {
+          "iD_META": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "iD_ODS": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "nombrE_ODS": {
+            "type": "string",
+            "nullable": true
+          },
+          "descripcioN_ODS": {
+            "type": "string",
+            "nullable": true
+          },
+          "dimensioN_ODS": {
+            "type": "string",
+            "nullable": true
+          },
+          "descripcioN_META": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
       },
       "asignatura": {
         "type": "object",
@@ -333,8 +668,7 @@
             "nullable": true
           },
           "nueva": {
-            "type": "boolean",
-            "nullable": true
+            "type": "boolean"
           },
           "difusion": {
             "type": "string",

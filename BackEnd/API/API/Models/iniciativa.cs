@@ -21,7 +21,7 @@ public partial class iniciativa
 
     public string? PRODUCTO_FINAL { get; set; }
 
-    public bool? NUEVA { get; set; }
+    public bool NUEVA { get; set; }
 
     public string? DIFUSION { get; set; }
 

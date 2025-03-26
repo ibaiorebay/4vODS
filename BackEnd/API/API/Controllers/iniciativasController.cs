@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
+using API.DTO;
 
 namespace API.Controllers
 {
@@ -21,14 +22,44 @@ namespace API.Controllers
 
         // GET: api/iniciativas
         [HttpGet]
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<iniciativa>>> GetIniciativas()
+        
+        public async Task<ActionResult<IEnumerable<IniciativaDTO>>> GetIniciativas()
         {
             var iniciativas = await _context.iniciativas
-                .Include(i => i.ID_ASIGNATURAs)
                 .Include(i => i.ID_ENTIDADs)
-                .Include(i => i.ID_METAs)
                 .Include(i => i.ID_PROFESORs)
+                .Select(i=>new IniciativaDTO
+                {
+                    ID_INICIATIVA=i.ID_INICIATIVA,
+                    DESCRIPCION=i.DESCRIPCION,
+                    DIFUSION=i.DIFUSION,
+                    FECHA_FIN = i.FECHA_FIN,
+                    FECHA_INICIO= i.FECHA_INICIO,
+                    HORAS = i.HORAS,
+                    ID_ASIGNATURAs = i.ID_ASIGNATURAs.Select(ia=>new AsignaturaDTO
+                    {
+                        ID_ASIGNATURA=ia.ID_ASIGNATURA,
+                        ID_CURSO=ia.ID_CURSO,
+                        NOMBRE=ia.NOMBRE,
+                        NOMBRE_CURSO= ia.ID_CURSONavigation.NOMBRE,
+                    }).ToList(),
+                    ID_ENTIDADs=i.ID_ENTIDADs.ToList(),
+                    ID_METAs=i.ID_METAs.Select(im=>new MetasDTO
+                    {
+                        DESCRIPCION_META =im.DESCRIPCION,
+                        DESCRIPCION_ODS = im.ID_ODSNavigation.DESCRIPCION,
+                        DIMENSION_ODS = im.ID_ODSNavigation.DIMENSION,
+                        ID_META=im.ID_META,
+                        ID_ODS=im.ID_ODS,
+                        NOMBRE_ODS = im.ID_ODSNavigation.NOMBRE
+                    }).ToList(),
+                    ID_PROFESORs=i.ID_PROFESORs.ToList(),
+                    NUEVA=i.NUEVA,
+                    PRODUCTO_FINAL = i.PRODUCTO_FINAL,
+                    TIPO = i.TIPO,
+                    TITULO = i.TITULO
+
+                })
                 .ToListAsync();
 
             return iniciativas;
@@ -214,5 +245,60 @@ namespace API.Controllers
             return NoContent();
         }
 
+
+
+        [HttpGet("entidadesExternas/{id}")]
+        public async Task<ActionResult<IEnumerable<entidad>>> GetEntidadesExternas(int id)
+        {
+            var entidades = await _context.entidads
+                .Where(en => en.ID_INICIATIVAs.Any(ini => ini.ID_INICIATIVA == id))
+                .ToListAsync();
+
+            return entidades;
+        }
+
+        [HttpGet("IniciativasNuevas/{id}")]
+        public async Task<ActionResult<IEnumerable<IniciativaDTO>>> GetIniciativasNuevas(int id)
+        {
+            var iniciativas = await _context.iniciativas
+                .Include(i => i.ID_ENTIDADs)
+                .Include(i => i.ID_PROFESORs)
+                .Select(i => new IniciativaDTO
+                {
+                    ID_INICIATIVA = i.ID_INICIATIVA,
+                    DESCRIPCION = i.DESCRIPCION,
+                    DIFUSION = i.DIFUSION,
+                    FECHA_FIN = i.FECHA_FIN,
+                    FECHA_INICIO = i.FECHA_INICIO,
+                    HORAS = i.HORAS,
+                    ID_ASIGNATURAs = i.ID_ASIGNATURAs.Select(ia => new AsignaturaDTO
+                    {
+                        ID_ASIGNATURA = ia.ID_ASIGNATURA,
+                        ID_CURSO = ia.ID_CURSO,
+                        NOMBRE = ia.NOMBRE,
+                        NOMBRE_CURSO = ia.ID_CURSONavigation.NOMBRE,
+                    }).ToList(),
+                    ID_ENTIDADs = i.ID_ENTIDADs.ToList(),
+                    ID_METAs = i.ID_METAs.Select(im => new MetasDTO
+                    {
+                        DESCRIPCION_META = im.DESCRIPCION,
+                        DESCRIPCION_ODS = im.ID_ODSNavigation.DESCRIPCION,
+                        DIMENSION_ODS = im.ID_ODSNavigation.DIMENSION,
+                        ID_META = im.ID_META,
+                        ID_ODS = im.ID_ODS,
+                        NOMBRE_ODS = im.ID_ODSNavigation.NOMBRE
+                    }).ToList(),
+                    ID_PROFESORs = i.ID_PROFESORs.ToList(),
+                    NUEVA = i.NUEVA,
+                    PRODUCTO_FINAL = i.PRODUCTO_FINAL,
+                    TIPO = i.TIPO,
+                    TITULO = i.TITULO
+
+                })
+                .Where(ini => ini.NUEVA == (id == 1))
+                .ToListAsync();
+
+            return iniciativas;
+        }
     }
 }

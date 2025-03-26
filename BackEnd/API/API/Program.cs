@@ -4,13 +4,13 @@ using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Agregar CORS
+// Configurar CORS para permitir solicitudes desde cualquier origen
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
     {
-        policy.AllowAnyOrigin()   // Permite cualquier origen (frontend)
-              .AllowAnyMethod()   // Permite cualquier método HTTP (GET, POST, etc.)
+        policy.AllowAnyOrigin()   // Permite solicitudes desde cualquier origen
+              .AllowAnyMethod()   // Permite cualquier tipo de método HTTP (GET, POST, PUT, DELETE, etc.)
               .AllowAnyHeader();  // Permite cualquier encabezado
     });
 });
@@ -25,8 +25,8 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
     });
 
-builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddEndpointsApiExplorer();
 
 var app = builder.Build();
 
@@ -39,7 +39,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// Aplicar la configuración de CORS antes de autorización
+// **Aplicar la política de CORS antes de la autorización**
 app.UseCors("AllowAll");
 
 app.UseAuthorization();
