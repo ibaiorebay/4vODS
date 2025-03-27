@@ -144,12 +144,18 @@
                         <p><strong>Metas y ODS asociados:</strong></p>
                         <ul class="list-unstyled">
                             <li *ngFor="let meta of selectedIniciativa.Metas">
-                                <p><strong>Meta:</strong> {{ meta.Descripcion }}</p>
-                                <div class="d-flex flex-wrap gap-2">
+                                <div class="row">
+                                    <div class="col-9">
+                                        <p><strong>Meta:</strong> {{ meta.Descripcion }}</p>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="d-flex flex-wrap gap-2">
 
-                                    <img src="../../assets/ods/S-WEB-Goal-{{ meta.numeroOds < 10 ? '0' + meta.numeroOds : meta.numeroOds }}.png"
-                                        [alt]="'ODS ' + meta.numeroOds" class="img-fluid"
-                                        style="width: 80px; height: auto;">
+                                            <img src="../../assets/ods/S-WEB-Goal-{{ meta.numeroOds < 10 ? '0' + meta.numeroOds : meta.numeroOds }}.png"
+                                                [alt]="'ODS ' + meta.numeroOds" class="img-fluid"
+                                                style="width: 80px; height: auto;">
+                                        </div>
+                                    </div>
                                 </div>
                             </li>
                         </ul>

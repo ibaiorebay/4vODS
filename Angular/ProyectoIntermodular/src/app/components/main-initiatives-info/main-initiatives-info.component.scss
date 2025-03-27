@@ -1,24 +1,9 @@
 // Variables de colores
 $primary-color: #007bff;
 $delete-color: #dc3545;
-$gradient-start: #1e3c72; // Azul oscuro
-$gradient-end: #2a5298; // Azul más claro
+$gradient-start: #1e3c72; 
+$gradient-end: #2a5298; 
 $text-color: #ffffff;
-
-// Animación del degradado en movimiento
-@keyframes gradientMove {
-  0% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
-
-  100% {
-    background-position: 0% 50%;
-  }
-}
 
 .filters {
   width: 70%;
@@ -256,6 +241,7 @@ input:checked + .slider:before {
 .dataContainer {
   font-weight: 500;
 }
+
 .encabezados{
   background: linear-gradient(135deg, #1f721e, #2a5298);
 }
