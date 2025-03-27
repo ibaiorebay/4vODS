@@ -3,11 +3,10 @@
         <div>
             <!-- Filtro de tipos de poyecto -->
             <h6>Tipo de Iniciativa:</h6>
-            <button *ngFor="let type of ['Todos', 'Charla', 'Taller', 'Salida', 'Proyecto', 'Acciones Internas', 'Otros']"
-                    [class.active]="filtroTipoIniciativa === type"
-                    (click)="filtrarIniciativas(type)"
-                    class="mx-3 btn">
-                    {{ type === 'Todos' ? 'Todos' : type }}
+            <button
+                *ngFor="let type of ['Todos', 'Charla', 'Taller', 'Salida', 'Proyecto', 'Acciones Internas', 'Otros']"
+                [class.active]="filtroTipoIniciativa === type" (click)="filtrarIniciativas(type)" class="mx-3 btn">
+                {{ type === 'Todos' ? 'Todos' : type }}
             </button>
         </div>
         <div class="border-start ms-4 ps-4">
@@ -21,7 +20,8 @@
     <div class="w-100 d-flex justify-content-between gap-4 align-items-center">
         <div>
             <h6>Filtro por nombre:</h6>
-            <input type="text" [(ngModel)]="filtroTitulo" (input)="filtrarIniciativas()" placeholder="Buscar por título de iniciativa..." class="form-control">
+            <input type="text" [(ngModel)]="filtroTitulo" (input)="filtrarIniciativas()"
+                placeholder="Buscar por título de iniciativa..." class="form-control">
         </div>
         <div>
             <!-- Filtro por Profesores -->
@@ -51,117 +51,116 @@
             <!-- Filtro por número de Ods -->
             <h6>Filtro por número de Ods:</h6>
             <select [(ngModel)]="filtroOds" (change)="filtrarIniciativas()" class="form-control">
-                <option value=0 > Cualquiera </option>
-                <option *ngFor="let cadaOds of ods" [value]=cadaOds >{{ cadaOds }}</option>
+                <option value=0> Cualquiera </option>
+                <option *ngFor="let cadaOds of ods" [value]=cadaOds>{{ cadaOds }}</option>
             </select>
         </div>
         <div>
             <!-- Filtro por número de meta de la ods seleccionada -->
             <h6>Filtro por número de meta:</h6>
             <select [(ngModel)]="filtroMeta" (change)="filtrarIniciativas()" class="form-control">
-                <option value="0" > Cualquiera </option>
+                <option value="0"> Cualquiera </option>
                 <!-- <option *ngFor="let cadaMeta of metasOds" [value]=cadaMeta >{{ cadaMeta }}</option> -->
             </select>
         </div>
     </div>
-    
+
 </div>
 
 
-<div class="container pt-5 pb-5 d-flex justify-content-between">
+<div class="container py-5">
     <div class="row">
         @for(iniciativa of iniciativasFiltradas;track iniciativa){
-        <div class="col-md-4 pt-4 pb-4">
-            <div class="custom-card p-relative">
-                <div class="d-flex justify-content-between">
-                    <h5>{{ iniciativa.Titulo }}</h5>
-                    <div class="position-relative">
-                        <!-- Botón del menú desplegable -->
-                        <button class="btn btn-outline-light dropdownButton" (click)="toggleDropdown(iniciativa.Id.toString())" ><img src="../../../assets/three-dots-vertical.svg" alt=""></button>
-                        <!-- Menú desplegable -->
-                        <div *ngIf="openDropdownId == iniciativa.Id.toString()" class="dropdownMenu hidden list-group text-center">
-                            <button class=" list-group-item list-group-item-action" (click)="edit(iniciativa.Id)">Editar</button>
-                            <button class=" list-group-item list-group-item-action text-danger" (click)="delete(iniciativa.Id)">Eliminar</button>
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden h-100">
+                <div class="card-header text-white d-flex justify-content-between align-items-center encabezados">
+                    <h5 class="mb-0">{{ iniciativa.Titulo }}</h5>
+                    <div class="dropdown">
+                        <button class="btn btn-sm " (click)="toggleDropdown(iniciativa.Id.toString())">
+                            <img src="../../../assets/tres_puntos.png" alt="" class="img_puntos">
+                        </button>
+                        <div *ngIf="openDropdownId == iniciativa.Id.toString()"
+                            class="dropdown-menu dropdown-menu-end show">
+                            <button class="dropdown-item" (click)="edit(iniciativa.Id)">Editar</button>
+                            <button class="dropdown-item text-danger" (click)="delete(iniciativa.Id)">Eliminar</button>
                         </div>
                     </div>
                 </div>
-                <div>
-                    <span class="badge" [ngClass]="getBadgeClase(iniciativa.TipoIniciativa)">
-                        {{iniciativa.TipoIniciativa}}
-                    </span>
-                    <span *ngIf="iniciativa.EsInnovadora" class="badge">
-                        Innovador
-                    </span>
-                </div>
-                
-                <div class="d-flex gap-4">
-                    <div class="labelsContainer">
-                        <p class="mb-0">Líder del proyecto:</p>
-                        <p>Fecha de inicio:</p>
-                        <p>Fecha de fin:</p>
-                        <p>Curso:</p>
-                        <p class="mb-3">Ubicación:</p>
-                        <p>Descripción:</p>
-                        <br>
-                        <ng-container *ngIf="iniciativa?.EntidadesExteriores?.length">
-                        <p>Entidades externas:</p>
-                        </ng-container>
-                        <p>Clases/Cursos:</p>
-                        <p>Módulos:</p>
-                        <p>ODS:</p>
-                        <p>Metas:</p>
-                    </div>
-                    <div class="dataContainer">
-                        <p class="mb-0">{{iniciativa.Profesores[0].Nombre+" "+iniciativa.Profesores[0].Apellido1}}</p>
-                        <p>{{iniciativa.FechaInicio}}</p>
-                        <p>{{iniciativa.FechaFin}}</p>
-                        <p class=" mb-0">24-25</p>
-                        <p class="mb-3">Sala Azul</p>
-                        <p>{{iniciativa.Descripcion}}</p>
-                        <ng-container *ngIf="iniciativa?.EntidadesExteriores?.length">
-                        <p>{{obtenerEntidades(iniciativa.EntidadesExteriores)}}</p>
-                        </ng-container>
-                        <p>{{obtenerNombresCursos(iniciativa.Asignaturas)}}</p>
-                        <p>{{obtenerModulosYCursos(iniciativa.Asignaturas)}}</p>
-                        <p>{{obtenerODS(iniciativa.Metas)}}</p>
-                        <p>{{obtenerMetas(iniciativa.Metas)}}</p>
-                    </div>
-                </div>
 
-
-
-                <div class="d-flex justify-content-between mt-auto pt-2 w-100 border-top border-black">
-                    <a (click)="openModalDetailsCard(iniciativa.Id.toString(), iniciativa)" class="cursorStyle btn border border-secondary-subtle d-flex align-items-center gap-1 ">
-                        <img src="../../assets/eye.svg" alt="eye-icon">
-                        <span class=" text-primary-emphasis">
-                            Ver detalles
+                <div class="card-body">
+                    <div class="mb-3">
+                        <span class="badge bg-warning text-dark" [ngClass]="getBadgeClase(iniciativa.TipoIniciativa)">
+                            {{ iniciativa.TipoIniciativa }}
                         </span>
-                    </a>
-                    
-                    <ul class="list-unstyled me-5">
-                        <li class="">
-                            <a class="text-decoration-none"><img src="../../../assets/linkedin.svg" alt="linkedin-icon" class="cursorStyle"></a>
-                        </li>
+                        <span *ngIf="iniciativa.EsInnovadora" class="badge bg-info text-dark">Innovador</span>
+                    </div>
+
+                    <ul class="list-unstyled small">
+                        <li><strong>Líder del proyecto:</strong> {{ iniciativa.Profesores[0].Nombre }} {{
+                            iniciativa.Profesores[0].Apellido1 }}</li>
+                        <li><strong>Fecha de inicio:</strong> {{ iniciativa.FechaInicio }}</li>
+                        <li><strong>Fecha de fin:</strong> {{ iniciativa.FechaFin }}</li>
                     </ul>
+                </div>
+
+                <div class="card-footer bg-light d-flex justify-content-between align-items-center">
+                    <a (click)="openModalDetailsCard(iniciativa.Id.toString(), iniciativa)"
+                        class="btn btn-outline-dark btn-sm d-flex align-items-center gap-2">
+                        <img src="../../assets/eye.svg" alt="eye-icon"> Ver detalles
+                    </a>
+                    <a class="text-decoration-none" href="#">
+                        <img src="../../../assets/linkedin.svg" alt="linkedin-icon" class="cursor-pointer">
+                    </a>
                 </div>
             </div>
         </div>
         }
-        <div *ngIf="selectedIniciativaId !== '0'" class="modal-overlay">
-            <div class="modal-content">
-                <span class="close" (click)="closeModal()">&times;</span>
-                <h2>{{ selectedIniciativa.Titulo }}</h2>
-                <p><strong>Tipo:</strong> {{ selectedIniciativa.TipoIniciativa }}</p>
-                <p><strong>Descripción:</strong> {{ selectedIniciativa.Descripcion }}</p>
-                <div class="d-inline-flex flex-column">
-                    <span class="labelsColor">Fecha Inicio</span>
-                    <span>{{ selectedIniciativa.FechaInicio | date }}</span>
+    </div>
+
+    <div *ngIf="selectedIniciativaId !== '0'" class="modal fade show d-block" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 border-0 shadow-lg">
+                <div class="modal-header text-white encabezados">
+                    <h5 class="modal-title">{{ selectedIniciativa.Titulo }}</h5>
+                    <button type="button" class="btn-close btn-close-white" (click)="closeModal()"></button>
                 </div>
-                <div class="d-inline-flex flex-column">
-                    <span class="labelsColor">Fecha Fin</span>
-                    <span>{{ selectedIniciativa.FechaFin | date }}</span>
+                <div class="modal-body">
+                    <p><strong>Tipo:</strong> {{ selectedIniciativa.TipoIniciativa }}</p>
+                    <p><strong>Descripción:</strong> {{ selectedIniciativa.Descripcion }}</p>
+                    <p><strong>Fecha Inicio:</strong> {{ selectedIniciativa.FechaInicio | date }}</p>
+                    <p><strong>Fecha Fin:</strong> {{ selectedIniciativa.FechaFin | date }}</p>
+                    <p><strong>Curso:</strong> {{ selectedIniciativa.Asignaturas[0]?.nombreCurso || 'No asignado' }}</p>
+
+                    <div *ngIf="selectedIniciativa.Profesores?.length">
+                        <p><strong>Profesores:</strong></p>
+                        <ul class="list-unstyled">
+                            <li *ngFor="let profesor of selectedIniciativa.Profesores">
+                                {{ profesor.Nombre }} {{ profesor.Apellido1 }} {{ profesor.Apellido2 }}
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div *ngIf="selectedIniciativa.Metas?.length">
+                        <p><strong>Metas y ODS asociados:</strong></p>
+                        <ul class="list-unstyled">
+                            <li *ngFor="let meta of selectedIniciativa.Metas">
+                                <div class="row">
+                                    <div class="col-9">
+                                        <p><strong>Meta:</strong> {{ meta.Descripcion }}</p>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="d-flex flex-wrap gap-2">
+
+                                            <img src="../../assets/ods/S-WEB-Goal-{{ meta.numeroOds < 10 ? '0' + meta.numeroOds : meta.numeroOds }}.png"
+                                                [alt]="'ODS ' + meta.numeroOds" class="img-fluid"
+                                                style="width: 80px; height: auto;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <p><strong>Curso:</strong> {{ selectedIniciativa.Asignaturas[0]?.nombreCurso || 'No asignado' }}</p>
             </div>
         </div>
     </div>

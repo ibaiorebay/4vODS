@@ -92,6 +92,7 @@ export class MainInitiativesInfoComponent {
   openModalDetailsCard(id: string, iniciativa: any) {
     this.selectedIniciativaId = id; 
     this.selectedIniciativa = iniciativa; // Establecemos los detalles de la iniciativa seleccionada.
+    console.log(this.selectedIniciativa);
   }
 
   // Función para cerrar el modal.
