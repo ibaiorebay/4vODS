@@ -308,58 +308,59 @@ namespace API.Controllers
                 .Where(en => en.ID_INICIATIVAs.Any(ini => ini.ID_INICIATIVA == id))
                 .ToListAsync();
 
+
             return entidades;
         }
 
-        //[HttpGet("IniciativasNuevas/{id}")]
-        //public async Task<ActionResult<IEnumerable<IniciativaDTO>>> GetIniciativasNuevas(int id)
-        //{
-        //    var iniciativas = await _context.iniciativas
-        //        .Include(i => i.ID_ENTIDADs)
-        //        .Include(i => i.ID_PROFESORs)
-        //        .Select(i => new IniciativaDTO
-        //        {
-        //            ID_INICIATIVA = i.ID_INICIATIVA,
-        //            DESCRIPCION = i.DESCRIPCION,
-        //            DIFUSION = i.DIFUSION,
-        //            FECHA_FIN = i.FECHA_FIN,
-        //            FECHA_INICIO = i.FECHA_INICIO,
-        //            HORAS = i.HORAS,
-        //            ID_ASIGNATURAs = i.ID_ASIGNATURAs.Select(ia => new AsignaturaDTO
-        //            {
-        //                ID_ASIGNATURA = ia.ID_ASIGNATURA,
-        //                ID_CURSO = ia.ID_CURSO,
-        //                NOMBRE = ia.NOMBRE,
-        //                NOMBRE_CURSO = ia.ID_CURSONavigation.NOMBRE,
-        //            }).ToList(),
-        //            ID_ENTIDADs = i.ID_ENTIDADs.ToList(),
-        //            ID_METAs = i.ID_METAs.Select(im => new MetasDTO
-        //            {
-        //                DESCRIPCION_META = im.DESCRIPCION,
-        //                DESCRIPCION_ODS = im.ID_ODSNavigation.DESCRIPCION,
-        //                DIMENSION_ODS = im.ID_ODSNavigation.DIMENSION,
-        //                ID_META = im.ID_META,
-        //                ID_ODS = im.ID_ODS,
-        //                NOMBRE_ODS = im.ID_ODSNavigation.NOMBRE
-        //            }).ToList(),
-        //            ID_PROFESORs = i.ID_PROFESORs.ToList(),
-        //            NUEVA = i.NUEVA,
-        //            PRODUCTO_FINAL = i.PRODUCTO_FINAL,
-        //            TIPO = i.TIPO,
-        //            TITULO = i.TITULO
+        [HttpGet("IniciativasNuevas/{id}")]
+        public async Task<ActionResult<IEnumerable<IniciativaDTO>>> GetIniciativasNuevas(int id)
+        {
+            var iniciativas = await _context.iniciativas
+                .Include(i => i.ID_ENTIDADs)
+                .Include(i => i.ID_PROFESORs)
+                .Select(i => new IniciativaDTO
+                {
+                    ID_INICIATIVA = i.ID_INICIATIVA,
+                    DESCRIPCION = i.DESCRIPCION,
+                    DIFUSION = i.DIFUSION,
+                    FECHA_FIN = i.FECHA_FIN,
+                    FECHA_INICIO = i.FECHA_INICIO,
+                    HORAS = i.HORAS,
+                    ID_ASIGNATURAs = i.ID_ASIGNATURAs.Select(ia => new AsignaturaDTO
+                    {
+                        ID_ASIGNATURA = ia.ID_ASIGNATURA,
+                        ID_CURSO = ia.ID_CURSO,
+                        NOMBRE = ia.NOMBRE,
+                        NOMBRE_CURSO = ia.ID_CURSONavigation.NOMBRE,
+                    }).ToList(),
+                    ID_ENTIDADs = i.ID_ENTIDADs.ToList(),
+                    ID_METAs = i.ID_METAs.Select(im => new MetasDTO
+                    {
+                        DESCRIPCION_META = im.DESCRIPCION,
+                        DESCRIPCION_ODS = im.ID_ODSNavigation.DESCRIPCION,
+                        DIMENSION_ODS = im.ID_ODSNavigation.DIMENSION,
+                        ID_META = im.ID_META,
+                        ID_ODS = im.ID_ODS,
+                        NOMBRE_ODS = im.ID_ODSNavigation.NOMBRE
+                    }).ToList(),
+                    ID_PROFESORs = i.ID_PROFESORs.ToList(),
+                    NUEVA = i.NUEVA,
+                    PRODUCTO_FINAL = i.PRODUCTO_FINAL,
+                    TIPO = i.TIPO,
+                    TITULO = i.TITULO
 
-        //        })
-        //        .Where(ini => ini.NUEVA == (id == 1))
-        //        .ToListAsync();
+                })
+                .Where(ini => ini.NUEVA == (id == 1))
+                .ToListAsync();
 
-        //    return iniciativas;
-        //}
+            return iniciativas;
+        }
 
         //[HttpGet("horas/{id}")]
         //public async Task<ActionResult<int>> GetHorasIniciativas(int id)
         //{
         //    var horas = await _context.iniciativas.Where(ini => ini.ID_INICIATIVA == id).Select(ini => ini.HORAS).FirstOrDefault();
-        
+
         //    return horas;
         //}
     }
