@@ -358,7 +358,14 @@ namespace API.Controllers
 
             return iniciativas;
         }
+        //INDICADOR3
+        [HttpGet("NumeroIniciativas")]
+        public async Task<int> GetNumeroIniciativas()
+        {
+            var iniciativas = _context.iniciativas.Count();
 
+            return iniciativas;
+        }
 
 
 
