@@ -1,4 +1,5 @@
 export class Meta {
+    
     private numeroOds: number;
     // private caracterMeta : string;
     private caracterMeta : number;

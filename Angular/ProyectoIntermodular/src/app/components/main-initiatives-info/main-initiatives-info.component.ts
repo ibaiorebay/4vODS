@@ -20,6 +20,7 @@ export class MainInitiativesInfoComponent {
   iniciativas: Iniciativa[] = [];
   iniciativasFiltradas: Iniciativa[] = [];
   isDropdownOpen = false; // Estado del menú desplegable
+
   cursos: string[] = [];
   profesores: string[] = [];
   asignaturas: string[] = [];
@@ -39,6 +40,31 @@ export class MainInitiativesInfoComponent {
     //   console.log(this.iniciativas);
     // });
     // this.iniciativas = this.iniciativaService.Iniciativas;
+
+    this.iniciativaService.getAsignaturas().subscribe((asignaturas: any) => {
+      console.log("Asignaturas recibidas:", asignaturas);
+      
+    });
+
+    this.iniciativaService.getMetas().subscribe((asignaturas: any) => {
+      console.log("metas recibidas:", asignaturas);
+    });
+
+    this.iniciativaService.getCursos().subscribe((asignaturas: any) => {
+      console.log("cursos recibidas:", asignaturas);
+    });
+
+    this.iniciativaService.getOds().subscribe((asignaturas: any) => {
+      console.log("ods recibidas:", asignaturas);
+    });
+
+    this.iniciativaService.getProfesores().subscribe((asignaturas: any) => {
+      console.log("profes recibidas:", asignaturas);
+    });
+
+    this.iniciativaService.getIniciativas().subscribe((asignaturas: any) => {
+      console.log("iniciativas recibidas:", asignaturas);
+    });
 
 
     this.iniciativas = this.iniciativaService.getIniciativasMock();
