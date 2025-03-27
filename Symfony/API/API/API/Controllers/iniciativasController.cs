@@ -115,6 +115,138 @@ namespace API.Controllers
                     NUEVA = i.NUEVA,
                     DIFUSION = i.DIFUSION,
 
+                    ID_ASIGNATURAs = i.ID_ASIGNATURAs.Select(ia => new AsignaturaDTO
+                    {
+                        ID_ASIGNATURA = ia.ID_ASIGNATURA,
+                        ID_CURSO = ia.ID_CURSO,
+                        NOMBRE = ia.NOMBRE,
+                        NOMBRE_CURSO = ia.ID_CURSONavigation.NOMBRE
+                    }).ToList(),
+
+                    ID_ENTIDADs = i.ID_ENTIDADs.Select(e => new entidad
+                    {
+                        ID_ENTIDAD = e.ID_ENTIDAD,
+                        NOMBRE = e.NOMBRE,
+                        DESCRIPCION = e.DESCRIPCION
+                    }).ToList(),
+
+                    ID_PROFESORs = i.ID_PROFESORs.Select(p => new profesore
+                    {
+                        ID_PROFESOR = p.ID_PROFESOR,
+                        NOMBRE = p.NOMBRE,
+                        APELLIDO1 = p.APELLIDO1,
+                        APELLIDO2 = p.APELLIDO2,
+                        FECHA_NACIMIENTO = p.FECHA_NACIMIENTO
+                    }).ToList(),
+
+                    ID_METAs = i.ID_METAs.Select(im => new MetasDTO
+                    {
+                        ID_META = im.ID_META,
+                        ID_ODS = im.ID_ODS,
+                        DESCRIPCION_META = im.DESCRIPCION,
+                        NOMBRE_ODS = im.ID_ODSNavigation.NOMBRE,
+                        DESCRIPCION_ODS = im.ID_ODSNavigation.DESCRIPCION,
+                        DIMENSION_ODS = im.ID_ODSNavigation.DIMENSION
+                    }).ToList()
+
+                })
+                .ToListAsync();
+
+            return iniciativas;
+        }
+
+        //INDICADOR2
+        [HttpGet("DimensionSocial")]
+        public async Task<ActionResult<IEnumerable<IniciativaDTO>>> GetIniciativasSocial()
+        {
+            var iniciativas = await _context.iniciativas
+                .Include(i => i.ID_ASIGNATURAs)
+                    .ThenInclude(a => a.ID_CURSONavigation) // Incluye curso en asignaturas
+                .Include(i => i.ID_ENTIDADs)
+                .Include(i => i.ID_METAs)
+                    .ThenInclude(m => m.ID_ODSNavigation) // Incluye información del ODS
+                .Include(i => i.ID_PROFESORs)
+                .Where(i=>i.ID_METAs.Any(im=>im.ID_ODSNavigation.DIMENSION.ToLower()=="social"))
+                .Select(i => new IniciativaDTO
+                {
+                    ID_INICIATIVA = i.ID_INICIATIVA,
+                    TITULO = i.TITULO,
+                    HORAS = i.HORAS,
+                    FECHA_INICIO = i.FECHA_INICIO,
+                    FECHA_FIN = i.FECHA_FIN,
+                    DESCRIPCION = i.DESCRIPCION,
+                    TIPO = i.TIPO,
+                    PRODUCTO_FINAL = i.PRODUCTO_FINAL,
+                    NUEVA = i.NUEVA,
+                    DIFUSION = i.DIFUSION,
+
+                    // ✅ Mapeo de asignaturas con información completa
+                    ID_ASIGNATURAs = i.ID_ASIGNATURAs.Select(ia => new AsignaturaDTO
+                    {
+                        ID_ASIGNATURA = ia.ID_ASIGNATURA,
+                        ID_CURSO = ia.ID_CURSO,
+                        NOMBRE = ia.NOMBRE,
+                        NOMBRE_CURSO = ia.ID_CURSONavigation.NOMBRE
+                    }).ToList(),
+
+                    // ✅ Mapeo de entidades con información completa
+                    ID_ENTIDADs = i.ID_ENTIDADs.Select(e => new entidad
+                    {
+                        ID_ENTIDAD = e.ID_ENTIDAD,
+                        NOMBRE = e.NOMBRE,
+                        DESCRIPCION = e.DESCRIPCION
+                    }).ToList(),
+
+                    // ✅ Mapeo de profesores con información completa
+                    ID_PROFESORs = i.ID_PROFESORs.Select(p => new profesore
+                    {
+                        ID_PROFESOR = p.ID_PROFESOR,
+                        NOMBRE = p.NOMBRE,
+                        APELLIDO1 = p.APELLIDO1,
+                        APELLIDO2 = p.APELLIDO2,
+                        FECHA_NACIMIENTO = p.FECHA_NACIMIENTO
+                    }).ToList(),
+
+                    // ✅ Mapeo de metas con información del ODS
+                    ID_METAs = i.ID_METAs.Select(im => new MetasDTO
+                    {
+                        ID_META = im.ID_META,
+                        ID_ODS = im.ID_ODS,
+                        DESCRIPCION_META = im.DESCRIPCION,
+                        NOMBRE_ODS = im.ID_ODSNavigation.NOMBRE,
+                        DESCRIPCION_ODS = im.ID_ODSNavigation.DESCRIPCION,
+                        DIMENSION_ODS = im.ID_ODSNavigation.DIMENSION
+                    }).ToList()
+
+                })
+                .ToListAsync();
+
+            return iniciativas;
+        }
+        [HttpGet("DimensionMedioambiental")]
+        public async Task<ActionResult<IEnumerable<IniciativaDTO>>> GetIniciativasMedioambiental()
+        {
+            var iniciativas = await _context.iniciativas
+                .Include(i => i.ID_ASIGNATURAs)
+                    .ThenInclude(a => a.ID_CURSONavigation) // Incluye curso en asignaturas
+                .Include(i => i.ID_ENTIDADs)
+                .Include(i => i.ID_METAs)
+                    .ThenInclude(m => m.ID_ODSNavigation) // Incluye información del ODS
+                .Include(i => i.ID_PROFESORs)
+                .Where(i => i.ID_METAs.Any(im => im.ID_ODSNavigation.DIMENSION.ToLower() == "medioambiental"))
+                .Select(i => new IniciativaDTO
+                {
+                    ID_INICIATIVA = i.ID_INICIATIVA,
+                    TITULO = i.TITULO,
+                    HORAS = i.HORAS,
+                    FECHA_INICIO = i.FECHA_INICIO,
+                    FECHA_FIN = i.FECHA_FIN,
+                    DESCRIPCION = i.DESCRIPCION,
+                    TIPO = i.TIPO,
+                    PRODUCTO_FINAL = i.PRODUCTO_FINAL,
+                    NUEVA = i.NUEVA,
+                    DIFUSION = i.DIFUSION,
+
                     // ✅ Mapeo de asignaturas con información completa
                     ID_ASIGNATURAs = i.ID_ASIGNATURAs.Select(ia => new AsignaturaDTO
                     {
@@ -159,6 +291,73 @@ namespace API.Controllers
             return iniciativas;
         }
 
+        [HttpGet("DimensionEconomica")]
+        public async Task<ActionResult<IEnumerable<IniciativaDTO>>> GetIniciativasEconomica()
+        {
+            var iniciativas = await _context.iniciativas
+                .Include(i => i.ID_ASIGNATURAs)
+                    .ThenInclude(a => a.ID_CURSONavigation) // Incluye curso en asignaturas
+                .Include(i => i.ID_ENTIDADs)
+                .Include(i => i.ID_METAs)
+                    .ThenInclude(m => m.ID_ODSNavigation) // Incluye información del ODS
+                .Include(i => i.ID_PROFESORs)
+                .Where(i => i.ID_METAs.Any(im => im.ID_ODSNavigation.DIMENSION.ToLower() == "económica"))
+                .Select(i => new IniciativaDTO
+                {
+                    ID_INICIATIVA = i.ID_INICIATIVA,
+                    TITULO = i.TITULO,
+                    HORAS = i.HORAS,
+                    FECHA_INICIO = i.FECHA_INICIO,
+                    FECHA_FIN = i.FECHA_FIN,
+                    DESCRIPCION = i.DESCRIPCION,
+                    TIPO = i.TIPO,
+                    PRODUCTO_FINAL = i.PRODUCTO_FINAL,
+                    NUEVA = i.NUEVA,
+                    DIFUSION = i.DIFUSION,
+
+                    // ✅ Mapeo de asignaturas con información completa
+                    ID_ASIGNATURAs = i.ID_ASIGNATURAs.Select(ia => new AsignaturaDTO
+                    {
+                        ID_ASIGNATURA = ia.ID_ASIGNATURA,
+                        ID_CURSO = ia.ID_CURSO,
+                        NOMBRE = ia.NOMBRE,
+                        NOMBRE_CURSO = ia.ID_CURSONavigation.NOMBRE
+                    }).ToList(),
+
+                    // ✅ Mapeo de entidades con información completa
+                    ID_ENTIDADs = i.ID_ENTIDADs.Select(e => new entidad
+                    {
+                        ID_ENTIDAD = e.ID_ENTIDAD,
+                        NOMBRE = e.NOMBRE,
+                        DESCRIPCION = e.DESCRIPCION
+                    }).ToList(),
+
+                    // ✅ Mapeo de profesores con información completa
+                    ID_PROFESORs = i.ID_PROFESORs.Select(p => new profesore
+                    {
+                        ID_PROFESOR = p.ID_PROFESOR,
+                        NOMBRE = p.NOMBRE,
+                        APELLIDO1 = p.APELLIDO1,
+                        APELLIDO2 = p.APELLIDO2,
+                        FECHA_NACIMIENTO = p.FECHA_NACIMIENTO
+                    }).ToList(),
+
+                    // ✅ Mapeo de metas con información del ODS
+                    ID_METAs = i.ID_METAs.Select(im => new MetasDTO
+                    {
+                        ID_META = im.ID_META,
+                        ID_ODS = im.ID_ODS,
+                        DESCRIPCION_META = im.DESCRIPCION,
+                        NOMBRE_ODS = im.ID_ODSNavigation.NOMBRE,
+                        DESCRIPCION_ODS = im.ID_ODSNavigation.DESCRIPCION,
+                        DIMENSION_ODS = im.ID_ODSNavigation.DIMENSION
+                    }).ToList()
+
+                })
+                .ToListAsync();
+
+            return iniciativas;
+        }
 
 
 
