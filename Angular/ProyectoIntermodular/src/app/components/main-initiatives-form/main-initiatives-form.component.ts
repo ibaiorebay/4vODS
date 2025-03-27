@@ -15,6 +15,11 @@ import { EntidadExterior } from '../../models/entidad-exterior';
   styleUrl: './main-initiatives-form.component.scss'
 })
 export class MainInitiativesFormComponent implements OnInit {
+
+
+
+
+
   form: FormGroup;
   iniciativaId: string | null = null;
 
@@ -72,19 +77,18 @@ export class MainInitiativesFormComponent implements OnInit {
     // this.profesoresOptions = this.iniciativaService.Profesores;
   }
 
-
-  // ngOnInit(): void {
-  //   this.iniciativaId = this.route.snapshot.paramMap.get('id');
-  //   console.log('Iniciativa ID:', this.iniciativaId);
-  // }
-
   ngOnInit(): void {
     this.iniciativaId = this.route.snapshot.paramMap.get('id');
     console.log('Iniciativa ID:', this.iniciativaId);
   }
   
+  //funcion para el primer input del form, que es seleccionar si es innovador o no
+  selectTemplate(arg0: number) {
+    throw new Error('Method not implemented.');
+  }
 
-  // Funciones para agregar a la lista seleccionada
+
+  // Funciones para agregar entidades a su lista de entidades correspondientes
   addAsignatura(event: any): void {
     const selectedAsignatura = this.asignaturasOptions.find(asignatura => asignatura.id == event.target.value);
     if (selectedAsignatura && !this.selectedAsignaturas.includes(selectedAsignatura)) {
@@ -139,6 +143,14 @@ export class MainInitiativesFormComponent implements OnInit {
     const index = this.selectedProfesores.indexOf(profesor);
     if (index > -1) {
       this.selectedProfesores.splice(index, 1);
+    }
+  }
+
+  // Función para mostrar u ocultar los inputs de los checkbox de las redes sociales
+  toggleInput(id: string) {
+    const input = document.getElementById(id + "-link");
+    if (input) {
+      input.style.display = input.style.display === "none" ? "block" : "none";
     }
   }
 

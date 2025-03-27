@@ -1,9 +1,9 @@
-<!-- Filtro de tipos de poyecto -->
-<div class="filters ">
+<div class="filters bg-light">
     <div class="w-100 d-flex align-items-center mb-4">
         <div>
+            <!-- Filtro de tipos de poyecto -->
             <h6>Tipo de Iniciativa:</h6>
-            <button *ngFor="let type of ['Todos', 'Charla/Taller', 'Salida', 'Proyecto', 'Acciones Internas', 'Otros']"
+            <button *ngFor="let type of ['Todos', 'Charla', 'Taller', 'Salida', 'Proyecto', 'Acciones Internas', 'Otros']"
                     [class.active]="filtroTipoIniciativa === type"
                     (click)="filtrarIniciativas(type)"
                     class="mx-3 btn">
@@ -85,50 +85,84 @@
                         </div>
                     </div>
                 </div>
-                <span class="badge-charla-taller badge">
-                    {{iniciativa.TipoIniciativa}}
-                </span>
-                <span *ngIf="iniciativa.EsInnovadora" class="innovador-badge badge">
-                    Innovador
-                </span>
+                <div>
+                    <span class="badge" [ngClass]="getBadgeClase(iniciativa.TipoIniciativa)">
+                        {{iniciativa.TipoIniciativa}}
+                    </span>
+                    <span *ngIf="iniciativa.EsInnovadora" class="badge">
+                        Innovador
+                    </span>
+                </div>
                 
-
-
-                <br>
-                <p class="mb-0"><span class="fw-bold">Líder del proyecto:</span> {{iniciativa.Profesores[0].Nombre+" "+iniciativa.Profesores[0].Apellido1}}</p>
-                <p class="d-inline fontSize-small me-5"><span class="fw-bold">Fecha de inicio:</span> {{iniciativa.FechaInicio}}</p>
-                <p class="d-inline fontSize-small"><span class="fw-bold">Fecha de fin:</span> {{iniciativa.FechaFin}}</p>
-                <p class="fontSize-small mb-0"><span class="fw-bold">Curso:</span> 24-25</p>
-                <p class="mb-3"><span class="fw-bold">Ubicación:</span> Sala Azul</p>
-                <p><span class="fw-bold">Descripción:</span> {{iniciativa.Descripcion}}</p>
-                <ng-container *ngIf="iniciativa?.EntidadesExteriores?.length">
-                <p><span class="fw-bold">Entidades externas:</span> {{obtenerEntidades(iniciativa.EntidadesExteriores)}}</p>
-                </ng-container>
-                <p><span class="fw-bold">Clases/Cursos:</span> {{obtenerNombresCursos(iniciativa.Asignaturas)}}</p>
-                <p><span class="fw-bold">Módulos:</span> {{obtenerModulosYCursos(iniciativa.Asignaturas)}}</p>
-                <p><span class="fw-bold">ODS:</span> {{obtenerODS(iniciativa.Metas)}}</p>
-                <p><span class="fw-bold">Metas:</span> {{obtenerMetas(iniciativa.Metas)}}</p>
-                <div class="d-flex justify-content-between mt-auto w-100">
-                    <a (click)="openModalDetailsCard(iniciativa.Id.toString(), iniciativa)" class="cursorStyle text-info-emphasis">Ver detalles</a>
-                    <div *ngIf="openModalDetails == iniciativa.Id.toString()" class="modal-overlay">
-                        <div class="modal-content">
-                            <span class="close" (click)="closeModal()">&times;</span>
-                            <h2>{{ selectedIniciativa.Titulo }}</h2>
-                            <p><strong>Tipo:</strong> {{ selectedIniciativa.TipoIniciativa }}</p>
-                            <p><strong>Descripción:</strong> {{ selectedIniciativa.Descripcion }}</p>
-                            <p><strong>Fecha Inicio:</strong> {{ selectedIniciativa.FechaInicio | date }}</p>
-                            <p><strong>Fecha Fin:</strong> {{ selectedIniciativa.FechaFin | date }}</p>
-                            <p><strong>Curso:</strong> {{ selectedIniciativa.Asignaturas[0]?.nombreCurso || 'No asignado' }}</p>
-                        </div>
+                <div class="d-flex gap-4">
+                    <div class="labelsContainer">
+                        <p class="mb-0">Líder del proyecto:</p>
+                        <p>Fecha de inicio:</p>
+                        <p>Fecha de fin:</p>
+                        <p>Curso:</p>
+                        <p class="mb-3">Ubicación:</p>
+                        <p>Descripción:</p>
+                        <br>
+                        <ng-container *ngIf="iniciativa?.EntidadesExteriores?.length">
+                        <p>Entidades externas:</p>
+                        </ng-container>
+                        <p>Clases/Cursos:</p>
+                        <p>Módulos:</p>
+                        <p>ODS:</p>
+                        <p>Metas:</p>
                     </div>
-                    <!-- <ul class="list-unstyled me-5">
+                    <div class="dataContainer">
+                        <p class="mb-0">{{iniciativa.Profesores[0].Nombre+" "+iniciativa.Profesores[0].Apellido1}}</p>
+                        <p>{{iniciativa.FechaInicio}}</p>
+                        <p>{{iniciativa.FechaFin}}</p>
+                        <p class=" mb-0">24-25</p>
+                        <p class="mb-3">Sala Azul</p>
+                        <p>{{iniciativa.Descripcion}}</p>
+                        <ng-container *ngIf="iniciativa?.EntidadesExteriores?.length">
+                        <p>{{obtenerEntidades(iniciativa.EntidadesExteriores)}}</p>
+                        </ng-container>
+                        <p>{{obtenerNombresCursos(iniciativa.Asignaturas)}}</p>
+                        <p>{{obtenerModulosYCursos(iniciativa.Asignaturas)}}</p>
+                        <p>{{obtenerODS(iniciativa.Metas)}}</p>
+                        <p>{{obtenerMetas(iniciativa.Metas)}}</p>
+                    </div>
+                </div>
+
+
+
+                <div class="d-flex justify-content-between mt-auto pt-2 w-100 border-top border-black">
+                    <a (click)="openModalDetailsCard(iniciativa.Id.toString(), iniciativa)" class="cursorStyle btn border border-secondary-subtle d-flex align-items-center gap-1 ">
+                        <img src="../../assets/eye.svg" alt="eye-icon">
+                        <span class=" text-primary-emphasis">
+                            Ver detalles
+                        </span>
+                    </a>
+                    
+                    <ul class="list-unstyled me-5">
                         <li class="">
                             <a class="text-decoration-none"><img src="../../../assets/linkedin.svg" alt="linkedin-icon" class="cursorStyle"></a>
                         </li>
-                    </ul> -->
+                    </ul>
                 </div>
             </div>
         </div>
         }
+        <div *ngIf="selectedIniciativaId !== '0'" class="modal-overlay">
+            <div class="modal-content">
+                <span class="close" (click)="closeModal()">&times;</span>
+                <h2>{{ selectedIniciativa.Titulo }}</h2>
+                <p><strong>Tipo:</strong> {{ selectedIniciativa.TipoIniciativa }}</p>
+                <p><strong>Descripción:</strong> {{ selectedIniciativa.Descripcion }}</p>
+                <div class="d-inline-flex flex-column">
+                    <span class="labelsColor">Fecha Inicio</span>
+                    <span>{{ selectedIniciativa.FechaInicio | date }}</span>
+                </div>
+                <div class="d-inline-flex flex-column">
+                    <span class="labelsColor">Fecha Fin</span>
+                    <span>{{ selectedIniciativa.FechaFin | date }}</span>
+                </div>
+                <p><strong>Curso:</strong> {{ selectedIniciativa.Asignaturas[0]?.nombreCurso || 'No asignado' }}</p>
+            </div>
+        </div>
     </div>
 </div>

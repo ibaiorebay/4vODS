@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
   styleUrl: './main-initiatives-info.component.scss'
 })
 export class MainInitiativesInfoComponent {
-  iniciativas: Iniciativa[]=[];
+  iniciativas: Iniciativa[] = [];
   iniciativasFiltradas: Iniciativa[] = [];
   isDropdownOpen = false; // Estado del menú desplegable
   cursos: string[] = [];
@@ -33,12 +33,15 @@ export class MainInitiativesInfoComponent {
 
   ngOnInit(): void {
     // Cargar todas las iniciativas
-    this.iniciativaService.getIniciativas().subscribe((data) => {
-      this.iniciativas = data;
-      this.iniciativasFiltradas = data;
-      console.log(this.iniciativas);
-    });
+    // this.iniciativaService.getIniciativas().subscribe((data) => {
+    //   this.iniciativas = data;
+    //   this.iniciativasFiltradas = data;
+    //   console.log(this.iniciativas);
+    // });
     // this.iniciativas = this.iniciativaService.Iniciativas;
+
+
+    this.iniciativas = this.iniciativaService.getIniciativasMock();
     this.iniciativasFiltradas = this.iniciativas;
     this.cursos = this.iniciativaService.Cursos;
     this.profesores = this.iniciativaService.Profesores;
@@ -47,9 +50,8 @@ export class MainInitiativesInfoComponent {
     this.metasOds = this.iniciativaService.MetasOds;
   }
 
-  // Mantén un objeto que controle qué dropdown está abierto
-  openDropdownId: string | null = null;
 
+  openDropdownId: string | null = null;
   // Cambia el estado del dropdown según el id de la iniciativa
   toggleDropdown(id: string): void {
     this.openDropdownId = this.openDropdownId === id ? null : id;
@@ -57,25 +59,18 @@ export class MainInitiativesInfoComponent {
 
 
   // Mantén un objeto que controle qué dropdown está abierto
-  openModalDetails: string = "0";
+  selectedIniciativaId: string = "0";
   selectedIniciativa: any = null;
-
-  // // Cambia el estado del dropdown según el id de la iniciativa
-  // openModalDetailsCard(id: string, iniciativa: any): void {
-  //   this.selectedIniciativa = iniciativa;
-  //   this.openModalDetails = this.openModalDetails === id ? null : id;
-  // }
   
   // Función para manejar la apertura del modal con la iniciativa seleccionada.
   openModalDetailsCard(id: string, iniciativa: any) {
-    this.openModalDetails = id; 
+    this.selectedIniciativaId = id; 
     this.selectedIniciativa = iniciativa; // Establecemos los detalles de la iniciativa seleccionada.
   }
 
   // Función para cerrar el modal.
   closeModal() {
-    // this.selectedIniciativa = {}; // Limpiamos los detalles de la iniciativa al cerrar el modal.
-    this.openModalDetails = "0";
+    this.selectedIniciativaId = "0";
   }
 
 
@@ -84,10 +79,6 @@ export class MainInitiativesInfoComponent {
     this.filtroInnovador = !this.filtroInnovador;
     this.filtrarIniciativas();
   }
-
-  // toggleDropdown() {
-  //   this.isDropdownOpen = !this.isDropdownOpen; // Alternar el estado del menú
-  // }
 
   obtenerNombresCursos(asignaturas: Asignatura[]): string {
     const repetidos: string[] = [];
@@ -101,9 +92,6 @@ export class MainInitiativesInfoComponent {
         }
       }).join(', ')
       : 'Sin Asignaturas';
-    // let result = asignaturas && asignaturas.length > 0
-    //   ? asignaturas.filter(asignatura => ).map(asignatura => asignatura.getNombreCurso).join(', ')
-    //   : 'Sin Asignaturas';
 
     return result;
   }
@@ -203,4 +191,24 @@ export class MainInitiativesInfoComponent {
     // this.iniciativasFiltradas = this.iniciativaService.deleteIniciativa(Number(id));
   }
 
+
+  getBadgeClase(tipoIniciativa: string): string {
+
+    switch (tipoIniciativa) {
+      case 'Charla':
+        return 'badge-charla';
+        case 'Taller':
+        return 'badge-taller';
+      case 'Salida':
+        return 'badge-salida';
+      case 'Proyecto':
+        return 'badge-proyecto';
+      case 'Acciones Internas':
+        return 'badge-acciones-internas';
+      case 'Otros':
+        return 'badge-otros';
+      default:
+        return 'badge';
+    }
+  }
 } 

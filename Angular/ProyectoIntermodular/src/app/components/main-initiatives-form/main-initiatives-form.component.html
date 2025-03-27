@@ -1,14 +1,49 @@
 <div class="custom-modal-container">
     <div class="custom-modal">
       <div class="custom-modal-header">
-        <h3>Nueva Iniciativa</h3>
+        <h5>Nueva Iniciativa</h5>
       </div>
       <div class="custom-modal-body">
         <form [formGroup]="form">
+
+          <div class="mb-3">
+            <label>El proyecto es innovador?</label>
+              <div class="template-card me-5" (click)="selectTemplate(1)">
+                <p class="mb-1">💡 Innovadora</p>
+                <p class="subtitle">Propuesta novedosa que introduce mejoras significativas, nuevas tecnologías o procesos disruptivos.</p>
+              </div>
+              <div class="template-card" (click)="selectTemplate(2)">
+                <p class="mb-1">📄 Convencional</p>
+                <p class="subtitle">Basada en enfoques probados y establecidos, optimizando procesos sin cambios radicales.</p>
+              </div>
+          </div>
+
           <div class="mb-3">
             <label for="titulo">Título de Iniciativa</label>
             <input id="titulo" type="text" class="form-control" formControlName="titulo">
           </div>
+
+          <div class="mb-3">
+            <label>Tipo de proyecto</label>
+            <div class="d-inline-flex flex-column me-5">
+              <input type="radio" id="opcion1" name="opciones" class="custom-radio">
+              <label for="opcion1">Charla</label>
+              <input type="radio" id="opcion2" name="opciones" class="custom-radio">
+              <label for="opcion2">Taller</label>
+              <input type="radio" id="opcion3" name="opciones" class="custom-radio">
+              <label for="opcion3">Salida</label>
+            </div>
+            <div class="d-inline-flex flex-column">
+              <input type="radio" id="opcion4" name="opciones" class="custom-radio">
+              <label for="opcion4">Proyecto</label>
+              <input type="radio" id="opcion5" name="opciones" class="custom-radio">
+              <label for="opcion5">Acciones Internas</label>
+              <input type="radio" id="opcion6" name="opciones" class="custom-radio">
+              <label for="opcion6">Otros</label>
+            </div>
+          </div>
+        
+
           <div class="mb-3">
             <label for="horas">Horas</label>
             <input id="horas" type="number" class="form-control" formControlName="horas">
@@ -35,9 +70,12 @@
           <div class="mb-3">
             <label>Asignaturas Seleccionadas</label>
             <div *ngFor="let asignatura of selectedAsignaturas" class="badge-container">
-              <span class="badge badge-pill badge-primary">
+              <span class="badge  badge-primary">
                 {{ asignatura.nombre }}
-                <span class="badge badge-close" (click)="removeAsignatura(asignatura)">X</span>
+                <!-- <span class="badge badge-close" (click)="removeAsignatura(asignatura)"> -->
+                <span class="badge-close" (click)="removeAsignatura(asignatura)">
+                  <img src="../../assets/x.svg" alt="close-icon">
+                </span>
               </span>
             </div>
           </div>
@@ -53,9 +91,11 @@
           <div class="mb-3">
             <label>Entidades Seleccionadas</label>
             <div *ngFor="let entidad of selectedEntidades" class="badge-container">
-              <span class="badge badge-pill badge-info">
+              <span class="badge  badge-info">
                 {{ entidad.nombre }}
-                <span class="badge badge-close" (click)="removeEntidad(entidad)">X</span>
+                <span class="badge-close" (click)="removeEntidad(entidad)">
+                  <img src="../../assets/x.svg" alt="close-icon">
+                </span>
               </span>
             </div>
           </div>
@@ -71,9 +111,11 @@
           <div class="mb-3">
             <label>Metas Seleccionadas</label>
             <div *ngFor="let meta of selectedMetas" class="badge-container">
-              <span class="badge badge-pill badge-success d-inline-block">
+              <span class="badge  badge-success d-inline-block">
                 {{ meta.nombre }}
-                <span class="badge badge-close" (click)="removeMeta(meta)">X</span>
+                <span class="badge-close" (click)="removeMeta(meta)">
+                  <img src="../../assets/x.svg" alt="close-icon">
+                </span>
               </span>
             </div>
           </div>
@@ -89,12 +131,51 @@
           <div class="mb-3">
             <label>Profesores Seleccionados</label>
             <div *ngFor="let profesor of selectedProfesores" class="badge-container">
-              <span class="badge badge-pill badge-warning">
+              <span class="badge  badge-warning">
                 {{ profesor.nombre }}
-                <span class="badge badge-close" (click)="removeProfesor(profesor)">X</span>
+                <span class="badge-close" (click)="removeProfesor(profesor)">
+                  <img src="../../assets/x.svg" alt="close-icon">
+                </span>
               </span>
             </div>
           </div>
+
+          <!-- Descripcion -->
+          <div class="mb-3">
+            <label>Descripción</label>
+            <textarea class="d-block"></textarea>
+          </div>
+
+
+          <!-- Redes sociales inputs -->
+          <div class="social-container mb-3 mt-4">
+            <label class="form-title">Selecciona tus redes sociales:</label>
+            
+            <div class="social-option">
+                <input type="checkbox" id="linkedin" class="social-checkbox" (click)="toggleInput('linkedin')">
+                <label for="linkedin" class="mb-0"> Linkedin</label>
+                <input type="text" id="linkedin-link" class="social-input" placeholder="Ingresa tu enlace de Linkedin" style="display: none;">
+            </div>
+
+            <div class="social-option">
+                <input type="checkbox" id="facebook" class="social-checkbox" (click)="toggleInput('facebook')">
+                <label for="facebook" class="mb-0"> Facebook</label>
+                <input type="text" id="facebook-link" class="social-input" placeholder="Ingresa tu enlace de Facebook" style="display: none;">
+            </div>
+        
+            <div class="social-option">
+                <input type="checkbox" id="twitter" class="social-checkbox" (click)="toggleInput('twitter')">
+                <label for="twitter" class="mb-0"> Twitter</label>
+                <input type="text" id="twitter-link" class="social-input" placeholder="Ingresa tu enlace de Twitter" style="display: none;">
+            </div>
+        
+            <div class="social-option">
+                <input type="checkbox" id="instagram" class="social-checkbox" (click)="toggleInput('instagram')">
+                <label for="instagram" class="mb-0"> Instagram</label>
+                <input type="text" id="instagram-link" class="social-input" placeholder="Ingresa tu enlace de Instagram" style="display: none;">
+            </div>
+        </div>
+        
   
           <button class="btn btn-save" (click)="save()">Guardar</button>
         </form>
