@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
 using API.DTO;
+using API.DTO.Iniciativa;
 
 namespace API.Controllers
 {

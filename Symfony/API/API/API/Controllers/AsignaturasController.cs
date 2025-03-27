@@ -1,4 +1,4 @@
-﻿using API.DTO;
+﻿using API.DTO.Asignatura;
 using API.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

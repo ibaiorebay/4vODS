@@ -1,4 +1,5 @@
-﻿using API.Models;
+﻿using API.DTO.Asignatura;
+using API.Models;
 
 namespace API.DTO
 {
