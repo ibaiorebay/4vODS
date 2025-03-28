@@ -1,4 +1,3 @@
-// Variables de colores
 $primary-color: #007bff;
 $gradient-start: #1e3c72;
 $gradient-end: #2a5298;
@@ -6,20 +5,15 @@ $text-color: #ffffff;
 $input-border: #ccc;
 $shadow-color: rgba(0, 0, 0, 0.2);
 
-
-
-
-// Contenedor que utiliza Flexbox para centrar el modal
 .custom-modal-container {
-    margin: 3rem auto;
+    padding: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
     background-image: url(../../assets/p3.jpg);
     background-repeat: no-repeat;
-    background-size: cover;
-  
+    background-size: cover;  
 
     .custom-modal {
         width: 100%;
@@ -29,8 +23,6 @@ $shadow-color: rgba(0, 0, 0, 0.2);
         padding: 2rem;
         border-radius: 10px;
         box-shadow: 0px 4px 12px $shadow-color;
-
-        // Hover para darle un pequeño efecto de elevación
 
         .custom-modal-header {
             text-align: center;
@@ -86,7 +78,6 @@ $shadow-color: rgba(0, 0, 0, 0.2);
     }
 }
 
-  /* Estilos de los badges */
 .badge-container {
     display: inline-block;
   }
@@ -108,40 +99,11 @@ $shadow-color: rgba(0, 0, 0, 0.2);
     padding: 2px 3px;
     border-radius: 20px;
     cursor: pointer;
-    // font-weight: bold;
-    // color: #fff;
     color: black;
-    // background: red;
     background: white;
     border: none;
   }
-  
-  // .badge-primary {
-  //   background-color: #007bff;
-  // }
-  
-  // .badge-info {
-  //   background-color: #17a2b8;
-  // }
-  
-  // .badge-success {
-  //   background-color: #28a745;
-  // }
-  
-  // .badge-warning {
-  //   background-color: #ffc107;
-  // }
-  
-  // .badge-light {
-  //   background-color: #f8f9fa;
-  // }
 
-
-
-
-
-
-// Estilos para los radio buttons
 .custom-radio {
     display: none;
 }
@@ -150,8 +112,6 @@ $shadow-color: rgba(0, 0, 0, 0.2);
     position: relative;
     padding-left: 30px;
     cursor: pointer;
-    // font-size: 16px;
-    // color: #333;
 }
 
 .custom-radio + label::before {
@@ -189,8 +149,6 @@ $shadow-color: rgba(0, 0, 0, 0.2);
 .custom-radio:checked + label::after {
     transform: translateY(-50%) scale(1);
 }
-
-  
   
   .template-card {
     display: inline-flex;
@@ -215,12 +173,6 @@ $shadow-color: rgba(0, 0, 0, 0.2);
         font-size: .7rem;
         margin-bottom: 0;
     }   
-
-
-
-
-
-
 
     .social-container {
         display: flex;
@@ -248,7 +200,6 @@ $shadow-color: rgba(0, 0, 0, 0.2);
         width: 80% !important;
         height: 2rem;
         margin-left: auto;
-        // padding: 8px;
         border: 1px solid #ccc;
         border-radius: 5px;
         display: none;
