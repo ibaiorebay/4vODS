@@ -442,7 +442,6 @@ export class IniciativaService {
       )) : []
     );
 
-    // console.log(iniciativa);
     return iniciativa;
   }
 
@@ -454,7 +453,6 @@ export class IniciativaService {
       data.iD_CURSO,
       data.nombre
     );
-    console.log(asignatura);
     return asignatura;
   }
 
@@ -465,7 +463,6 @@ export class IniciativaService {
       data.iD_CURSO,
       data.nombrecurso
     );
-    console.log(curso);
     return curso;
   }
 
@@ -477,7 +474,6 @@ export class IniciativaService {
       data.iD_ODS,
       data.descripcion
     );
-    console.log(meta);
     return meta;
   }
 
@@ -488,7 +484,6 @@ export class IniciativaService {
       data.iD_ODS,
       data.nombre
     );
-    console.log(ods);
     return ods;
   }
 
@@ -499,7 +494,6 @@ export class IniciativaService {
       data.iD_Profesor,
       data.nombre
     );
-    console.log(profesor);
     return profesor;
   }
 
@@ -511,7 +505,6 @@ export class IniciativaService {
       data.nombre,
       data.descripcion
     );
-    console.log(entidadExterior);
     return entidadExterior;
   }
 

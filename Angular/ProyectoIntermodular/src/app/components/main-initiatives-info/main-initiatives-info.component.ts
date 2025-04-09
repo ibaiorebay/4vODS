@@ -7,6 +7,9 @@ import { Meta } from '../../models/meta';
 import { EntidadExterior } from '../../models/entidad-exterior';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Ods } from '../../models/ods';
+import { Profesor } from '../../models/profesor';
+import { Curso } from '../../models/curso';
 
 
 @Component({
@@ -21,11 +24,11 @@ export class MainInitiativesInfoComponent {
   iniciativasFiltradas: Iniciativa[] = [];
   isDropdownOpen = false; // Estado del menú desplegable
 
-  cursos: string[] = [];
-  profesores: string[] = [];
-  asignaturas: string[] = [];
-  ods: string[] = [];
-  metasOds: any;
+  cursos: Curso[] = [];
+  profesores: Profesor[] = [];
+  asignaturas: Asignatura[] = [];
+  ods: Ods[] = [];
+  // metasOds: any;
   filtroInnovador = false;
   
   constructor(private iniciativaService: IniciativaService, private router: Router) {
@@ -34,46 +37,50 @@ export class MainInitiativesInfoComponent {
 
   ngOnInit(): void {
     // Cargar todas las iniciativas
-    // this.iniciativaService.getIniciativas().subscribe((data) => {
-    //   this.iniciativas = data;
-    //   this.iniciativasFiltradas = data;
-    //   console.log(this.iniciativas);
-    // });
+    this.iniciativaService.getIniciativas().subscribe((data) => {
+      this.iniciativas = data;
+      this.iniciativasFiltradas = data;
+      console.log(this.iniciativas);
+    });
     // this.iniciativas = this.iniciativaService.Iniciativas;
 
     this.iniciativaService.getAsignaturas().subscribe((asignaturas: any) => {
       console.log("Asignaturas recibidas:", asignaturas);
-      
+      this.asignaturas = asignaturas;
     });
 
-    this.iniciativaService.getMetas().subscribe((asignaturas: any) => {
-      console.log("metas recibidas:", asignaturas);
+    this.iniciativaService.getMetas().subscribe((metas: any) => {
+      console.log("metas recibidas:", metas);
+      // this.metas
     });
 
-    this.iniciativaService.getCursos().subscribe((asignaturas: any) => {
-      console.log("cursos recibidas:", asignaturas);
+    this.iniciativaService.getCursos().subscribe((cursos: any) => {
+      console.log("cursos recibidas:", cursos);
+      this.cursos = cursos;
     });
 
-    this.iniciativaService.getOds().subscribe((asignaturas: any) => {
-      console.log("ods recibidas:", asignaturas);
+    this.iniciativaService.getOds().subscribe((ods: any) => {
+      console.log("ods recibidas:", ods);
+      this.ods = ods;
     });
 
-    this.iniciativaService.getProfesores().subscribe((asignaturas: any) => {
-      console.log("profes recibidas:", asignaturas);
+    this.iniciativaService.getProfesores().subscribe((profesores: any) => {
+      console.log("profes recibidas:", profesores);
+      this.profesores = profesores;
     });
 
-    this.iniciativaService.getIniciativas().subscribe((asignaturas: any) => {
-      console.log("iniciativas recibidas:", asignaturas);
-    });
+    // this.iniciativaService.getIniciativas().subscribe((asignaturas: any) => {
+    //   console.log("iniciativas recibidas:", asignaturas);
+    // });
 
 
     this.iniciativas = this.iniciativaService.getIniciativasMock();
     this.iniciativasFiltradas = this.iniciativas;
-    this.cursos = this.iniciativaService.Cursos;
-    this.profesores = this.iniciativaService.Profesores;
-    this.asignaturas = this.iniciativaService.Asignaturas;
-    this.ods = this.iniciativaService.Ods;
-    this.metasOds = this.iniciativaService.MetasOds;
+    // this.cursos = this.iniciativaService.Cursos;
+    // this.profesores = this.iniciativaService.Profesores;
+    // this.asignaturas = this.iniciativaService.Asignaturas;
+    // this.ods = this.iniciativaService.Ods;
+    // this.metasOds = this.iniciativaService.MetasOds;
   }
 
 
@@ -146,7 +153,7 @@ export class MainInitiativesInfoComponent {
   }
 
   obtenerMetas(metas: Meta[]): string {
-    let result = metas.map(meta => `${meta.NumeroOds}.${meta.CaracterMeta}`).join(', ');
+    let result = metas.map(meta => `${meta.NumeroOds}.${meta.NumeroMeta}`).join(', ');
     return result;
   }
 

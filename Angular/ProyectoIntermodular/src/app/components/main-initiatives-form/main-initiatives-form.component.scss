@@ -208,6 +208,16 @@ $shadow-color: rgba(0, 0, 0, 0.2);
       border-color: #007bff;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
+
+    &.selected {
+        border: 2px solid #007bff;
+        background-color: rgba(0, 123, 255, 0.1);
+    }
+      
+    &:not(.selected) {
+        filter: grayscale(80%);
+        opacity: 0.6;
+    }
     
   }
 
