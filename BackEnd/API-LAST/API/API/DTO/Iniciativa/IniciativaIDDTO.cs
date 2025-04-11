@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace API.DTO
+namespace API.DTO.Iniciativa
 {
     public class IniciativaIDDTO
     {
