@@ -101,7 +101,7 @@ namespace API.Controllers
                 .Include(i => i.ID_METAs)
                     .ThenInclude(m => m.ID_ODSNavigation) // Incluye información del ODS
                 .Include(i => i.ID_PROFESORs)
-                .Where(i=>i.ID_ASIGNATURAs.Any(ia=>ia.ID_CURSONavigation.NOMBRE.ToLower()==nombreCurso.ToLower()))
+                .Where(i => i.ID_ASIGNATURAs.Any(ia => ia.ID_CURSONavigation.NOMBRE.ToLower() == nombreCurso.ToLower()))
                 .Select(i => new IniciativaDTO
                 {
                     ID_INICIATIVA = i.ID_INICIATIVA,
@@ -161,10 +161,10 @@ namespace API.Controllers
         {
             var iniciativas = await _context.iniciativas
                 .Include(i => i.ID_ASIGNATURAs)
-                    .ThenInclude(a => a.ID_CURSONavigation) // Incluye curso en asignaturas
+                    .ThenInclude(a => a.ID_CURSONavigation) 
                 .Include(i => i.ID_ENTIDADs)
                 .Include(i => i.ID_METAs)
-                    .ThenInclude(m => m.ID_ODSNavigation) // Incluye información del ODS
+                    .ThenInclude(m => m.ID_ODSNavigation)
                 .Include(i => i.ID_PROFESORs)
                 .Where(i=>i.ID_METAs.Any(im=>im.ID_ODSNavigation.DIMENSION.ToLower()=="social"))
                 .Select(i => new IniciativaDTO
@@ -180,7 +180,6 @@ namespace API.Controllers
                     NUEVA = i.NUEVA,
                     DIFUSION = i.DIFUSION,
 
-                    // ✅ Mapeo de asignaturas con información completa
                     ID_ASIGNATURAs = i.ID_ASIGNATURAs.Select(ia => new AsignaturaDTO
                     {
                         ID_ASIGNATURA = ia.ID_ASIGNATURA,
@@ -189,7 +188,6 @@ namespace API.Controllers
                         NOMBRE_CURSO = ia.ID_CURSONavigation.NOMBRE
                     }).ToList(),
 
-                    // ✅ Mapeo de entidades con información completa
                     ID_ENTIDADs = i.ID_ENTIDADs.Select(e => new entidad
                     {
                         ID_ENTIDAD = e.ID_ENTIDAD,
@@ -197,7 +195,6 @@ namespace API.Controllers
                         DESCRIPCION = e.DESCRIPCION
                     }).ToList(),
 
-                    // ✅ Mapeo de profesores con información completa
                     ID_PROFESORs = i.ID_PROFESORs.Select(p => new profesore
                     {
                         ID_PROFESOR = p.ID_PROFESOR,
@@ -206,8 +203,6 @@ namespace API.Controllers
                         APELLIDO2 = p.APELLIDO2,
                         FECHA_NACIMIENTO = p.FECHA_NACIMIENTO
                     }).ToList(),
-
-                    // ✅ Mapeo de metas con información del ODS
                     ID_METAs = i.ID_METAs.Select(im => new MetasDTO
                     {
                         ID_META = im.ID_META,
@@ -247,7 +242,6 @@ namespace API.Controllers
                     NUEVA = i.NUEVA,
                     DIFUSION = i.DIFUSION,
 
-                    // ✅ Mapeo de asignaturas con información completa
                     ID_ASIGNATURAs = i.ID_ASIGNATURAs.Select(ia => new AsignaturaDTO
                     {
                         ID_ASIGNATURA = ia.ID_ASIGNATURA,
@@ -256,7 +250,6 @@ namespace API.Controllers
                         NOMBRE_CURSO = ia.ID_CURSONavigation.NOMBRE
                     }).ToList(),
 
-                    // ✅ Mapeo de entidades con información completa
                     ID_ENTIDADs = i.ID_ENTIDADs.Select(e => new entidad
                     {
                         ID_ENTIDAD = e.ID_ENTIDAD,
@@ -264,7 +257,6 @@ namespace API.Controllers
                         DESCRIPCION = e.DESCRIPCION
                     }).ToList(),
 
-                    // ✅ Mapeo de profesores con información completa
                     ID_PROFESORs = i.ID_PROFESORs.Select(p => new profesore
                     {
                         ID_PROFESOR = p.ID_PROFESOR,
@@ -274,7 +266,6 @@ namespace API.Controllers
                         FECHA_NACIMIENTO = p.FECHA_NACIMIENTO
                     }).ToList(),
 
-                    // ✅ Mapeo de metas con información del ODS
                     ID_METAs = i.ID_METAs.Select(im => new MetasDTO
                     {
                         ID_META = im.ID_META,
@@ -315,7 +306,6 @@ namespace API.Controllers
                     NUEVA = i.NUEVA,
                     DIFUSION = i.DIFUSION,
 
-                    // ✅ Mapeo de asignaturas con información completa
                     ID_ASIGNATURAs = i.ID_ASIGNATURAs.Select(ia => new AsignaturaDTO
                     {
                         ID_ASIGNATURA = ia.ID_ASIGNATURA,
@@ -324,7 +314,6 @@ namespace API.Controllers
                         NOMBRE_CURSO = ia.ID_CURSONavigation.NOMBRE
                     }).ToList(),
 
-                    // ✅ Mapeo de entidades con información completa
                     ID_ENTIDADs = i.ID_ENTIDADs.Select(e => new entidad
                     {
                         ID_ENTIDAD = e.ID_ENTIDAD,
@@ -332,7 +321,6 @@ namespace API.Controllers
                         DESCRIPCION = e.DESCRIPCION
                     }).ToList(),
 
-                    // ✅ Mapeo de profesores con información completa
                     ID_PROFESORs = i.ID_PROFESORs.Select(p => new profesore
                     {
                         ID_PROFESOR = p.ID_PROFESOR,
@@ -342,7 +330,6 @@ namespace API.Controllers
                         FECHA_NACIMIENTO = p.FECHA_NACIMIENTO
                     }).ToList(),
 
-                    // ✅ Mapeo de metas con información del ODS
                     ID_METAs = i.ID_METAs.Select(im => new MetasDTO
                     {
                         ID_META = im.ID_META,
@@ -367,6 +354,29 @@ namespace API.Controllers
             return iniciativas;
         }
 
+
+        //INDICADOR4
+        [HttpGet("NumeroIniciativas/{tipo}")]
+        public async Task<int> GetNumeroIniciativasPorTipo(string tipo)
+        {
+            var iniciativas = _context.iniciativas.Select(i=>i).Where(i=>i.TIPO.ToLower()==tipo.ToLower()).Count();
+
+            return iniciativas;
+        }
+        //INDICADOR7
+        [HttpGet("TipoDescPF")]
+        public async Task<IEnumerable<Indicador7>> GetTipoDescPF()
+        {
+            var iniciativas = _context.iniciativas
+                .Select(i => new Indicador7
+                {
+                    Descripcion = i.DESCRIPCION,
+                    ProductoFinal = String.IsNullOrWhiteSpace(i.PRODUCTO_FINAL),
+                    Tipo = i.TIPO
+                });
+
+            return iniciativas;
+        }
 
 
         // GET: api/iniciativas/5

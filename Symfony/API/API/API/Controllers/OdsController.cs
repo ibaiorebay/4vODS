@@ -1,4 +1,4 @@
-﻿using API.DTO;
+﻿using API.DTO.ODS;
 using API.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -32,7 +32,22 @@ namespace API.Controllers
 
             return odss;
         }
+        //INDICADOR5
+        [HttpGet("OdsPorNombre/{ods}")]
+        public async Task<ActionResult<IEnumerable<OdsMetasDto>>> GetODS(string ods)
+        {
+            var odss = await _context.ods
+                .Where(o => o.DESCRIPCION.ToLower() == ods.ToLower())
+                .Select(o => new OdsMetasDto
+                {
+                    NOMBRE = o.NOMBRE,
+                    metas = o.meta.Select(m => m.DESCRIPCION).ToList()
 
+                })
+                .ToListAsync();
+
+            return odss;
+        }
 
         // GET api/<ValuesController>/5
         [HttpGet("{id}")]

@@ -33,6 +33,20 @@ namespace API.Controllers
             return profes;
         }
 
+        //INDICADOR6
+        [HttpGet("ProfesoresNumIniciativas")]
+        public async Task<ActionResult<IEnumerable<ProfesorNumeroIniciativasDto>>> GetProfesor()
+        {
+            var profes = await _context.profesores
+                .Select(p => new ProfesorNumeroIniciativasDto
+                {
+                    Nombre=p.NOMBRE + " " + p.APELLIDO1 + " " + p.APELLIDO2,
+                    NumeroIniciativas=p.ID_INICIATIVAs.Count()
+                })
+                .ToListAsync();
+
+            return profes;
+        }
 
         // GET api/<ValuesController>/5
         [HttpGet("{id}")]
