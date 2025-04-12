@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, NgControl, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { IniciativaService } from '../../services/iniciativa.service';
-import { Asignatura } from '../../models/asignatura';
-import { EntidadExterior } from '../../models/entidad-exterior';
+import { Iniciativa } from '../../models/iniciativa';
 
 
 @Component({
@@ -17,7 +16,7 @@ import { EntidadExterior } from '../../models/entidad-exterior';
 export class MainInitiativesFormComponent implements OnInit {
 
   form!: FormGroup;
-  iniciativaId: string | null = null;
+  idIniciativaAEditar: number | null = null;
 
   selectedAsignaturas: any[] = [];
   selectedEntidades: any[] = [];
@@ -63,25 +62,47 @@ export class MainInitiativesFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.iniciativaId = this.route.snapshot.paramMap.get('id');
-    // console.log('Iniciativa ID:', this.iniciativaId);
+    const idParam = this.route.snapshot.paramMap.get('id');
 
+    if (idParam) {
+      this.idIniciativaAEditar = parseInt(idParam, 10);
+      console.log('Iniciativa ID:', this.idIniciativaAEditar);
+
+      this.iniciativaService.getIniciativaById(this.idIniciativaAEditar).subscribe(
+        (iniciativa) => {
+          console.log('Iniciativa cargada:', iniciativa);
+          this.crearFormulario(iniciativa);
+        },
+        (error) => {
+          console.error('Error al obtener la iniciativa:', error);
+          this.crearFormulario(); // En caso de error, creamos un formulario vacío
+        }
+      );
+    } else {
+      this.crearFormulario(); // Nuevo formulario sin datos
+    }
+  }
+
+  private crearFormulario(iniciativa?: any): void {
     //validarFechas es un validador de formulario a nivel de grupo, no un validador de campo individual. Le estás diciendo a Angular que cada vez que cualquier campo del formulario cambie, se ejecute el validador. Esto se debe a que los validadores de grupo se ejecutan siempre que el formulario se vuelve a evaluar (lo cual pasa cuando cualquier campo cambia).
     this.form = this.fb.group({
-      innovador: [null, Validators.required], // Será true o false
-      titulo: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
-      horas: ['', [Validators.required, Validators.min(1), Validators.max(100)]], 
-      fechaInicio: ['', Validators.required],
-      fechaFin: ['', Validators.required],
+      innovador: [iniciativa?.EsInnovadora ?? null, Validators.required],// Será true o false
+      titulo: [iniciativa?.Titulo ?? '', [Validators.required, Validators.minLength(5), Validators.maxLength(30)]],
+      horas: [iniciativa?.Horas ?? '', [Validators.required, Validators.min(1), Validators.max(100)]],
+      fechaInicio: [iniciativa?.FechaInicio ?? '', Validators.required],
+      fechaFin: [iniciativa?.FechaFin ?? '', Validators.required],
       asignaturas: [this.selectedAsignaturas, [Validators.required, this.validarSeleccionMinima]],
       entidades: [this.selectedEntidades, [Validators.required, this.validarSeleccionMinima]],
       metas: [this.selectedMetas, [Validators.required, this.validarSeleccionMinima]],
       profesores: [this.selectedProfesores, [Validators.required, this.validarSeleccionMinima]],
-    }, { validators: this.validarFechas.bind(this) }); // Vinculamos el validador personalizado al formulario
+    }, {
+      validators: this.validarFechas.bind(this)// Vinculamos el validador personalizado al formulario
+    });
 
     // console.log(this.form);
     // console.log(this.form.get('asignaturas')?.value);
   }
+  
   
   //funcion para el primer input del form, que es seleccionar si es innovador o no
   selectTemplate(tipoIniciativa: string) {
@@ -147,13 +168,13 @@ export class MainInitiativesFormComponent implements OnInit {
 
   // Validador para validar que al menos una opción esté seleccionada
   validarSeleccionMinima(control: FormControl) {
-    console.log("dentrode validarSeleccionMinima ------------------");
-    console.log(control);
+    // console.log("dentrode validarSeleccionMinima ------------------");
+    // console.log(control);
 
     // console.log(this.form ?? "No hay form");
     const valor: any = control.value && control.value.length > 0 ? null : { seleccionRequerida: true };
-    console.log(valor);
-    console.log("------------------");
+    // console.log(valor);
+    // console.log("------------------");
     return valor;
   }
 
@@ -260,11 +281,34 @@ export class MainInitiativesFormComponent implements OnInit {
 
 
   save() {
-    // console.log(this.form);
+    console.log(this.form);
     this.form.markAllAsTouched(); // 👈 Marca todos los campos como tocados
 
     if (this.form.valid) {
       console.log(this.form.value);
+      
+      const datosForm: any = this.form.value;
+      const nuevaIniciativa: Iniciativa =  new Iniciativa(
+        this.idIniciativaAEditar ?? 0,
+        datosForm.titulo,
+        datosForm.horas,
+        datosForm.fechaInicio,
+        datosForm.fechaFin,
+        
+        datosForm.descripcion_,
+        datosForm.tipo_,
+        datosForm.productO_FINAL_,
+        
+        datosForm.innovador,
+        
+        datosForm.difusion_,
+        
+        datosForm.asignaturas,
+        datosForm.entidades,
+        datosForm.profesores,
+        datosForm.metas,
+      );
+
     } else {
       console.log("Formulario inválido");
     }

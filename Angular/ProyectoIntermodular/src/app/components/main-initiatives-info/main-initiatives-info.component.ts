@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IniciativaService } from '../../services/iniciativa.service';
 import { Iniciativa } from '../../models/iniciativa';
@@ -10,7 +10,9 @@ import { Router } from '@angular/router';
 import { Ods } from '../../models/ods';
 import { Profesor } from '../../models/profesor';
 import { Curso } from '../../models/curso';
+import * as echarts from 'echarts';
 
+type EChartsOption = echarts.EChartsOption;
 
 @Component({
   selector: 'app-main-initiatives-info',
@@ -19,7 +21,8 @@ import { Curso } from '../../models/curso';
   templateUrl: './main-initiatives-info.component.html',
   styleUrl: './main-initiatives-info.component.scss'
 })
-export class MainInitiativesInfoComponent {
+export class MainInitiativesInfoComponent implements AfterViewInit {
+
   iniciativas: Iniciativa[] = [];
   iniciativasFiltradas: Iniciativa[] = [];
   isDropdownOpen = false; // Estado del menú desplegable
@@ -81,6 +84,28 @@ export class MainInitiativesInfoComponent {
     // this.asignaturas = this.iniciativaService.Asignaturas;
     // this.ods = this.iniciativaService.Ods;
     // this.metasOds = this.iniciativaService.MetasOds;
+  }
+
+  ngAfterViewInit(): void {
+    const chartDom = document.getElementById('main')!;
+    const myChart = echarts.init(chartDom);
+    const option: EChartsOption = {
+      xAxis: {
+        type: 'category',
+        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [
+        {
+          data: [120, 200, 150, 80, 70, 110, 130],
+          type: 'bar'
+        }
+      ]
+    };
+
+    myChart.setOption(option);
   }
 
 
@@ -212,17 +237,17 @@ export class MainInitiativesInfoComponent {
 
 
   
-  edit(iniciativaId: number) {
+  edit(idIniciativaAEditar: number) {
     console.log("Editando tarjeta");
-    this.router.navigate(['/initiatives-form', iniciativaId]);
+    this.router.navigate(['/initiatives-form', idIniciativaAEditar]);
   }
 
   delete(id: number) {
     console.log("Borrando tarjeta con id: " + id);
-    // this.iniciativaService.deleteIniciativaById(Number(id));
+    // this.iniciativaService.deleteIniciativaById(id);
     // this.iniciativas = this.iniciativaService.Iniciativas;
 
-    // this.iniciativasFiltradas = this.iniciativaService.deleteIniciativa(Number(id));
+    // this.iniciativasFiltradas = this.iniciativaService.deleteIniciativa(id);
   }
 
 

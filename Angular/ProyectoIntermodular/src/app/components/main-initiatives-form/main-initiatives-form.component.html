@@ -35,6 +35,12 @@
           <div *ngIf="tituloFrmControl?.errors?.['required']">
             ⚠ El titulo es obligatorio.
           </div>
+          <div *ngIf="tituloFrmControl?.errors?.['min']">
+            ⚠ El titulo no puede tener menos de 5 letras.
+          </div>
+          <div *ngIf="tituloFrmControl?.errors?.['max']">
+            ⚠ El titulo no puede tener mas de 30 letras.
+          </div>
         </div>
 
         <div class="mb-3">

@@ -513,6 +513,9 @@ export class IniciativaService {
   getIniciativaById(id: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${id}`);
   }
+  // getIniciativaById(id: number): Iniciativa{
+  //   let iniciativa: Iniciativa =  this.http.get<any>(`${this.apiUrl}/${id}`);
+  // }
 
   // Crear una nueva iniciativa
   createIniciativa(iniciativa: any): Observable<any> {
