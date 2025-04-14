@@ -5,7 +5,7 @@ import { EntidadExterior } from '../models/entidad-exterior';
 import { Profesor } from '../models/profesor';
 import { Asignatura } from '../models/asignatura';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 import { Curso } from '../models/curso';
 import { Ods } from '../models/ods';
 
@@ -513,13 +513,12 @@ export class IniciativaService {
   getIniciativaById(id: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${id}`);
   }
-  // getIniciativaById(id: number): Iniciativa{
-  //   let iniciativa: Iniciativa =  this.http.get<any>(`${this.apiUrl}/${id}`);
-  // }
 
   // Crear una nueva iniciativa
   createIniciativa(iniciativa: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, iniciativa);
+    return this.http.post<any>(this.apiUrl + "/iniciativas", iniciativa).pipe(
+      tap(res => console.log('Respuesta del backend:', res))
+    );
   }
 
   // Actualizar una iniciativa

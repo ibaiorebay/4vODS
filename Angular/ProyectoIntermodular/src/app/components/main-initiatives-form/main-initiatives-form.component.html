@@ -46,20 +46,31 @@
         <div class="mb-3">
           <label>Tipo de proyecto</label>
           <div class="d-inline-flex flex-column me-5">
-            <input type="radio" id="opcion1" name="opciones" class="custom-radio">
+            <input type="radio" id="opcion1" formControlName="tipoIniciativa" name="tipoIniciativa" class="custom-radio" value="Charla">
             <label for="opcion1">Charla</label>
-            <input type="radio" id="opcion2" name="opciones" class="custom-radio">
+        
+            <input type="radio" id="opcion2" formControlName="tipoIniciativa" name="tipoIniciativa" class="custom-radio" value="Taller">
             <label for="opcion2">Taller</label>
-            <input type="radio" id="opcion3" name="opciones" class="custom-radio">
+        
+            <input type="radio" id="opcion3" formControlName="tipoIniciativa" name="tipoIniciativa" class="custom-radio" value="Salida">
             <label for="opcion3">Salida</label>
           </div>
+        
           <div class="d-inline-flex flex-column">
-            <input type="radio" id="opcion4" name="opciones" class="custom-radio">
+            <input type="radio" id="opcion4" formControlName="tipoIniciativa" name="tipoIniciativa" class="custom-radio" value="Proyecto">
             <label for="opcion4">Proyecto</label>
-            <input type="radio" id="opcion5" name="opciones" class="custom-radio">
+        
+            <input type="radio" id="opcion5" formControlName="tipoIniciativa" name="tipoIniciativa" class="custom-radio" value="Acciones Internas">
             <label for="opcion5">Acciones Internas</label>
-            <input type="radio" id="opcion6" name="opciones" class="custom-radio">
+        
+            <input type="radio" id="opcion6" formControlName="tipoIniciativa" name="tipoIniciativa" class="custom-radio" value="Otros">
             <label for="opcion6">Otros</label>
+          </div>
+        </div>
+        <!-- Mensajes de error -->
+        <div *ngIf="tipoIniciativaFrmControl?.touched && tipoIniciativaFrmControl?.invalid">
+          <div *ngIf="tipoIniciativaFrmControl?.errors?.['required']">
+            ⚠ Tenés que seleccionar un tipo de iniciativa.
           </div>
         </div>
       
@@ -167,6 +178,7 @@
           ⚠ Tenés que seleccionar al menos una meta.
         </div>
 
+
         <!-- Select para Profesores -->
         <div class="mb-3">
           <label for="profesores">Profesores</label>
@@ -175,17 +187,15 @@
           </select>
         </div>
         <!-- Badges de Profesores Seleccionados -->
-        <div class="mb-3">
-          <label>Profesores Seleccionados</label>
-          <div *ngFor="let profesor of selectedProfesores" class="badge-container">
-            <span class="badge  badge-warning">
-              {{ profesor.nombre }}
-              <span class="badge-close" (click)="removeProfesor(profesor)">
-                <img src="../../assets/x.svg" alt="close-icon">
-              </span>
+        <div *ngFor="let id of selectedProfesores" class="badge-container">
+          <span class="badge badge-warning">
+            {{ getNombreProfesor(id) }}
+            <span class="badge-close" (click)="removeProfesor(id)">
+              <img src="../../assets/x.svg" alt="close-icon">
             </span>
-          </div>
+          </span>
         </div>
+        <!--Mensaje de error-->
         <div *ngIf="profesoresFrmControl?.errors?.['seleccionRequerida'] && profesoresFrmControl?.touched">
           ⚠ Tenés que seleccionar al menos un profesor.
         </div>
@@ -193,21 +203,35 @@
         <!-- Descripcion -->
         <div class="mb-3">
           <label>Descripción</label>
-          <textarea class="d-block"></textarea>
+          <textarea class="d-block form-control" formControlName="descripcion"></textarea>
+        </div>
+        <!-- Mensajes de error -->
+        <div *ngIf="descripcionFrmControl?.touched && descripcionFrmControl?.invalid">
+          <div *ngIf="descripcionFrmControl?.errors?.['required']">
+            ⚠ El campo es obligatorio.
+          </div>
+          <div *ngIf="descripcionFrmControl?.errors?.['min']">
+            ⚠ El valor mínimo es 10.
+          </div>
+          <div *ngIf="descripcionFrmControl?.errors?.['max']">
+            ⚠ El valor máximo es 100.
+          </div>
         </div>
 
 
         <!-- Redes sociales inputs -->
         <div class="social-container mb-3 mt-4">
-          <label class="form-title">Selecciona tus redes sociales:</label>
+          <!-- <label class="form-title">Selecciona tus redes sociales:</label> -->
+          <label class="form-title">Ingresa tu difusión vía Linkedin:</label>
           
           <div class="social-option">
-              <input type="checkbox" id="linkedin" class="social-checkbox" (click)="toggleInput('linkedin')">
-              <label for="linkedin" class="mb-0"> Linkedin</label>
-              <input type="text" id="linkedin-link" class="social-input" placeholder="Ingresa tu enlace de Linkedin" style="display: none;">
+              <!-- <input type="checkbox" id="linkedin" class="social-checkbox" (click)="toggleInput('linkedin')"> -->
+              <!-- <label for="linkedin" class="mb-0"> Linkedin</label> -->
+              <input type="text" class="social-input" placeholder="Ingresa tu enlace de Linkedin" formControlName="difusion">
+              <!-- <input type="text" id="linkedin-link" class="social-input" placeholder="Ingresa tu enlace de Linkedin" style="display: none;"> -->
           </div>
 
-          <div class="social-option">
+          <!-- <div class="social-option">
               <input type="checkbox" id="facebook" class="social-checkbox" (click)="toggleInput('facebook')">
               <label for="facebook" class="mb-0"> Facebook</label>
               <input type="text" id="facebook-link" class="social-input" placeholder="Ingresa tu enlace de Facebook" style="display: none;">
@@ -223,8 +247,37 @@
               <input type="checkbox" id="instagram" class="social-checkbox" (click)="toggleInput('instagram')">
               <label for="instagram" class="mb-0"> Instagram</label>
               <input type="text" id="instagram-link" class="social-input" placeholder="Ingresa tu enlace de Instagram" style="display: none;">
+          </div> -->
+        </div>
+        <!-- Mensajes de error -->
+        <div *ngIf="difusionFrmControl?.touched && difusionFrmControl?.invalid">
+          <div *ngIf="difusionFrmControl?.errors?.['required']">
+            ⚠ El linkedin es obligatorio.
           </div>
         </div>
+
+
+
+
+        <div class="mb-3">
+          <label for="titulo">Producto final</label>
+          <input id="productoFinal" type="text" class="form-control" formControlName="productoFinal">
+        </div>
+        <!-- Mensajes de error -->
+        <div *ngIf="productoFinalFrmControl?.touched && productoFinalFrmControl?.invalid">
+          <div *ngIf="productoFinalFrmControl?.errors?.['required']">
+            ⚠ El producto final es obligatorio.
+          </div>
+          <div *ngIf="productoFinalFrmControl?.errors?.['min']">
+            ⚠ El producto final no puede tener menos de 10 letras.
+          </div>
+          <div *ngIf="productoFinalFrmControl?.errors?.['max']">
+            ⚠ El producto final no puede tener mas de 25 letras.
+          </div>
+        </div>
+
+
+
 
         <button class="btn btn-save" (click)="save()">Guardar</button>
       </form>

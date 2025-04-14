@@ -21,7 +21,7 @@ export class MainInitiativesFormComponent implements OnInit {
   selectedAsignaturas: any[] = [];
   selectedEntidades: any[] = [];
   selectedMetas: any[] = [];
-  selectedProfesores: any[] = [];
+  selectedProfesores: number[] = [];
 
   // asignaturasOptions: string[] = [];
   // entidadesOptions: string[] = [];
@@ -86,21 +86,24 @@ export class MainInitiativesFormComponent implements OnInit {
   private crearFormulario(iniciativa?: any): void {
     //validarFechas es un validador de formulario a nivel de grupo, no un validador de campo individual. Le estás diciendo a Angular que cada vez que cualquier campo del formulario cambie, se ejecute el validador. Esto se debe a que los validadores de grupo se ejecutan siempre que el formulario se vuelve a evaluar (lo cual pasa cuando cualquier campo cambia).
     this.form = this.fb.group({
-      innovador: [iniciativa?.EsInnovadora ?? null, Validators.required],// Será true o false
       titulo: [iniciativa?.Titulo ?? '', [Validators.required, Validators.minLength(5), Validators.maxLength(30)]],
       horas: [iniciativa?.Horas ?? '', [Validators.required, Validators.min(1), Validators.max(100)]],
       fechaInicio: [iniciativa?.FechaInicio ?? '', Validators.required],
       fechaFin: [iniciativa?.FechaFin ?? '', Validators.required],
+
+      descripcion: [iniciativa?.Descripcion ?? '', [Validators.required, Validators.minLength(10), Validators.maxLength(100)]],
+      tipoIniciativa: [iniciativa?.TipoIniciativa ?? '', Validators.required],
+      productoFinal: [iniciativa?.ProductoFinal ?? '', [Validators.required, Validators.minLength(10), Validators.maxLength(25)]],
+      innovador: [iniciativa?.EsInnovadora ?? null, Validators.required],// Será true o false
+      difusion: [iniciativa?.Difusion ?? '', Validators.required],
+
       asignaturas: [this.selectedAsignaturas, [Validators.required, this.validarSeleccionMinima]],
       entidades: [this.selectedEntidades, [Validators.required, this.validarSeleccionMinima]],
       metas: [this.selectedMetas, [Validators.required, this.validarSeleccionMinima]],
-      profesores: [this.selectedProfesores, [Validators.required, this.validarSeleccionMinima]],
+      profesores: [[], [Validators.required, this.validarSeleccionMinima]],
     }, {
       validators: this.validarFechas.bind(this)// Vinculamos el validador personalizado al formulario
     });
-
-    // console.log(this.form);
-    // console.log(this.form.get('asignaturas')?.value);
   }
   
   
@@ -139,6 +142,19 @@ export class MainInitiativesFormComponent implements OnInit {
     return this.form.get('fechaFin');
   }
 
+  get tipoIniciativaFrmControl() {
+    return this.form.get('tipoIniciativa');
+  }
+
+  get descripcionFrmControl() {
+    return this.form.get('descripcion');
+  }
+
+
+  get difusionFrmControl() {
+    return this.form.get('difusion');
+  }
+
   get asignaturasFrmControl() {
     return this.form.get('asignaturas');
   }
@@ -155,6 +171,11 @@ export class MainInitiativesFormComponent implements OnInit {
     return this.form.get('profesores');
   }
 
+  get productoFinalFrmControl() {
+    return this.form.get('productoFinal');
+  }
+
+
   //Validador personalizado para fechaFin:
   validarFechas(form: FormGroup) {
     const fechaInicio = form.get('fechaInicio')?.value;
@@ -168,20 +189,13 @@ export class MainInitiativesFormComponent implements OnInit {
 
   // Validador para validar que al menos una opción esté seleccionada
   validarSeleccionMinima(control: FormControl) {
-    // console.log("dentrode validarSeleccionMinima ------------------");
-    // console.log(control);
-
-    // console.log(this.form ?? "No hay form");
     const valor: any = control.value && control.value.length > 0 ? null : { seleccionRequerida: true };
-    // console.log(valor);
-    // console.log("------------------");
     return valor;
   }
 
   // Funciones para agregar entidades a su lista de entidades correspondientes
   addAsignatura(event: any): void {
     const selectedAsignatura = this.asignaturasOptions.find(asignatura => asignatura.id == event.target.value);
-    // console.log(selectedAsignatura);
     if (selectedAsignatura && !this.selectedAsignaturas.includes(selectedAsignatura)) {
       this.selectedAsignaturas.push(selectedAsignatura);
       
@@ -213,28 +227,44 @@ export class MainInitiativesFormComponent implements OnInit {
     }
   }
 
-  addProfesor(event: any): void {
-    const selectedProfesor = this.profesoresOptions.find(profesor => profesor.id == event.target.value);
-    if (selectedProfesor && !this.selectedProfesores.includes(selectedProfesor)) {
-      this.selectedProfesores.push(selectedProfesor);
+  // addProfesor(event: any): void {
+  //   const selectedProfesor = this.profesoresOptions.find(profesor => profesor.id == event.target.value);
+  //   if (selectedProfesor && !this.selectedProfesores.includes(selectedProfesor)) {
+  //     this.selectedProfesores.push(selectedProfesor);
 
-      // 🔥 Actualizamos el valor del campo 'profesores' en el formulario
+  //     // 🔥 Actualizamos el valor del campo 'profesores' en el formulario
+  //     this.profesoresFrmControl?.setValue(this.selectedProfesores);
+  //     this.profesoresFrmControl?.updateValueAndValidity(); // opcional pero recomendable
+  //   }
+  // }
+  addProfesor(event: any): void { 
+    const selectedId = +event.target.value;
+  
+    if (selectedId && !this.selectedProfesores.includes(selectedId)) {
+      this.selectedProfesores.push(selectedId);
+  
       this.profesoresFrmControl?.setValue(this.selectedProfesores);
-      this.profesoresFrmControl?.updateValueAndValidity(); // opcional pero recomendable
+      this.profesoresFrmControl?.updateValueAndValidity();
     }
+  
+    event.target.value = '';
   }
+
+  getNombreProfesor(id: number): string {
+    const profesor = this.profesoresOptions.find(p => p.id === id);
+    return profesor ? profesor.nombre : 'Desconocido';
+  }
+  
+  
 
   // Funciones para eliminar de la lista seleccionada
   removeAsignatura(asignatura: any): void {
     const index = this.selectedAsignaturas.indexOf(asignatura);
-    // console.log(this.selectedAsignaturas);//cris cuando se imprime esta log, no entiendo porque luego se ejecuta dos veces la funcion validarSeleccionMinima, y luego recien se imprime el ultimo log de esta funcion
 
     if (index > -1) {
       this.selectedAsignaturas.splice(index, 1);
-
-      // 🔥 Actualizamos el valor del campo 'asignaturas' en el formulario
       this.asignaturasFrmControl?.setValue(this.selectedAsignaturas);
-      this.asignaturasFrmControl?.updateValueAndValidity(); // opcional pero recomendable
+      this.asignaturasFrmControl?.updateValueAndValidity();
     }
   }
 
@@ -242,10 +272,8 @@ export class MainInitiativesFormComponent implements OnInit {
     const index = this.selectedEntidades.indexOf(entidad);
     if (index > -1) {
       this.selectedEntidades.splice(index, 1);
-
-      // 🔥 Actualizamos el valor del campo 'entidades exteriores' en el formulario
       this.entidadesFrmControl?.setValue(this.selectedEntidades);
-      this.entidadesFrmControl?.updateValueAndValidity(); // opcional pero recomendable
+      this.entidadesFrmControl?.updateValueAndValidity();
     }
   }
 
@@ -253,55 +281,68 @@ export class MainInitiativesFormComponent implements OnInit {
     const index = this.selectedMetas.indexOf(meta);
     if (index > -1) {
       this.selectedMetas.splice(index, 1);
-
-      // 🔥 Actualizamos el valor del campo 'metas' en el formulario
       this.metasFrmControl?.setValue(this.selectedMetas);
-      this.metasFrmControl?.updateValueAndValidity(); // opcional pero recomendable
+      this.metasFrmControl?.updateValueAndValidity();
     }
   }
 
-  removeProfesor(profesor: any): void {
-    const index = this.selectedProfesores.indexOf(profesor);
-    if (index > -1) {
-      this.selectedProfesores.splice(index, 1);
+  // removeProfesor(profesor: any): void {
+  //   const index = this.selectedProfesores.indexOf(profesor);
+  //   if (index > -1) {
+  //     this.selectedProfesores.splice(index, 1);
 
-      // 🔥 Actualizamos el valor del campo 'profesores' en el formulario
-      this.profesoresFrmControl?.setValue(this.selectedProfesores);
-      this.profesoresFrmControl?.updateValueAndValidity(); // opcional pero recomendable
-    }
+  //     // 🔥 Actualizamos el valor del campo 'profesores' en el formulario
+  //     this.profesoresFrmControl?.setValue(this.selectedProfesores);
+  //     this.profesoresFrmControl?.updateValueAndValidity(); // opcional pero recomendable
+  //   }
+  // }
+  removeProfesor(id: number): void {
+    this.selectedProfesores = this.selectedProfesores.filter(pid => pid !== id);
+  
+    this.profesoresFrmControl?.setValue(this.selectedProfesores);
+    this.profesoresFrmControl?.updateValueAndValidity();
   }
 
   // Función para mostrar u ocultar los inputs de los checkbox de las redes sociales
-  toggleInput(id: string) {
-    const input = document.getElementById(id + "-link");
-    if (input) {
-      input.style.display = input.style.display === "none" ? "block" : "none";
-    }
-  }
+  // toggleInput(id: string) {
+  //   const input = document.getElementById(id + "-link");
+  //   if (input) {
+  //     input.style.display = input.style.display === "none" ? "block" : "none";
+  //   }
+  // }
 
+  formatearFecha(fecha: Date | string): string {
+    const date = new Date(fecha);
+    const dia = String(date.getDate()).padStart(2, '0');
+    const mes = String(date.getMonth() + 1).padStart(2, '0'); // Meses de 0 a 11
+    const anio = date.getFullYear();
+    return `${dia}-${mes}-${anio}`;
+  }
+  
 
   save() {
     console.log(this.form);
-    this.form.markAllAsTouched(); // 👈 Marca todos los campos como tocados
+    this.form.markAllAsTouched();
 
     if (this.form.valid) {
-      console.log(this.form.value);
+      // console.log(this.form.value);
       
       const datosForm: any = this.form.value;
+
       const nuevaIniciativa: Iniciativa =  new Iniciativa(
         this.idIniciativaAEditar ?? 0,
         datosForm.titulo,
         datosForm.horas,
-        datosForm.fechaInicio,
-        datosForm.fechaFin,
+        this.formatearFecha(datosForm.fechaInicio),
+        this.formatearFecha(datosForm.fechaFin),
         
-        datosForm.descripcion_,
-        datosForm.tipo_,
-        datosForm.productO_FINAL_,
+        datosForm.descripcion,
+        datosForm.tipoIniciativa,
+        datosForm.productoFinal,//text que dice a quien esta dirigido
         
         datosForm.innovador,
         
-        datosForm.difusion_,
+        datosForm.difusion,//redes sociales
         
         datosForm.asignaturas,
         datosForm.entidades,
@@ -309,9 +350,15 @@ export class MainInitiativesFormComponent implements OnInit {
         datosForm.metas,
       );
 
+      console.log(nuevaIniciativa);
+
+      this.iniciativaService.createIniciativa(nuevaIniciativa).subscribe(
+        (response) => console.log("Iniciativa guardada:", response),
+        (error) => console.error("Error al guardar la iniciativa:", error)
+      );;
+
     } else {
       console.log("Formulario inválido");
     }
   }
-
 }

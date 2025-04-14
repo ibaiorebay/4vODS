@@ -47,26 +47,31 @@ export class MainInitiativesInfoComponent implements AfterViewInit {
     });
     // this.iniciativas = this.iniciativaService.Iniciativas;
 
+    //funcionando y testeado con dani. falat ver si el value puesto en el html es el correcto
     this.iniciativaService.getAsignaturas().subscribe((asignaturas: any) => {
       console.log("Asignaturas recibidas:", asignaturas);
       this.asignaturas = asignaturas;
     });
 
+    //TODO ver como cargar las metas de los ods
     this.iniciativaService.getMetas().subscribe((metas: any) => {
       console.log("metas recibidas:", metas);
-      // this.metas
+      // this.metas = metas;
     });
 
+    //funcionando y testeado con dani. falat ver si el value puesto en el html es el correcto
     this.iniciativaService.getCursos().subscribe((cursos: any) => {
       console.log("cursos recibidas:", cursos);
       this.cursos = cursos;
     });
 
+    //funcionando y testeado con dani. falat ver si el value puesto en el html es el correcto
     this.iniciativaService.getOds().subscribe((ods: any) => {
       console.log("ods recibidas:", ods);
       this.ods = ods;
     });
 
+    //funcionando y testeado con dani. falat ver si el value puesto en el html es el correcto. TODO no sale el nombre del profe en la card
     this.iniciativaService.getProfesores().subscribe((profesores: any) => {
       console.log("profes recibidas:", profesores);
       this.profesores = profesores;

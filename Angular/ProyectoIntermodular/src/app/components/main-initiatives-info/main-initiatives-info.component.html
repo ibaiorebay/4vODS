@@ -28,7 +28,7 @@
             <h6>Filtro por Profesor:</h6>
             <select [(ngModel)]="filtroProfesor" (change)="filtrarIniciativas()" class="form-control">
                 <option value="Cualquiera"> Cualquiera </option>
-                <option *ngFor="let profesor of profesores" [value]="profesor">{{ profesor }}</option>
+                <option *ngFor="let profesor of profesores" [value]="profesor.Id">{{ profesor.Nombre }}</option>
             </select>
         </div>
         <div>
@@ -36,7 +36,7 @@
             <h6>Filtro por curso:</h6>
             <select [(ngModel)]="filtroCurso" (change)="filtrarIniciativas()" class="form-control">
                 <option value="Todos"> Todos </option>
-                <option *ngFor="let curso of cursos" [value]="curso">{{ curso }}</option>
+                <option *ngFor="let curso of cursos" [value]="curso.Id">{{ curso.Nombre }}</option>
             </select>
         </div>
         <div>
@@ -44,7 +44,7 @@
             <h6>Filtro por Asignatura:</h6>
             <select [(ngModel)]="filtroAsignatura" (change)="filtrarIniciativas()" class="form-control">
                 <option value="Cualquiera"> Cualquiera </option>
-                <option *ngFor="let asignatura of asignaturas" [value]="asignatura">{{ asignatura }}</option>
+                <option *ngFor="let asignatura of asignaturas" [value]="asignatura.getId">{{ asignatura.getNombreAsignatura }}</option>
             </select>
         </div>
         <div>
@@ -52,7 +52,7 @@
             <h6>Filtro por número de Ods:</h6>
             <select [(ngModel)]="filtroOds" (change)="filtrarIniciativas()" class="form-control">
                 <option value=0> Cualquiera </option>
-                <option *ngFor="let cadaOds of ods" [value]=cadaOds>{{ cadaOds }}</option>
+                <option *ngFor="let cadaOds of ods" [value]=cadaOds.Id>{{ cadaOds.Id }}</option>
             </select>
         </div>
         <div>
