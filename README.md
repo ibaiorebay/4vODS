@@ -30,6 +30,11 @@ La API se encuentra en `backend/api`. Para arrancarla, sigue estos pasos:
 1. Abre una terminal y navega hasta la carpeta `backend/api`.
 2. Ejecuta el comando correspondiente para iniciar el servidor en modo HTTP.
 
+En caso de que la BBDD no esté generada o no tenga los últimos cambios, se deberán ejecutar las migraciones:
+1. Herramientas->Administrador de paquetes NuGet->Consola del administrador de paquetes
+2. En esa consola se tendrá que poner el comando "Update-Database"
+IMPORTANTE!! Si salta un error de objetos ya existentes, se deberá borrar la base de datos con el comando "Drop-Database" y luego ejecutar de nuevo el comando "Update-Database" 
+
 ### 4. Ejecutar la aplicación móvil
 La aplicación móvil está desarrollada en **Android Studio**. Para ejecutarla:
 1. Abre el proyecto en **Android Studio**.

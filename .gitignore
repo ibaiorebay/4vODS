@@ -23,3 +23,17 @@ Thumbs.db
 # Logs
 logs
 *.log
+
+# Binaries
+bin/
+build/
+dist/
+*.exe
+*.dll
+*.out
+*.app
+
+.\4vODS\BackEnd\API\.vs
+/BackEnd/API/.vs
+/BackEnd/API/API/obj
+/BackEnd/API/obj
