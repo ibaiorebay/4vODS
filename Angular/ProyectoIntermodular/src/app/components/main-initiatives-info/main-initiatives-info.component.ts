@@ -21,7 +21,7 @@ type EChartsOption = echarts.EChartsOption;
   templateUrl: './main-initiatives-info.component.html',
   styleUrl: './main-initiatives-info.component.scss'
 })
-export class MainInitiativesInfoComponent implements AfterViewInit {
+export class MainInitiativesInfoComponent {
 
   iniciativas: Iniciativa[] = [];
   iniciativasFiltradas: Iniciativa[] = [];
@@ -47,31 +47,26 @@ export class MainInitiativesInfoComponent implements AfterViewInit {
     });
     // this.iniciativas = this.iniciativaService.Iniciativas;
 
-    //funcionando y testeado con dani. falat ver si el value puesto en el html es el correcto
     this.iniciativaService.getAsignaturas().subscribe((asignaturas: any) => {
       console.log("Asignaturas recibidas:", asignaturas);
       this.asignaturas = asignaturas;
     });
 
-    //TODO ver como cargar las metas de los ods
     this.iniciativaService.getMetas().subscribe((metas: any) => {
       console.log("metas recibidas:", metas);
       // this.metas = metas;
     });
 
-    //funcionando y testeado con dani. falat ver si el value puesto en el html es el correcto
     this.iniciativaService.getCursos().subscribe((cursos: any) => {
       console.log("cursos recibidas:", cursos);
       this.cursos = cursos;
     });
 
-    //funcionando y testeado con dani. falat ver si el value puesto en el html es el correcto
     this.iniciativaService.getOds().subscribe((ods: any) => {
       console.log("ods recibidas:", ods);
       this.ods = ods;
     });
 
-    //funcionando y testeado con dani. falat ver si el value puesto en el html es el correcto. TODO no sale el nombre del profe en la card
     this.iniciativaService.getProfesores().subscribe((profesores: any) => {
       console.log("profes recibidas:", profesores);
       this.profesores = profesores;
@@ -91,29 +86,6 @@ export class MainInitiativesInfoComponent implements AfterViewInit {
     // this.metasOds = this.iniciativaService.MetasOds;
   }
 
-  ngAfterViewInit(): void {
-    const chartDom = document.getElementById('main')!;
-    const myChart = echarts.init(chartDom);
-    const option: EChartsOption = {
-      xAxis: {
-        type: 'category',
-        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-      },
-      yAxis: {
-        type: 'value'
-      },
-      series: [
-        {
-          data: [120, 200, 150, 80, 70, 110, 130],
-          type: 'bar'
-        }
-      ]
-    };
-
-    myChart.setOption(option);
-  }
-
-
   openDropdownId: string | null = null;
   // Cambia el estado del dropdown según el id de la iniciativa
   toggleDropdown(id: string): void {
@@ -131,12 +103,6 @@ export class MainInitiativesInfoComponent implements AfterViewInit {
     this.selectedIniciativa = iniciativa; // Establecemos los detalles de la iniciativa seleccionada.
     console.log(this.selectedIniciativa);
   }
-
-  // Función para cerrar el modal.
-  closeModal() {
-    this.selectedIniciativaId = "0";
-  }
-
 
 
   toggle() {

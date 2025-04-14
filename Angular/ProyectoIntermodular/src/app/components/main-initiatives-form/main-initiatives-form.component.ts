@@ -199,9 +199,8 @@ export class MainInitiativesFormComponent implements OnInit {
     if (selectedAsignatura && !this.selectedAsignaturas.includes(selectedAsignatura)) {
       this.selectedAsignaturas.push(selectedAsignatura);
       
-      // 🔥 Actualizamos el valor del campo 'asignaturas' en el formulario
       this.asignaturasFrmControl?.setValue(this.selectedAsignaturas);
-      this.asignaturasFrmControl?.updateValueAndValidity(); // opcional pero recomendable
+      this.asignaturasFrmControl?.updateValueAndValidity(); 
     }
   }
 
@@ -210,9 +209,8 @@ export class MainInitiativesFormComponent implements OnInit {
     if (selectedEntidad && !this.selectedEntidades.includes(selectedEntidad)) {
       this.selectedEntidades.push(selectedEntidad);
 
-      // 🔥 Actualizamos el valor del campo 'entidades exteriores' en el formulario
       this.entidadesFrmControl?.setValue(this.selectedEntidades);
-      this.entidadesFrmControl?.updateValueAndValidity(); // opcional pero recomendable
+      this.entidadesFrmControl?.updateValueAndValidity();
     }
   }
 
@@ -221,22 +219,11 @@ export class MainInitiativesFormComponent implements OnInit {
     if (selectedMeta && !this.selectedMetas.includes(selectedMeta)) {
       this.selectedMetas.push(selectedMeta);
 
-      // 🔥 Actualizamos el valor del campo 'metas' en el formulario
       this.metasFrmControl?.setValue(this.selectedMetas);
-      this.metasFrmControl?.updateValueAndValidity(); // opcional pero recomendable
+      this.metasFrmControl?.updateValueAndValidity(); 
     }
   }
 
-  // addProfesor(event: any): void {
-  //   const selectedProfesor = this.profesoresOptions.find(profesor => profesor.id == event.target.value);
-  //   if (selectedProfesor && !this.selectedProfesores.includes(selectedProfesor)) {
-  //     this.selectedProfesores.push(selectedProfesor);
-
-  //     // 🔥 Actualizamos el valor del campo 'profesores' en el formulario
-  //     this.profesoresFrmControl?.setValue(this.selectedProfesores);
-  //     this.profesoresFrmControl?.updateValueAndValidity(); // opcional pero recomendable
-  //   }
-  // }
   addProfesor(event: any): void { 
     const selectedId = +event.target.value;
   
@@ -286,16 +273,7 @@ export class MainInitiativesFormComponent implements OnInit {
     }
   }
 
-  // removeProfesor(profesor: any): void {
-  //   const index = this.selectedProfesores.indexOf(profesor);
-  //   if (index > -1) {
-  //     this.selectedProfesores.splice(index, 1);
 
-  //     // 🔥 Actualizamos el valor del campo 'profesores' en el formulario
-  //     this.profesoresFrmControl?.setValue(this.selectedProfesores);
-  //     this.profesoresFrmControl?.updateValueAndValidity(); // opcional pero recomendable
-  //   }
-  // }
   removeProfesor(id: number): void {
     this.selectedProfesores = this.selectedProfesores.filter(pid => pid !== id);
   
@@ -303,13 +281,7 @@ export class MainInitiativesFormComponent implements OnInit {
     this.profesoresFrmControl?.updateValueAndValidity();
   }
 
-  // Función para mostrar u ocultar los inputs de los checkbox de las redes sociales
-  // toggleInput(id: string) {
-  //   const input = document.getElementById(id + "-link");
-  //   if (input) {
-  //     input.style.display = input.style.display === "none" ? "block" : "none";
-  //   }
-  // }
+
 
   formatearFecha(fecha: Date | string): string {
     const date = new Date(fecha);
