@@ -42,6 +42,16 @@ La aplicación móvil está desarrollada en **Android Studio**. Para ejecutarla:
    - Si no tienes un emulador configurado, crea uno con el modelo **Pixel 7a**, ya que la app está diseñada específicamente para este dispositivo.
 3. Compila y ejecuta la app.
 
+#### 4,5. Aplicación de React Native
+La aplicación de android está siendo rehecha en React Native
+1. Abrir el directorio **4vOdsApp** en la terminal
+2. Hacer npm install
+  - Si se va a ejecutar la aplicación en el emulador basta con hacer npm run android
+  - Si se va a ejecutar en un dispositivo físico hay que:
+     - Hacer npm run android
+     - Descargar la aplicación **Expo Go** de la play store
+     - Dentro de la aplicación escanear el código QR que sale en la terminal
+
 ### 5. Ejecutar la página web
 La página web está desarrollada con **Angular**. Para ejecutarla:
 1. Abre la carpeta del proyecto con **Visual Studio Code**.
