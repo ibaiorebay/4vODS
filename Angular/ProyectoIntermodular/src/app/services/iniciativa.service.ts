@@ -5,7 +5,9 @@ import { EntidadExterior } from '../models/entidad-exterior';
 import { Profesor } from '../models/profesor';
 import { Asignatura } from '../models/asignatura';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
+import { Curso } from '../models/curso';
+import { Ods } from '../models/ods';
 
 
 @Injectable({
@@ -13,45 +15,6 @@ import { map, Observable } from 'rxjs';
 })
 export class IniciativaService {
 
-  metas: Meta[] = [
-    // new Meta(4, 7, "Garantizar que todos los alumnos adquieran los conocimientos teóricos y prácticos necesarios para promover el desarrollo sostenible."),
-    // new Meta(11, 6, "Reducir la contaminación y la generación de residuos."),
-    // new Meta(12, 0, "Fomentar la adopción de prácticas sostenibles."),
-    // new Meta(1, 1, "Erradicar la pobreza extrema para todas las personas en el mundo."),
-    // new Meta(2, 2, "Poner fin al hambre y garantizar el acceso a una alimentación segura y nutritiva."),
-    // new Meta(3, 4, "Reducir en un tercio la mortalidad prematura por enfermedades no transmisibles."),
-    // new Meta(5, 5, "Asegurar la participación plena y efectiva de las mujeres y la igualdad de oportunidades de liderazgo."),
-    // new Meta(6, 1, "Lograr el acceso universal y equitativo al agua potable a un precio asequible."),
-    // new Meta(7, 2, "Aumentar considerablemente la proporción de energía renovable en el conjunto de fuentes energéticas."),
-    // new Meta(8, 3, "Promover políticas que apoyen el crecimiento económico sostenido y el trabajo decente."),
-    // new Meta(9, 4, "Modernizar la infraestructura y reconvertir las industrias para que sean sostenibles."),
-    // new Meta(10, 2, "Potenciar y promover la inclusión social, económica y política de todas las personas."),
-    // new Meta(13, 1, "Fortalecer la resiliencia y la capacidad de adaptación a los riesgos relacionados con el clima."),
-    // new Meta(14, 1, "Prevenir y reducir significativamente la contaminación marina de todo tipo."),
-    // new Meta(15, 2, "Promover la gestión sostenible de todos los tipos de bosques."),
-    // new Meta(16, 3, "Promover el estado de derecho y garantizar la igualdad de acceso a la justicia."),
-    // new Meta(17, 1, "Fortalecer la movilización de recursos internos para mejorar la capacidad nacional."),
-  ];
-
-  iniciativas : Iniciativa[] = [
-
-    // new Iniciativa(1, "Charla/Taller", 1, 100, "Reciclaje Inteligente en Madrid","Reciclaje Inteligente en Madrid optimiza la gestión de residuos con tecnología, promoviendo un reciclaje eficiente y sostenible. ♻️", "2024-09-15", "2025-06-20", [this.metas[1]], [new EntidadExterior(1,"Alboan", "Descripcion de alboan blablabala"), new EntidadExterior(1,"Cistek", "Descripcion de cistek blablabala")], [new Profesor(1,"Miguel", "Goyena", "Muñoz", "1999-02-02")], [new Asignatura(1, "2ºDAM", "DI"), new Asignatura(1, "SMR", "Acc.Datos")]),
-    // new Iniciativa(2, "Salida", 1, 200, "Inclusión digital en zonas rurales", "Descripción2", "2024-11-01", "2025-04-30", [this.metas[2]], [new EntidadExterior(2,"hola", "Chao")], [new Profesor(2,"David", "Noya", "Noya", "1999-02-02")], [new Asignatura(2, "DAM", "Programacion")]),
-    // new Iniciativa(3, "Acciones Internas", 0, 300, "Proyecto 3","Descripcion 3", "2024-11-01", "2025-04-30", [this.metas[0]], [new EntidadExterior(3,"hola", "Chao")], [new Profesor(3,"Maria", "Viña", "Viña", "1999-02-02")], [new Asignatura(3, "DAW", "Desarrollo de Aplicaciones Multiplataforma")]),
-    // new Iniciativa(4, "Proyecto", 0, 400, "Proyecto 4","Descripcion 4", "2024-11-01", "2025-04-30", [this.metas[0]], [new EntidadExterior(4,"hola", "Chao")], [new Profesor(4,"Iban", "Sierra", "Sierra", "1999-02-02")], [new Asignatura(4, "DAM", "Desarrollo de Aplicaciones Multiplataforma")]),
-    // new Iniciativa(5, "Otros", true, 100, "Proyecto 5","Descripcion 5", new Date("2024-11-01"), new Date("2025-04-30"), [this.metas[0]], [new EntidadExterior(5,"hola", "Chao")], [new Profesor(5,"Arantxa", "Church", "Church", new Date("1999-02-02"))], [new Asignatura(5, "DAM", "Desarrollo de Aplicaciones Multiplataforma")]),
-    // new Iniciativa(6, "Proyecto", false, 600, "Proyecto 6","Descripcion 6", new Date("2024-11-01"), new Date("2025-04-30"), [this.metas[0]], [new EntidadExterior(6,"hola", "Chao")], [new Profesor(6,"Amaya", "Peralta", "Peralta", new Date("1999-02-02"))], [new Asignatura(6, "ASIR", "Desarrollo de Aplicaciones Multiplataforma")]),
-    // new Iniciativa(7, "Salida", false, 700, "Proyecto 7","Descripcion 7", new Date("2024-11-01"), new Date("2025-04-30"), [this.metas[0]], [new EntidadExterior(7,"hola", "Chao")], [new Profesor(7,"Luis", "Juez", "Juez", new Date("1999-02-02"))], [new Asignatura(7, "DUAL", "Desarrollo de Aplicaciones Multiplataforma")]),
-    // new Iniciativa(8, "Charla/Taller", true, 800, "Proyecto 8","Descripcion 8", new Date("2024-11-01"), new Date("2025-04-30"), [this.metas[0]], [new EntidadExterior(8,"hola", "Chao")], [new Profesor(8,"Javier", "Milei", "Milei", new Date("1999-02-02"))], [new Asignatura(8, "DUAL", "Desarrollo de Aplicaciones Multiplataforma")]),
-    // new Iniciativa(9, "Acciones Internas", true, 900, "Proyecto 9","Descripcion 9", new Date("2024-11-01"), new Date("2025-04-30"), [this.metas[0]], [new EntidadExterior(9,"hola", "Chao")], [new Profesor(9,"Leo", "Messi", "Messi", new Date("1999-02-02"))], [new Asignatura(9, "SMR", "Desarrollo de Aplicaciones Multiplataforma")]),
-    // new Iniciativa(10, "Otros", false, 1000, "Proyecto 10","Descripcion 10", new Date("2024-11-01"), new Date("2025-04-30"), [this.metas[0]], [new EntidadExterior(10,"hola", "Chao")], [new Profesor(10,"profe", "apell1", "apell2", new Date("1999-02-02"))], [new Asignatura(10, "DAM", "Desarrollo de Aplicaciones Multiplataforma")]),
-    // new Iniciativa(11, "Proyecto", true, 1100, "Proyecto 11","Descripcion 11", new Date("2024-11-01"), new Date("2025-04-30"), [this.metas[0]], [new EntidadExterior(11,"hola", "Chao")], [new Profesor(11,"profe", "apell1", "apell2", new Date("1999-02-02"))], [new Asignatura(11, "DAW", "Desarrollo de Aplicaciones Multiplataforma")]),
-    // new Iniciativa(12, "Proyecto", false, 1200, "Proyecto 12","Descripcion 12", new Date("2024-11-01"), new Date("2025-04-30"), [this.metas[0]], [new EntidadExterior(12,"hola", "Chao")], [new Profesor(12,"profe", "apell1", "apell2", new Date("1999-02-02"))], [new Asignatura(12, "ASIR", "Desarrollo de Aplicaciones Multiplataforma")]),
-  ];
-  
-  get Iniciativas(): Iniciativa[] {
-    return this.iniciativas;
-  }
 
   private entidadesExternas: string[] = [
     "Entidad A", 
@@ -125,20 +88,59 @@ export class IniciativaService {
 
   deleteIniciativaById(id: number): void {
     console.log(id);
-    this.iniciativas = this.iniciativas.filter(iniciativa => iniciativa.Id !== Number(id));
+    // this.iniciativas = this.iniciativas.filter(iniciativa => iniciativa.Id !== Number(id));
   }
 
   
-  
-  private apiUrl = 'http://localhost:5115/api/iniciativas';
+  private apiUrl = 'http://localhost:5115/api';
   constructor(private http: HttpClient) { 
     
   }
-
-  // Obtener todas las iniciativas
+  
   getIniciativas(): Observable<Iniciativa[]> {
-    return this.http.get<any[]>(this.apiUrl).pipe(
-      map(data => data.map(item => this.mapToIniciativa(item)))  // Aquí mapeamos la respuesta a instancias de `Iniciativa`
+    return this.http.get<any[]>(this.apiUrl + "/iniciativas").pipe(
+      map(data => data.map(item => this.mapToIniciativa(item)))  // Aquí mapeamos la respuesta a instancias de Iniciativa
+    );
+  }
+
+  // Obtener todas las asignaturas
+  getAsignaturas(): Observable<Asignatura[]> {
+    return this.http.get<any[]>(this.apiUrl + "/Asignaturas").pipe(
+      map(data => data.map(item => this.mapToAsignatura(item)))
+    );
+  }
+
+  // Obtener todas los cursos
+  getCursos(): Observable<Curso[]> {
+    return this.http.get<any[]>(this.apiUrl + "/Cursos").pipe(
+      map(data => data.map(item => this.mapToCurso(item)))
+    );
+  }
+
+  // Obtener todas las metas
+  getMetas(): Observable<Meta[]> {
+    return this.http.get<any[]>(this.apiUrl + "/Metas").pipe(
+      map(data => data.map(item => this.mapToMeta(item)))
+    );
+  }
+
+  // Obtener todas las ods
+  getOds(): Observable<Ods[]> {
+    return this.http.get<any[]>(this.apiUrl + "/Ods").pipe(
+      map(data => data.map(item => this.mapToOds(item)))
+    );
+  }
+// Obtener todas las profs
+  getProfesores(): Observable<Profesor[]> {
+    return this.http.get<any[]>(this.apiUrl + "/Profesores").pipe(
+      map(data => data.map(item => this.mapToProfesor(item)))
+    );
+  }
+
+  // Obtener todas las entidsdes ext
+  getEntidadesExt(): Observable<EntidadExterior[]> {
+    return this.http.get<any[]>(this.apiUrl + "/entidades").pipe(
+      map(data => data.map(item => this.mapToEntidadExterior(item)))
     );
   }
 
@@ -424,7 +426,7 @@ export class IniciativaService {
         asignaturaData.iD_ASIGNATURA,
         asignaturaData.iD_CURSO,
         asignaturaData.nombre
-    )) : [],
+      )) : [],
       data.iD_ENTIDADs.length > 0 ? data.iD_ENTIDADs.map((entidadData: any) => new EntidadExterior(entidadData.iD_ENTIDAD, entidadData.nombre, entidadData.descripcion)) : [],
       data.iD_PROFESORs.length > 0 ? data.iD_PROFESORs.map((profesorData: any) => new Profesor(
           profesorData.iD_PROFESOR,
@@ -436,13 +438,75 @@ export class IniciativaService {
       data.iD_METAs.length > 0 ? data.iD_METAs.map((metaData: any) => new Meta(
         metaData.iD_META,
         metaData.iD_ODS,
-        metaData.descripcion
-    )) : []
-  );
+        metaData.descripcioN_ODS
+      )) : []
+    );
 
-  console.log(iniciativa);
-  return iniciativa;
-}
+    return iniciativa;
+  }
+
+  private mapToAsignatura(data: any): Asignatura {
+    console.log(data);
+
+    const asignatura = new Asignatura(
+      data.iD_ASIGNATURA,
+      data.iD_CURSO,
+      data.nombre
+    );
+    return asignatura;
+  }
+
+  private mapToCurso(data: any): Curso {
+    console.log(data);
+
+    const curso = new Curso(
+      data.iD_CURSO,
+      data.nombrecurso
+    );
+    return curso;
+  }
+
+  private mapToMeta(data: any): Meta {
+    console.log(data);
+
+    const meta = new Meta(
+      data.iD_META,
+      data.iD_ODS,
+      data.descripcion
+    );
+    return meta;
+  }
+
+  private mapToOds(data: any): Ods {
+    console.log(data);
+
+    const ods = new Ods(
+      data.iD_ODS,
+      data.nombre
+    );
+    return ods;
+  }
+
+  private mapToProfesor(data: any): Profesor {
+    console.log(data);
+
+    const profesor = new Profesor(
+      data.iD_Profesor,
+      data.nombre
+    );
+    return profesor;
+  }
+
+  private mapToEntidadExterior(data: any): EntidadExterior {
+    console.log(data);
+
+    const entidadExterior = new EntidadExterior(
+      data.iD_ENTIDAD,
+      data.nombre,
+      data.descripcion
+    );
+    return entidadExterior;
+  }
 
 
   // Obtener una iniciativa por ID
@@ -452,7 +516,9 @@ export class IniciativaService {
 
   // Crear una nueva iniciativa
   createIniciativa(iniciativa: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, iniciativa);
+    return this.http.post<any>(this.apiUrl + "/iniciativas", iniciativa).pipe(
+      tap(res => console.log('Respuesta del backend:', res))
+    );
   }
 
   // Actualizar una iniciativa

@@ -1,24 +1,25 @@
 export class Meta {
+    
     private numeroOds: number;
-    // private caracterMeta : string;
-    private caracterMeta : number;
+    // private numeroMeta : string;
+    private numeroMeta : number;
     private descripcion: string;
 
-    constructor(numeroOds: number, caracterMeta: number, descripcion: string) {
+    constructor(numeroOds: number, numeroMeta: number, descripcion: string) {
         this.numeroOds = numeroOds;
-        this.caracterMeta = caracterMeta;
+        this.numeroMeta = numeroMeta;
         this.descripcion = descripcion;
     }
 
     // Modificado para aceptar datos de la API directamente
     // constructor(data: any) {
     //     this.numeroOds = data.iD_ODS;  // Asumiendo que `iD_ODS` es el campo correspondiente de la API
-    //     this.caracterMeta = data.caracterMeta || '';  // Asumí que `caracterMeta` puede venir vacío
+    //     this.numeroMeta = data.numeroMeta || '';  // Asumí que `numeroMeta` puede venir vacío
     //     this.descripcion = data.descripcion || '';  // Igualmente, para descripción
     // }
 
     get Id(): string {
-        return this.numeroOds + "." + this.caracterMeta;
+        return this.numeroOds + "." + this.numeroMeta;
     }
     get NumeroOds(): number {
         return this.numeroOds;
@@ -26,11 +27,11 @@ export class Meta {
     set NumeroOds(numeroOds: number) {
         this.numeroOds = numeroOds;
     }
-    get CaracterMeta(): number {
-        return this.caracterMeta;
+    get NumeroMeta(): number {
+        return this.numeroMeta;
     }
-    set CaracterMeta(caracterMeta: number) {
-        this.caracterMeta = caracterMeta;
+    set NumeroMeta(numeroMeta: number) {
+        this.numeroMeta = numeroMeta;
     }
     get Descripcion(): string {
         return this.descripcion;

@@ -1,11 +1,11 @@
 export class Asignatura {
     private id: number;
-    private nombreCurso: string;//TODO DEVUELVE ID AHORA
+    private idCurso: string;//TODO DEVUELVE ID AHORA
     private nombreAsignatura: string;
 
-    constructor(id: number, nombreCurso: string, nombreAsignatura: string) {
+    constructor(id: number, idCurso: string, nombreAsignatura: string) {
         this.id = id;
-        this.nombreCurso = nombreCurso;
+        this.idCurso = idCurso;
         this.nombreAsignatura = nombreAsignatura;
     }
 
@@ -26,11 +26,11 @@ export class Asignatura {
     }
 
     get getNombreCurso(): string {
-        return this.nombreCurso;
+        return this.idCurso;
     }   
 
     public setNombreCurso(nombreCurso: string): void {
-        this.nombreCurso = nombreCurso;
+        this.idCurso = nombreCurso;
     }
 
     get getNombreAsignatura(): string {

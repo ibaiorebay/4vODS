@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IniciativaService } from '../../services/iniciativa.service';
 import { Iniciativa } from '../../models/iniciativa';
@@ -7,7 +7,12 @@ import { Meta } from '../../models/meta';
 import { EntidadExterior } from '../../models/entidad-exterior';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Ods } from '../../models/ods';
+import { Profesor } from '../../models/profesor';
+import { Curso } from '../../models/curso';
+import * as echarts from 'echarts';
 
+type EChartsOption = echarts.EChartsOption;
 
 @Component({
   selector: 'app-main-initiatives-info',
@@ -16,15 +21,17 @@ import { Router } from '@angular/router';
   templateUrl: './main-initiatives-info.component.html',
   styleUrl: './main-initiatives-info.component.scss'
 })
-export class MainInitiativesInfoComponent {
+export class MainInitiativesInfoComponent implements AfterViewInit {
+
   iniciativas: Iniciativa[] = [];
   iniciativasFiltradas: Iniciativa[] = [];
   isDropdownOpen = false; // Estado del menú desplegable
-  cursos: string[] = [];
-  profesores: string[] = [];
-  asignaturas: string[] = [];
-  ods: string[] = [];
-  metasOds: any;
+
+  cursos: Curso[] = [];
+  profesores: Profesor[] = [];
+  asignaturas: Asignatura[] = [];
+  ods: Ods[] = [];
+  // metasOds: any;
   filtroInnovador = false;
   
   constructor(private iniciativaService: IniciativaService, private router: Router) {
@@ -33,21 +40,77 @@ export class MainInitiativesInfoComponent {
 
   ngOnInit(): void {
     // Cargar todas las iniciativas
-    // this.iniciativaService.getIniciativas().subscribe((data) => {
-    //   this.iniciativas = data;
-    //   this.iniciativasFiltradas = data;
-    //   console.log(this.iniciativas);
-    // });
+    this.iniciativaService.getIniciativas().subscribe((data) => {
+      this.iniciativas = data;
+      this.iniciativasFiltradas = data;
+      console.log(this.iniciativas);
+    });
     // this.iniciativas = this.iniciativaService.Iniciativas;
+
+    //funcionando y testeado con dani. falat ver si el value puesto en el html es el correcto
+    this.iniciativaService.getAsignaturas().subscribe((asignaturas: any) => {
+      console.log("Asignaturas recibidas:", asignaturas);
+      this.asignaturas = asignaturas;
+    });
+
+    //TODO ver como cargar las metas de los ods
+    this.iniciativaService.getMetas().subscribe((metas: any) => {
+      console.log("metas recibidas:", metas);
+      // this.metas = metas;
+    });
+
+    //funcionando y testeado con dani. falat ver si el value puesto en el html es el correcto
+    this.iniciativaService.getCursos().subscribe((cursos: any) => {
+      console.log("cursos recibidas:", cursos);
+      this.cursos = cursos;
+    });
+
+    //funcionando y testeado con dani. falat ver si el value puesto en el html es el correcto
+    this.iniciativaService.getOds().subscribe((ods: any) => {
+      console.log("ods recibidas:", ods);
+      this.ods = ods;
+    });
+
+    //funcionando y testeado con dani. falat ver si el value puesto en el html es el correcto. TODO no sale el nombre del profe en la card
+    this.iniciativaService.getProfesores().subscribe((profesores: any) => {
+      console.log("profes recibidas:", profesores);
+      this.profesores = profesores;
+    });
+
+    // this.iniciativaService.getIniciativas().subscribe((asignaturas: any) => {
+    //   console.log("iniciativas recibidas:", asignaturas);
+    // });
 
 
     this.iniciativas = this.iniciativaService.getIniciativasMock();
     this.iniciativasFiltradas = this.iniciativas;
-    this.cursos = this.iniciativaService.Cursos;
-    this.profesores = this.iniciativaService.Profesores;
-    this.asignaturas = this.iniciativaService.Asignaturas;
-    this.ods = this.iniciativaService.Ods;
-    this.metasOds = this.iniciativaService.MetasOds;
+    // this.cursos = this.iniciativaService.Cursos;
+    // this.profesores = this.iniciativaService.Profesores;
+    // this.asignaturas = this.iniciativaService.Asignaturas;
+    // this.ods = this.iniciativaService.Ods;
+    // this.metasOds = this.iniciativaService.MetasOds;
+  }
+
+  ngAfterViewInit(): void {
+    const chartDom = document.getElementById('main')!;
+    const myChart = echarts.init(chartDom);
+    const option: EChartsOption = {
+      xAxis: {
+        type: 'category',
+        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [
+        {
+          data: [120, 200, 150, 80, 70, 110, 130],
+          type: 'bar'
+        }
+      ]
+    };
+
+    myChart.setOption(option);
   }
 
 
@@ -120,7 +183,7 @@ export class MainInitiativesInfoComponent {
   }
 
   obtenerMetas(metas: Meta[]): string {
-    let result = metas.map(meta => `${meta.NumeroOds}.${meta.CaracterMeta}`).join(', ');
+    let result = metas.map(meta => `${meta.NumeroOds}.${meta.NumeroMeta}`).join(', ');
     return result;
   }
 
@@ -179,17 +242,17 @@ export class MainInitiativesInfoComponent {
 
 
   
-  edit(iniciativaId: number) {
+  edit(idIniciativaAEditar: number) {
     console.log("Editando tarjeta");
-    this.router.navigate(['/initiatives-form', iniciativaId]);
+    this.router.navigate(['/initiatives-form', idIniciativaAEditar]);
   }
 
   delete(id: number) {
     console.log("Borrando tarjeta con id: " + id);
-    // this.iniciativaService.deleteIniciativaById(Number(id));
+    // this.iniciativaService.deleteIniciativaById(id);
     // this.iniciativas = this.iniciativaService.Iniciativas;
 
-    // this.iniciativasFiltradas = this.iniciativaService.deleteIniciativa(Number(id));
+    // this.iniciativasFiltradas = this.iniciativaService.deleteIniciativa(id);
   }
 
 

@@ -4,85 +4,48 @@ import { Asignatura } from "./asignatura";
 import { Meta } from "./meta";
 
 export class Iniciativa {
-    private idIniciativa: number;
+    private iD_INICIATIVA: number;
     private titulo: string;
     private horas: number;
-    private fechaInicio: string;
-    private fechaFin: string;
+    private fechA_INICIO: string;
+    private fechA_FIN: string;
     private descripcion: string;
-    private tipoIniciativa: string;
-    private productoFinal: string = "";
+    private tipo: string;
+    private productO_FINAL: string = "";
     private esInnovadora: number;
-    private difusion: string = "";
+    private difusion: string = "";//redes sociales
 
     private asignaturas: Asignatura[];
     private entidadesExteriores: EntidadExterior[];
     private profesores: Profesor[];
     private metas: Meta[];
 
-    constructor(id: number, titulo:string, horas: number, fechaInicio: string, fechaFin: string, descripcion: string, tipoIniciativa: string, productoFinal: string, esInnovadora: number, difusion: string, asignaturas: Asignatura[], entidadesExteriores: EntidadExterior[], profesores: Profesor[], metas:Meta[]) {
-        this.idIniciativa = id;
-        this.titulo = titulo;
-        this.horas = horas;
-        this.fechaInicio = fechaInicio;
-        this.fechaFin = fechaFin;
-        this.descripcion = descripcion;
-        this.tipoIniciativa = tipoIniciativa;
-        this.productoFinal = productoFinal;
-        this.esInnovadora = esInnovadora;
-        this.difusion = difusion;
+    private ultimoId = 2;
 
-        this.asignaturas = asignaturas;
-        this.entidadesExteriores = entidadesExteriores;
-        this.profesores = profesores;
-        this.metas = metas;
+    constructor(id: number, titulo:string, horas: number, fechaInicio: string, fechaFin: string, descripcion: string, tipoIniciativa: string, productoFinal: string, esInnovadora: number, difusion: string, asignaturas: Asignatura[], entidadesExteriores: EntidadExterior[], profesores: Profesor[], metas:Meta[]) {
+       this.iD_INICIATIVA = this.ultimoId += 1;
+       this.titulo = titulo;
+       this.horas = horas;
+       this.fechA_INICIO = fechaInicio;
+       this.fechA_FIN = fechaFin;
+       this.descripcion = descripcion;
+       this.tipo = tipoIniciativa;
+       this.productO_FINAL = productoFinal;
+       this.esInnovadora = esInnovadora;
+       this.difusion = difusion;
+
+       this.asignaturas = asignaturas;
+       this.entidadesExteriores = entidadesExteriores;
+       this.profesores = profesores;
+       this.metas = metas;
     }
 
-    /*
-    constructor(data: any) {
-        console.log(data);
-        // Mapeamos los datos que nos devuelve la API a nuestro modelo
-
-        // this.idIniciativa = data.iD_INICIATIVA;
-        this.idIniciativa = data.idIniciativa;
-
-        this.horas = data.horas;
-        this.titulo = data.titulo;
-        this.descripcion = data.descripcion;
-        
-        // this.fechaInicio = data.fechA_INICIO;  // Convierte la fecha desde string
-        this.fechaInicio = data.fechaInicio;  // Convierte la fecha desde string
-        
-        // this.fechaFin = data.fechA_FIN;  // Convierte la fecha desde string
-        this.fechaFin = data.fechaFin;  // Convierte la fecha desde string
-
-        // this.metas = data.iD_METAs.map((metaData: any) => new Meta(metaData));  // Suponiendo que tienes una clase Meta
-        // this.metas = data.iD_METAs ? data.iD_METAs.map((metaData: any) => new Meta(metaData)) : []
-        this.metas = data.metas;
-        
-        // this.entidadesExteriores = data.iD_ENTIDADs.map((entidadData: any) => new EntidadExterior(entidadData));  // Suponiendo que tienes una clase EntidadExterior
-        this.entidadesExteriores = data.entidadesExteriores;  // Suponiendo que tienes una clase EntidadExterior
-        
-        // this.profesores = data.iD_PROFESORs.map((profesorData: any) => new Profesor(profesorData));  // Suponiendo que tienes una clase Profesor
-        this.profesores = data.profesores;  // Suponiendo que tienes una clase Profesor
-        
-        // this.asignaturas = data.iD_ASIGNATURAs.map((asignaturaData: any) => new Asignatura(asignaturaData));  // Suponiendo que tienes una clase Asignatura
-        this.asignaturas = data.asignaturas;  // Suponiendo que tienes una clase Asignatura
-        
-        this.tipo = data.tipo;
-
-        // this.productoFinal = data.productO_FINAL;
-        this.productoFinal = data.productoFinal;
-        
-        this.nueva = data.nueva;
-    }*/
-
     get Id(): number {
-        return this.idIniciativa;
+        return this.iD_INICIATIVA;
     }
 
     set Id(id: number) {
-        this.idIniciativa = id;
+        this.iD_INICIATIVA = id;
     }
 
     get Titulo(): string {
@@ -102,19 +65,19 @@ export class Iniciativa {
     }
 
     get FechaInicio(): string {
-        return this.fechaInicio;
+        return this.fechA_INICIO;
     }
 
     set FechaInicio(fechaInicio: string) {
-        this.fechaInicio = fechaInicio;
+        this.fechA_INICIO = fechaInicio;
     }
 
     get FechaFin(): string {
-        return this.fechaFin;
+        return this.fechA_FIN;
     }
 
     set FechaFin(fechaFin: string) {
-        this.fechaFin = fechaFin;
+        this.fechA_FIN = fechaFin;
     }
 
     get Descripcion(): string {
@@ -126,19 +89,19 @@ export class Iniciativa {
     }
 
     get TipoIniciativa(): string {
-        return this.tipoIniciativa;
+        return this.tipo;
     }
 
     set TipoIniciativa(tipoIniciativa: string) {
-        this.tipoIniciativa = tipoIniciativa;
+        this.tipo = tipoIniciativa;
     }
 
     get ProductoFinal(): string {
-        return this.productoFinal;
+        return this.productO_FINAL;
     }
 
     set ProductoFinal(productoFinal: string) {
-        this.productoFinal = productoFinal;
+        this.productO_FINAL = productoFinal;
     }
 
     get EsInnovadora(): number {
