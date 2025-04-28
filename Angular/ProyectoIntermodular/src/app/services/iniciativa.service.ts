@@ -7,7 +7,6 @@ import { Asignatura } from '../models/asignatura';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable, tap } from 'rxjs';
 import { Curso } from '../models/curso';
-import { Ods } from '../models/ods';
 import { ProfesorDTO } from '../models/profesor-dto';
 import { AsignaturaDTO } from '../models/asignatura-dto';
 import { OdsDTO } from '../models/ods-dto';

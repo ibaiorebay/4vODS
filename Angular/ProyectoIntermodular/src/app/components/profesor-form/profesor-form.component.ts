@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Profesor } from '../../models/profesor';
+import { ProfesorDTO } from '../../models/profesor-dto';
+import { ProfesorService } from '../../services/profesor.service';
 
 
 @Component({
@@ -14,38 +15,28 @@ import { Profesor } from '../../models/profesor';
 })
 export class ProfesorFormComponent {
 
+  profesoresOpciones: ProfesorDTO[] = [];
   form!: FormGroup;
   idProfesorAEditar: number | null = null;
-
-  constructor(private fb: FormBuilder, private route: ActivatedRoute) {
   
+
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private profesorService: ProfesorService) {
+    this.profesorService.getProfesores().subscribe((profesores: any) => {
+      console.log("Profesores recibidos:", profesores);
+      this.profesoresOpciones = profesores;
+    });
+
+    this.crearFormulario();
   }
 
-  private crearFormulario(profesor?: any): void {
-      
+  private crearFormulario(profesor?: ProfesorDTO): void {
     this.form = this.fb.group({
-      innovador: [profesor?.EsInnovadora ?? null, Validators.required],// Será true o false
-      nombre: [profesor?.Titulo ?? '', [Validators.required, Validators.minLength(5)]],
-      primerApellido: [profesor?.Titulo ?? '', [Validators.required, Validators.minLength(5)]],
-      segundoApellido: [profesor?.Apellido2 ?? '', [Validators.required, Validators.minLength(5)]],
-      fechaNacimiento: [profesor?.FechaNacimiento ?? '', Validators.required]
+      nombre: [profesor?.Nombre ?? '', [Validators.required]],
     });
   }
 
   get nombreFrmControl() {
     return this.form.get('nombre');
-  }
-  
-  get primerApellidoFrmControl() {
-    return this.form.get('primerApellido');
-  }
-
-  get segundoApellidoFrmControl() {
-    return this.form.get('segundoApellido');
-  }
-
-  get fechaNacimientoFrmControl() {
-    return this.form.get('fechaNacimiento');
   }
 
   formatearFecha(fecha: Date | string): string {
@@ -55,7 +46,20 @@ export class ProfesorFormComponent {
     const anio = date.getFullYear();
     return `${dia}-${mes}-${anio}`;
   }
-  
+
+
+  crearProfesor() {
+    
+  }
+
+  editarProfesor(idIniciativaAEditar: number) {
+    console.log("Editando tarjeta");
+  }
+
+  eliminarProfesor(id: number) {
+    console.log("Borrando tarjeta con id: " + id);
+    // this.profesorService.deleteProfesorById(id);
+  }
 
   save() {
     console.log(this.form);
@@ -65,18 +69,29 @@ export class ProfesorFormComponent {
       console.log(this.form.value);
       
       const datosForm: any = this.form.value;
+      let nuevoProfesor: ProfesorDTO;
 
-      const nuevoProfesor: Profesor =  new Profesor(
-        this.idProfesorAEditar ?? 0,
-        datosForm.nombre,
-        datosForm.primerApellido,
-        datosForm.segundoApellido,
-        this.formatearFecha(datosForm.fechaNacimiento),
-      );
+      if(this.idProfesorAEditar !== null) {
+        nuevoProfesor = new ProfesorDTO(this.idProfesorAEditar, datosForm.nombre);
 
+        console.log(nuevoProfesor);
+
+        this.profesorService.updateProfesor(this.idProfesorAEditar, nuevoProfesor).subscribe(
+          (response) => console.log("Profesor actualizado:", response),
+          (error) => console.error("Error al guardar el profesor:", error)
+        );
+
+        return;
+      }
+
+      nuevoProfesor = new ProfesorDTO(3, datosForm.nombre);
       console.log(nuevoProfesor);
 
-      // this.iniciativaService.createIniciativa(nuevoProfesor);
+      this.profesorService.createProfesor(nuevoProfesor).subscribe(
+        (response) => console.log("Profesor creado:", response),
+        (error) => console.error("Error al guardar el profesor:", error)
+      );
+
 
     } else {
       console.log("Formulario inválido");
