@@ -1,43 +1,48 @@
 export class Asignatura {
     private id: number;
-    private nombreCurso: string;//TODO DEVUELVE ID AHORA
+    private idCurso: number;
+    private nombreCurso: string;
     private nombreAsignatura: string;
 
-    constructor(id: number, nombreCurso: string, nombreAsignatura: string) {
+    constructor(id: number, idCurso: number, nombreCurso: string, nombreAsignatura: string) {
         this.id = id;
         this.nombreCurso = nombreCurso;
+        this.idCurso = idCurso;
         this.nombreAsignatura = nombreAsignatura;
     }
-
-    // Constructor que recibe un objeto de datos de la API
-    // constructor(data: any) {
-    //     this.id = data.iD_ASIGNATURA;  // Mapeamos el valor de `iD_ASIGNATURA` de la API
-    //     this.nombreCurso = data.nombreCurso || '';  // Asignamos nombreCurso, con valor vacío si no viene
-    //     this.nombreAsignatura = data.nombre || '';  // Asignamos nombreAsignatura, con valor vacío si no viene
-    // }
-
     
-    public getId(): number {
+    get Id(): number {
         return this.id;
     }
 
-    public setId(id: number): void {
+    set Id(id: number) {
         this.id = id;
     }
 
-    get getNombreCurso(): string {
+
+    get IdCurso(): number {
+        return this.idCurso;
+    }   
+
+    set IdCurso(idCurso: number) {
+        this.idCurso = idCurso;
+    }
+
+
+    get NombreCurso(): string {
         return this.nombreCurso;
     }   
 
-    public setNombreCurso(nombreCurso: string): void {
+    set NombreCurso(nombreCurso: string) {
         this.nombreCurso = nombreCurso;
     }
 
-    get getNombreAsignatura(): string {
+
+    get NombreAsignatura(): string {
         return this.nombreAsignatura;
     }
 
-    public setNombreAsignatura(nombreAsignatura: string): void {
+    set NombreAsignatura(nombreAsignatura: string) {
         this.nombreAsignatura = nombreAsignatura;
     }
 

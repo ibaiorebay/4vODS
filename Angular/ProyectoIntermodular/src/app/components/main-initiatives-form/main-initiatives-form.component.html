@@ -1,185 +1,287 @@
 <div class="custom-modal-container">
-    <div class="custom-modal">
-      <div class="custom-modal-header">
-        <h3>Nueva Iniciativa</h3>
-      </div>
-      <div class="custom-modal-body">
-        <form [formGroup]="form">
+  <div class="custom-modal">
+    <div class="custom-modal-header">
+      <h5>Nueva Iniciativa</h5>
+    </div>
+    <div class="custom-modal-body">
+      <form [formGroup]="form">
 
-          <div class="mb-3">
-            <label>El proyecto es innovador?</label>
-              <div class="template-card me-5" (click)="selectTemplate(1)">
-                <p class="mb-1">💡 Innovadora</p>
-                <p class="subtitle">Propuesta novedosa que introduce mejoras significativas, nuevas tecnologías o procesos disruptivos.</p>
-              </div>
-              <div class="template-card" (click)="selectTemplate(2)">
-                <p class="mb-1">📄 Convencional</p>
-                <p class="subtitle">Basada en enfoques probados y establecidos, optimizando procesos sin cambios radicales.</p>
-              </div>
-          </div>
-
-          <div class="mb-3">
-            <label for="titulo">Título de Iniciativa</label>
-            <input id="titulo" type="text" class="form-control" formControlName="titulo">
-          </div>
-
-          <div class="mb-3">
-            <label>Tipo de proyecto</label>
-            <div class="d-inline-flex flex-column me-5">
-              <input type="radio" id="opcion1" name="opciones" class="custom-radio">
-              <label for="opcion1">Charla</label>
-              <input type="radio" id="opcion2" name="opciones" class="custom-radio">
-              <label for="opcion2">Taller</label>
-              <input type="radio" id="opcion3" name="opciones" class="custom-radio">
-              <label for="opcion3">Salida</label>
+        <div class="mb-3">
+          <label>El proyecto es innovador?</label>
+          <!-- [ngClass] → Es una directiva de Angular que permite agregar o quitar clases dinámicamente en función de una condición.
+           'selected' es la clase CSS que se aplicará si la condición (form.value.innovador === true) es verdadera. -->
+            <div class="template-card me-5" [ngClass]="{'selected': form.value.innovador === true}" (click)="selectTemplate('innovador')">
+              <p class="mb-1">💡 Innovadora</p>
+              <p class="subtitle">Propuesta novedosa que introduce mejoras significativas, nuevas tecnologías o procesos disruptivos.</p>
             </div>
-            <div class="d-inline-flex flex-column">
-              <input type="radio" id="opcion4" name="opciones" class="custom-radio">
-              <label for="opcion4">Proyecto</label>
-              <input type="radio" id="opcion5" name="opciones" class="custom-radio">
-              <label for="opcion5">Acciones Internas</label>
-              <input type="radio" id="opcion6" name="opciones" class="custom-radio">
-              <label for="opcion6">Otros</label>
-            </div>
-          </div>
-        
-
-          <div class="mb-3">
-            <label for="horas">Horas</label>
-            <input id="horas" type="number" class="form-control" formControlName="horas">
-          </div>
-          <div class="d-flex">
-              <div class="mb-3 me-5">
-                <label for="fechaInicio">Fecha Inicio</label>
-                <input id="fechaInicio" type="date" class="form-control" formControlName="fechaInicio">
-              </div>
-              <div class="mb-3">
-                <label for="fechaFin">Fecha Fin</label>
-                <input id="fechaFin" type="date" class="form-control" formControlName="fechaFin">
-              </div>
-          </div>
-          
-          <!-- Select para Asignaturas -->
-          <div class="mb-3">
-            <label for="asignaturas">Asignaturas</label>
-            <select id="asignaturas" class="form-control" formControlName="asignaturas" (change)="addAsignatura($event)">
-              <option *ngFor="let asignatura of asignaturasOptions" [value]="asignatura.id">{{ asignatura.nombre }}</option>
-            </select>
-          </div>
-          <!-- Badges de Asignaturas Seleccionadas -->
-          <div class="mb-3">
-            <label>Asignaturas Seleccionadas</label>
-            <div *ngFor="let asignatura of selectedAsignaturas" class="badge-container">
-              <span class="badge  badge-primary">
-                {{ asignatura.nombre }}
-                <!-- <span class="badge badge-close" (click)="removeAsignatura(asignatura)"> -->
-                <span class="badge-close" (click)="removeAsignatura(asignatura)">
-                  <img src="../../assets/x.svg" alt="close-icon">
-                </span>
-              </span>
-            </div>
-          </div>
-  
-          <!-- Select para Entidades -->
-          <div class="mb-3">
-            <label for="entidades">Entidades Externas</label>
-            <select id="entidades" class="form-control" formControlName="entidades" (change)="addEntidad($event)">
-              <option *ngFor="let entidad of entidadesOptions" [value]="entidad.id">{{ entidad.nombre }}</option>
-            </select>
-          </div>
-          <!-- Badges de Entidades Seleccionadas -->
-          <div class="mb-3">
-            <label>Entidades Seleccionadas</label>
-            <div *ngFor="let entidad of selectedEntidades" class="badge-container">
-              <span class="badge  badge-info">
-                {{ entidad.nombre }}
-                <span class="badge-close" (click)="removeEntidad(entidad)">
-                  <img src="../../assets/x.svg" alt="close-icon">
-                </span>
-              </span>
-            </div>
-          </div>
-  
-          <!-- Select para Metas de la ODS -->
-          <div class="mb-3">
-            <label for="metas">Metas de la ODS</label>
-            <select id="metas" class="form-control" formControlName="metas" (change)="addMeta($event)">
-              <option *ngFor="let meta of metasOptions" [value]="meta.id">{{ meta.nombre }}</option>
-            </select>
-          </div>
-          <!-- Badges de Metas Seleccionadas -->
-          <div class="mb-3">
-            <label>Metas Seleccionadas</label>
-            <div *ngFor="let meta of selectedMetas" class="badge-container">
-              <span class="badge  badge-success d-inline-block">
-                {{ meta.nombre }}
-                <span class="badge-close" (click)="removeMeta(meta)">
-                  <img src="../../assets/x.svg" alt="close-icon">
-                </span>
-              </span>
-            </div>
-          </div>
-  
-          <!-- Select para Profesores -->
-          <div class="mb-3">
-            <label for="profesores">Profesores</label>
-            <select id="profesores" class="form-control" formControlName="profesores" (change)="addProfesor($event)">
-              <option *ngFor="let profesor of profesoresOptions" [value]="profesor.id">{{ profesor.nombre }}</option>
-            </select>
-          </div>
-          <!-- Badges de Profesores Seleccionados -->
-          <div class="mb-3">
-            <label>Profesores Seleccionados</label>
-            <div *ngFor="let profesor of selectedProfesores" class="badge-container">
-              <span class="badge  badge-warning">
-                {{ profesor.nombre }}
-                <span class="badge-close" (click)="removeProfesor(profesor)">
-                  <img src="../../assets/x.svg" alt="close-icon">
-                </span>
-              </span>
-            </div>
-          </div>
-
-          <!-- Descripcion -->
-          <div class="mb-3">
-            <label>Descripción</label>
-            <textarea class="d-block"></textarea>
-          </div>
-
-
-          <!-- Redes sociales inputs -->
-          <div class="social-container mb-3 mt-4">
-            <label class="form-title">Selecciona tus redes sociales:</label>
-            
-            <div class="social-option">
-                <input type="checkbox" id="linkedin" class="social-checkbox" (click)="toggleInput('linkedin')">
-                <label for="linkedin" class="mb-0"> Linkedin</label>
-                <input type="text" id="linkedin-link" class="social-input" placeholder="Ingresa tu enlace de Linkedin" style="display: none;">
-            </div>
-
-            <div class="social-option">
-                <input type="checkbox" id="facebook" class="social-checkbox" (click)="toggleInput('facebook')">
-                <label for="facebook" class="mb-0"> Facebook</label>
-                <input type="text" id="facebook-link" class="social-input" placeholder="Ingresa tu enlace de Facebook" style="display: none;">
-            </div>
-        
-            <div class="social-option">
-                <input type="checkbox" id="twitter" class="social-checkbox" (click)="toggleInput('twitter')">
-                <label for="twitter" class="mb-0"> Twitter</label>
-                <input type="text" id="twitter-link" class="social-input" placeholder="Ingresa tu enlace de Twitter" style="display: none;">
-            </div>
-        
-            <div class="social-option">
-                <input type="checkbox" id="instagram" class="social-checkbox" (click)="toggleInput('instagram')">
-                <label for="instagram" class="mb-0"> Instagram</label>
-                <input type="text" id="instagram-link" class="social-input" placeholder="Ingresa tu enlace de Instagram" style="display: none;">
+            <div class="template-card" [ngClass]="{'selected': form.value.innovador === false }" (click)="selectTemplate('convencional')">
+              <p class="mb-1">📄 Convencional</p>
+              <p class="subtitle">Basada en enfoques probados y establecidos, optimizando procesos sin cambios radicales.</p>
             </div>
         </div>
+        <!-- Mensajes de error -->
+        <div *ngIf="innovadorFrmControl?.touched && innovadorFrmControl?.invalid">
+          <div *ngIf="innovadorFrmControl?.errors?.['required']">
+            ⚠ Tenés que seleccionar si la iniciativa es innovadora o no.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="titulo">Título de Iniciativa</label>
+          <input id="titulo" type="text" class="form-control" formControlName="titulo">
+        </div>
+        <!-- Mensajes de error -->
+        <div *ngIf="tituloFrmControl?.touched && tituloFrmControl?.invalid">
+          <div *ngIf="tituloFrmControl?.errors?.['required']">
+            ⚠ El titulo es obligatorio.
+          </div>
+          <div *ngIf="tituloFrmControl?.errors?.['minlength']">
+            ⚠ El titulo no puede tener menos de 5 letras.
+          </div>
+          <div *ngIf="tituloFrmControl?.errors?.['maxlength']">
+            ⚠ El titulo no puede tener mas de 30 letras.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label>Tipo de proyecto</label>
+          <div class="d-inline-flex flex-column me-5">
+            <input type="radio" id="opcion1" formControlName="tipoIniciativa" name="tipoIniciativa" class="custom-radio" value="Charla">
+            <label for="opcion1">Charla</label>
         
-  
-          <button class="btn btn-save" (click)="save()">Guardar</button>
-        </form>
-      </div>
+            <input type="radio" id="opcion2" formControlName="tipoIniciativa" name="tipoIniciativa" class="custom-radio" value="Taller">
+            <label for="opcion2">Taller</label>
+        
+            <input type="radio" id="opcion3" formControlName="tipoIniciativa" name="tipoIniciativa" class="custom-radio" value="Salida">
+            <label for="opcion3">Salida</label>
+          </div>
+        
+          <div class="d-inline-flex flex-column">
+            <input type="radio" id="opcion4" formControlName="tipoIniciativa" name="tipoIniciativa" class="custom-radio" value="Proyecto">
+            <label for="opcion4">Proyecto</label>
+        
+            <input type="radio" id="opcion5" formControlName="tipoIniciativa" name="tipoIniciativa" class="custom-radio" value="Acciones Internas">
+            <label for="opcion5">Acciones Internas</label>
+        
+            <input type="radio" id="opcion6" formControlName="tipoIniciativa" name="tipoIniciativa" class="custom-radio" value="Otros">
+            <label for="opcion6">Otros</label>
+          </div>
+        </div>
+        <!-- Mensajes de error -->
+        <div *ngIf="tipoIniciativaFrmControl?.touched && tipoIniciativaFrmControl?.invalid">
+          <div *ngIf="tipoIniciativaFrmControl?.errors?.['required']">
+            ⚠ Tenés que seleccionar un tipo de iniciativa.
+          </div>
+        </div>
+      
+
+        <div class="mb-3">
+          <label for="horas">Horas</label>
+          <input id="horas" type="number" class="form-control" formControlName="horas">
+        </div>
+        <!-- Mensajes de error -->
+        <div *ngIf="horasFrmControl?.touched && horasFrmControl?.invalid">
+          <div *ngIf="horasFrmControl?.errors?.['required']">
+            ⚠ El campo es obligatorio.
+          </div>
+          <div *ngIf="horasFrmControl?.errors?.['min']">
+            ⚠ El valor mínimo es 1.
+          </div>
+          <div *ngIf="horasFrmControl?.errors?.['max']">
+            ⚠ El valor máximo es 100.
+          </div>
+        </div>
+
+        <div class="d-flex">
+            <div class="mb-3 me-5">
+              <label for="fechaInicio">Fecha Inicio</label>
+              <input id="fechaInicio" type="date" class="form-control" formControlName="fechaInicio">
+            </div>
+            <div class="mb-3">
+              <label for="fechaFin">Fecha Fin</label>
+              <input id="fechaFin" type="date" class="form-control" formControlName="fechaFin">
+            </div>
+        </div>
+        <div *ngIf="form.hasError('fechaInvalida')">
+          ⚠ La fecha de fin no puede ser anterior a la fecha de inicio.
+        </div>
+        
+        
+        <!-- Select para Asignaturas -->
+        <div class="mb-3">
+          <label for="asignaturas">Asignaturas</label>
+          <select id="asignaturas" class="form-control" formControlName="asignaturas" (change)="addAsignatura($event)">
+            <option *ngFor="let asignatura of asignaturasOptions" [value]="asignatura.getId">{{ asignatura.NombreAsignatura }}</option><!--[value]="asignatura.id" es usado en la funcion addAsignatura-->
+          </select>
+        </div>
+        <!-- Badges de Asignaturas Seleccionadas -->
+        <div class="mb-3">
+          <label>Asignaturas Seleccionadas</label>
+          <div *ngFor="let id of selectedAsignaturasIndex" class="badge-container">
+            <span class="badge  badge-primary">
+              {{ getNombreAsignatura(id) }}
+              <!-- <span class="badge badge-close" (click)="removeAsignatura(asignatura)"> -->
+              <span class="badge-close" (click)="removeAsignatura(id)">
+                <img src="../../assets/x.svg" alt="close-icon">
+              </span>
+            </span>
+          </div>
+        </div>
+        <div *ngIf="asignaturasFrmControl?.errors?.['seleccionRequerida'] && asignaturasFrmControl?.touched">
+          ⚠ Tenés que seleccionar al menos una asignatura.
+        </div>
+         
+
+        <!-- Select para Entidades -->
+        <div class="mb-3">
+          <label for="entidades">Entidades Externas</label>
+          <select id="entidades" class="form-control" formControlName="entidades" (change)="addEntidad($event)">
+            <option *ngFor="let entidad of entidadesOptions" [value]="entidad.Id">{{ entidad.Nombre }}</option>
+          </select>
+        </div>
+        <!-- Badges de Entidades Seleccionadas -->
+        <div class="mb-3">
+          <label>Entidades Seleccionadas</label>
+          <div *ngFor="let id of selectedEntidadesExtIndex" class="badge-container">
+            <span class="badge  badge-info">
+              {{ getNombreEntidadExt(id) }}
+              <span class="badge-close" (click)="removeEntidad(id)">
+                <img src="../../assets/x.svg" alt="close-icon">
+              </span>
+            </span>
+          </div>
+        </div>
+        <div *ngIf="entidadesFrmControl?.errors?.['seleccionRequerida'] && entidadesFrmControl?.touched">
+          ⚠ Tenés que seleccionar al menos una entidad exterior.
+        </div>
+
+        <!-- Select para Metas de la ODS -->
+        <div class="mb-3">
+          <label for="metas">Metas de la ODS</label>
+          <select id="metas" class="form-control" formControlName="metas" (change)="addMeta($event)">
+            <option *ngFor="let meta of metasOptions" [value]="meta.id">{{ meta.nombre }}</option>
+          </select>
+        </div>
+        <!-- Badges de Metas Seleccionadas -->
+        <div class="mb-3">
+          <label>Metas Seleccionadas</label>
+          <div *ngFor="let meta of selectedMetas" class="badge-container">
+            <span class="badge  badge-success d-inline-block">
+              {{ meta.nombre }}
+              <span class="badge-close" (click)="removeMeta(meta)">
+                <img src="../../assets/x.svg" alt="close-icon">
+              </span>
+            </span>
+          </div>
+        </div>
+        <div *ngIf="metasFrmControl?.errors?.['seleccionRequerida'] && metasFrmControl?.touched">
+          ⚠ Tenés que seleccionar al menos una meta.
+        </div>
+
+
+        <!-- Select para Profesores -->
+        <div class="mb-3">
+          <label for="profesores">Profesores</label>
+          <select id="profesores" class="form-control" formControlName="profesores" (change)="addProfesor($event)">
+            <option *ngFor="let profesor of profesoresOptions" [value]="profesor.Id">{{ profesor.Nombre }}</option>
+          </select>
+        </div>
+        <!-- Badges de Profesores Seleccionados -->
+        <div *ngFor="let id of selectedProfesoresIndex" class="badge-container">
+          <span class="badge badge-warning">
+            {{ getNombreProfesor(id) }}
+            <span class="badge-close" (click)="removeProfesor(id)">
+              <img src="../../assets/x.svg" alt="close-icon">
+            </span>
+          </span>
+        </div>
+        <!--Mensaje de error-->
+        <div *ngIf="profesoresFrmControl?.errors?.['seleccionRequerida'] && profesoresFrmControl?.touched">
+          ⚠ Tenés que seleccionar al menos un profesor.
+        </div>
+
+        <!-- Descripcion -->
+        <div class="mb-3">
+          <label>Descripción</label>
+          <textarea class="d-block form-control" formControlName="descripcion"></textarea>
+        </div>
+        <!-- Mensajes de error -->
+        <div *ngIf="descripcionFrmControl?.touched && descripcionFrmControl?.invalid">
+          <div *ngIf="descripcionFrmControl?.errors?.['required']">
+            ⚠ El campo es obligatorio.
+          </div>
+          <div *ngIf="descripcionFrmControl?.errors?.['minlength']">
+            ⚠ El valor mínimo es 10.
+          </div>
+          <div *ngIf="descripcionFrmControl?.errors?.['maxlength']">
+            ⚠ El valor máximo es 100.
+          </div>
+        </div>
+
+
+        <!-- Redes sociales inputs -->
+        <div class="social-container mb-3 mt-4">
+          <!-- <label class="form-title">Selecciona tus redes sociales:</label> -->
+          <label class="form-title">Ingresa tu difusión vía Linkedin:</label>
+          
+          <div class="social-option">
+              <!-- <input type="checkbox" id="linkedin" class="social-checkbox" (click)="toggleInput('linkedin')"> -->
+              <!-- <label for="linkedin" class="mb-0"> Linkedin</label> -->
+              <input type="text" class="social-input" placeholder="Ingresa tu enlace de Linkedin" formControlName="difusion">
+              <!-- <input type="text" id="linkedin-link" class="social-input" placeholder="Ingresa tu enlace de Linkedin" style="display: none;"> -->
+          </div>
+
+          <!-- <div class="social-option">
+              <input type="checkbox" id="facebook" class="social-checkbox" (click)="toggleInput('facebook')">
+              <label for="facebook" class="mb-0"> Facebook</label>
+              <input type="text" id="facebook-link" class="social-input" placeholder="Ingresa tu enlace de Facebook" style="display: none;">
+          </div>
+      
+          <div class="social-option">
+              <input type="checkbox" id="twitter" class="social-checkbox" (click)="toggleInput('twitter')">
+              <label for="twitter" class="mb-0"> Twitter</label>
+              <input type="text" id="twitter-link" class="social-input" placeholder="Ingresa tu enlace de Twitter" style="display: none;">
+          </div>
+      
+          <div class="social-option">
+              <input type="checkbox" id="instagram" class="social-checkbox" (click)="toggleInput('instagram')">
+              <label for="instagram" class="mb-0"> Instagram</label>
+              <input type="text" id="instagram-link" class="social-input" placeholder="Ingresa tu enlace de Instagram" style="display: none;">
+          </div> -->
+        </div>
+        <!-- Mensajes de error -->
+        <div *ngIf="difusionFrmControl?.touched && difusionFrmControl?.invalid">
+          <div *ngIf="difusionFrmControl?.errors?.['required']">
+            ⚠ El linkedin es obligatorio.
+          </div>
+        </div>
+
+
+
+
+        <div class="mb-3">
+          <label for="titulo">Producto final</label>
+          <input id="productoFinal" type="text" class="form-control" formControlName="productoFinal">
+        </div>
+        <!-- Mensajes de error -->
+        <div *ngIf="productoFinalFrmControl?.touched && productoFinalFrmControl?.invalid">
+          <div *ngIf="productoFinalFrmControl?.errors?.['required']">
+            ⚠ El producto final es obligatorio.
+          </div>
+          <div *ngIf="productoFinalFrmControl?.errors?.['minlength']">
+            ⚠ El producto final no puede tener menos de 10 letras.
+          </div>
+          <div *ngIf="productoFinalFrmControl?.errors?.['maxlength']">
+            ⚠ El producto final no puede tener mas de 25 letras.
+          </div>
+        </div>
+
+
+
+
+        <button class="btn btn-save" (click)="save()">Guardar</button>
+      </form>
     </div>
   </div>
+</div>
   

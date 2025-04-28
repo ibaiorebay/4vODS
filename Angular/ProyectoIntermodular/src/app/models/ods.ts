@@ -1,12 +1,16 @@
 export class Ods {
+
     private id : number;
     private nombre : string;
-    private descripcion : string;
+    // private descripcion : string;
+    // private dimension: string;
 
-    constructor(id: number, nombre: string, descripcion: string) {
+    // constructor(id: number, nombre: string, descripcion: string, dimension: string) {
+    constructor(id: number, nombre: string) {
         this.id = id;
         this.nombre = nombre;
-        this.descripcion = descripcion;
+        // this.descripcion = descripcion;
+        // this.dimension = dimension;
     }
 
     get Id(): number {
@@ -25,11 +29,19 @@ export class Ods {
         this.nombre = nombre;
     }
 
-    get Descripcion(): string {
-        return this.descripcion;
-    }
+    // get Descripcion(): string {
+    //     return this.descripcion;
+    // }
 
-    set Descripcion(descripcion: string) {
-        this.descripcion = descripcion;
-    }
+    // set Descripcion(descripcion: string) {
+    //     this.descripcion = descripcion;
+    // }
+
+    // get Dimension(): string {
+    //     return this.dimension;
+    // }
+
+    // set Dimension(dimension: string) {
+    //     this.dimension = dimension;
+    // }
 }

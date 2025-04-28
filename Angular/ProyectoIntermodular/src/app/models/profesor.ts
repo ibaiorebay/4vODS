@@ -1,27 +1,27 @@
 export class Profesor {
     private id : number;
     private nombre : string;
-    private apellido1 : string;
-    private apellido2 : string;
-    // private fechaNacimiento : Date;
-    private fechaNacimiento : string;
+    private apellido1 : string = "";
+    private apellido2 : string = "";
+    private fechaNacimiento : string = "";
 
-    constructor(id: number, nombre: string, apellido1: string, apellido2: string, fechaNacimiento: string) {
+    constructor(id: number, nombre: string, apellido1?: string, apellido2?: string, fechaNacimiento?: string) {
         this.id = id;
         this.nombre = nombre;
-        this.apellido1 = apellido1;
-        this.apellido2 = apellido2;
-        this.fechaNacimiento = fechaNacimiento;
-    }
 
-    // Constructor que recibe un objeto de datos de la API
-    // constructor(data: any) {
-    //     this.id = data.iD_PROFESOR;  // Asumiendo que `iD_PROFESOR` es el campo correspondiente en la API
-    //     this.nombre = data.nombre || '';  // Si `nombre` no viene, se asigna un valor vacío
-    //     this.apellido1 = data.apellidO1 || '';  // Lo mismo para el primer apellido
-    //     this.apellido2 = data.apellidO2 || '';  // Lo mismo para el segundo apellido
-    //     this.fechaNacimiento = new Date(data.fechA_NACIMIENTO);  // Convertimos la fecha de string a Date
-    // }
+        if (apellido1) {
+            this.apellido1 = apellido1;
+        }
+        if (apellido2) {
+            this.apellido2 = apellido2;
+        }
+        if (fechaNacimiento) {
+            this.fechaNacimiento = fechaNacimiento;
+        }
+        // this.apellido1 = apellido1;
+        // this.apellido2 = apellido2;
+        // this.fechaNacimiento = fechaNacimiento;
+    }
 
     get Id(): number {
         return this.id;

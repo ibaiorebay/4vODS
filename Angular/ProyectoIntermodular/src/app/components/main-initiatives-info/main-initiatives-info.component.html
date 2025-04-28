@@ -28,7 +28,7 @@
             <h6>Filtro por Profesor:</h6>
             <select [(ngModel)]="filtroProfesor" (change)="filtrarIniciativas()" class="form-control">
                 <option value="Cualquiera"> Cualquiera </option>
-                <option *ngFor="let profesor of profesores" [value]="profesor">{{ profesor }}</option>
+                <option *ngFor="let profesor of profesoresOpciones" [value]="profesor.Nombre">{{ profesor.Nombre }}</option>
             </select>
         </div>
         <div>
@@ -36,7 +36,7 @@
             <h6>Filtro por curso:</h6>
             <select [(ngModel)]="filtroCurso" (change)="filtrarIniciativas()" class="form-control">
                 <option value="Todos"> Todos </option>
-                <option *ngFor="let curso of cursos" [value]="curso">{{ curso }}</option>
+                <option *ngFor="let curso of cursosOpciones" [value]="curso.Nombre">{{ curso.Nombre }}</option>
             </select>
         </div>
         <div>
@@ -44,23 +44,23 @@
             <h6>Filtro por Asignatura:</h6>
             <select [(ngModel)]="filtroAsignatura" (change)="filtrarIniciativas()" class="form-control">
                 <option value="Cualquiera"> Cualquiera </option>
-                <option *ngFor="let asignatura of asignaturas" [value]="asignatura">{{ asignatura }}</option>
+                <option *ngFor="let asignatura of asignaturasOpciones" [value]="asignatura.NombreAsignatura">{{ asignatura.NombreAsignatura }}</option>
             </select>
         </div>
         <div>
             <!-- Filtro por número de Ods -->
             <h6>Filtro por número de Ods:</h6>
             <select [(ngModel)]="filtroOds" (change)="filtrarIniciativas()" class="form-control">
-                <option value=0> Cualquiera </option>
-                <option *ngFor="let cadaOds of ods" [value]=cadaOds>{{ cadaOds }}</option>
+                <option value="0"> Cualquiera </option>
+                <option *ngFor="let cadaOds of odsOpciones" [value]="cadaOds.Id">{{ cadaOds.Id }} - {{ cadaOds.Nombre }}</option>
             </select>
         </div>
         <div>
             <!-- Filtro por número de meta de la ods seleccionada -->
             <h6>Filtro por número de meta:</h6>
-            <select [(ngModel)]="filtroMeta" (change)="filtrarIniciativas()" class="form-control">
+            <select [(ngModel)]="filtroMeta" (change)="filtrarIniciativas()" class="form-control" [disabled]="filtroOds == '0'">
                 <option value="0"> Cualquiera </option>
-                <!-- <option *ngFor="let cadaMeta of metasOds" [value]=cadaMeta >{{ cadaMeta }}</option> -->
+                <option *ngFor="let cadaMeta of metasSegunOdsOpciones" [value]="cadaMeta.Id" >{{ cadaMeta.NumeroOds }}.{{ cadaMeta.NumeroMeta}} - {{cadaMeta.Descripcion}}</option>
             </select>
         </div>
     </div>
@@ -69,6 +69,8 @@
 
 
 <div class="container py-5">
+    <div id="main" style="width: 600px; height: 400px;"></div>
+
     <div class="row">
         @for(iniciativa of iniciativasFiltradas;track iniciativa){
         <div class="col-lg-4 col-md-6 mb-4">
@@ -96,8 +98,11 @@
                     </div>
 
                     <ul class="list-unstyled small">
-                        <li><strong>Líder del proyecto:</strong> {{ iniciativa.Profesores[0].Nombre }} {{
-                            iniciativa.Profesores[0].Apellido1 }}</li>
+                        <li><strong>Líder del proyecto:</strong>
+                            <ng-container *ngFor="let cadaProf of iniciativa.Profesores ">
+                            {{cadaProf.NombreCompleto}}
+                            </ng-container>
+                        </li>
                         <li><strong>Fecha de inicio:</strong> {{ iniciativa.FechaInicio }}</li>
                         <li><strong>Fecha de fin:</strong> {{ iniciativa.FechaFin }}</li>
                     </ul>
@@ -117,6 +122,7 @@
         }
     </div>
 
+    <!-- MODAL -->
     <div *ngIf="selectedIniciativaId !== '0'" class="modal fade show d-block" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content rounded-4 border-0 shadow-lg">
@@ -127,9 +133,12 @@
                 <div class="modal-body">
                     <p><strong>Tipo:</strong> {{ selectedIniciativa.TipoIniciativa }}</p>
                     <p><strong>Descripción:</strong> {{ selectedIniciativa.Descripcion }}</p>
-                    <p><strong>Fecha Inicio:</strong> {{ selectedIniciativa.FechaInicio | date }}</p>
-                    <p><strong>Fecha Fin:</strong> {{ selectedIniciativa.FechaFin | date }}</p>
-                    <p><strong>Curso:</strong> {{ selectedIniciativa.Asignaturas[0]?.nombreCurso || 'No asignado' }}</p>
+                    <p><strong>Fecha Inicio:</strong> {{ selectedIniciativa.FechaInicio }}</p>
+                    <p><strong>Fecha Fin:</strong> {{ selectedIniciativa.FechaFin }}</p>
+                    <p><strong>Curso:</strong> Veo que las iniciativas no devuelve un año de curso lectivo</p>
+                    <p><strong>Clases/Cursos:</strong> {{obtenerNombresCursos(selectedIniciativa.Asignaturas)}}</p>
+                    <p><strong>Módulos:</strong> {{obtenerModulosYCursos(selectedIniciativa.Asignaturas)}}</p>
+                    <!-- TODO imprimir bien todos los profes -->
 
                     <div *ngIf="selectedIniciativa.Profesores?.length">
                         <p><strong>Profesores:</strong></p>
@@ -146,7 +155,7 @@
                             <li *ngFor="let meta of selectedIniciativa.Metas">
                                 <div class="row">
                                     <div class="col-9">
-                                        <p><strong>Meta:</strong> {{ meta.Descripcion }}</p>
+                                        <p><strong>Meta:</strong> {{ meta.DescripcionMeta }}</p>
                                     </div>
                                     <div class="col-3">
                                         <div class="d-flex flex-wrap gap-2">
