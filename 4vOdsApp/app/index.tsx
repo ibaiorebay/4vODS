@@ -1,8 +1,16 @@
-import { Text, View } from "react-native";
-import InitiativeListScreen from "./Views/InitiativeListScreen";
+// /app/index.tsx
 
-export default function Index() {
+import { Text, View } from 'react-native';
+import InitiativeListScreen from './Views/InitiativeListScreen';
+
+export const options = {
+  title: 'Home Screen',
+};
+
+export default function HomeScreen() {
   return (
-    <InitiativeListScreen />
+    <View>
+      <InitiativeListScreen />
+    </View>
   );
 }

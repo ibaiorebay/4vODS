@@ -2,10 +2,11 @@
   "expo": {
     "name": "4vOdsApp",
     "slug": "4vOdsApp",
+    "entryPoint": "./app/index.tsx",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "scheme": "4vodsapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
