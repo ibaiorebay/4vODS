@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Iniciativa } from '../Models/Iniciativa';
-import { mockInitiatives } from '../Mocks/mockInitiatives';
+import { Asignatura } from '../Models/Asignatura';
+import { mockAsignaturas } from '../Mocks/mockAsignaturas';
 
-export const useInitiatives = () => {
-  const [initiatives, setInitiatives] = useState<Iniciativa[]>([]);
+export const useAsignaturas = () => {
+  const [asignaturas, setAsignaturas] = useState<Asignatura[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -11,7 +11,7 @@ export const useInitiatives = () => {
     const loadMockData = async () => {
       try {
         await new Promise(res => setTimeout(res, 500));
-        setInitiatives(mockInitiatives);
+        setAsignaturas(mockAsignaturas);
         setLoading(false);
       } catch (err) {
         setError((err as Error).message);
@@ -23,7 +23,7 @@ export const useInitiatives = () => {
   }, []);
 
   return {
-    initiatives,
+    asignaturas,
     loading,
     error
   };
