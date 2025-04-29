@@ -11,13 +11,10 @@ import { Ods } from '../../models/ods';
 import { Profesor } from '../../models/profesor';
 import { Curso } from '../../models/curso';
 import * as echarts from 'echarts';
-<<<<<<< HEAD
 import { ProfesorDTO } from '../../models/profesor-dto';
 import { AsignaturaDTO } from '../../models/asignatura-dto';
 import { OdsDTO } from '../../models/ods-dto';
 import { MetaDTO } from '../../models/meta-dto';
-=======
->>>>>>> 8c8b53244e1cc573d1b2e45b83294943df7584e6
 
 type EChartsOption = echarts.EChartsOption;
 
@@ -28,30 +25,18 @@ type EChartsOption = echarts.EChartsOption;
   templateUrl: './main-initiatives-info.component.html',
   styleUrl: './main-initiatives-info.component.scss'
 })
-<<<<<<< HEAD
 export class MainInitiativesInfoComponent implements AfterViewInit {
-=======
-export class MainInitiativesInfoComponent {
->>>>>>> 8c8b53244e1cc573d1b2e45b83294943df7584e6
 
   iniciativas: Iniciativa[] = [];
   iniciativasFiltradas: Iniciativa[] = [];
   isDropdownOpen = false; // Estado del menú desplegable
 
-<<<<<<< HEAD
   cursosOpciones: Curso[] = [];
   profesoresOpciones: ProfesorDTO[] = [];
   asignaturasOpciones: AsignaturaDTO[] = [];
   odsOpciones: OdsDTO[] = [];
   todasLasMetasOpciones: MetaDTO[] = [];
   metasSegunOdsOpciones: MetaDTO[] = [];
-=======
-  cursos: Curso[] = [];
-  profesores: Profesor[] = [];
-  asignaturas: Asignatura[] = [];
-  ods: Ods[] = [];
-  // metasOds: any;
->>>>>>> 8c8b53244e1cc573d1b2e45b83294943df7584e6
   filtroInnovador = false;
   
   constructor(private iniciativaService: IniciativaService, private router: Router) {
@@ -65,7 +50,6 @@ export class MainInitiativesInfoComponent {
       this.iniciativasFiltradas = data;
       console.log(this.iniciativas);
     });
-<<<<<<< HEAD
 
     this.iniciativaService.getAsignaturas().subscribe((asignaturas: any) => {
       console.log("Asignaturas recibidas:", asignaturas);
@@ -114,47 +98,12 @@ export class MainInitiativesInfoComponent {
     };
 
     myChart.setOption(option);
-=======
-    // this.iniciativas = this.iniciativaService.Iniciativas;
-
-    this.iniciativaService.getAsignaturas().subscribe((asignaturas: any) => {
-      console.log("Asignaturas recibidas:", asignaturas);
-      this.asignaturas = asignaturas;
-    });
-
-    this.iniciativaService.getMetas().subscribe((metas: any) => {
-      console.log("metas recibidas:", metas);
-      // this.metas = metas;
-    });
-
-    this.iniciativaService.getCursos().subscribe((cursos: any) => {
-      console.log("cursos recibidas:", cursos);
-      this.cursos = cursos;
-    });
-
-    this.iniciativaService.getOds().subscribe((ods: any) => {
-      console.log("ods recibidas:", ods);
-      this.ods = ods;
-    });
-
-    this.iniciativaService.getProfesores().subscribe((profesores: any) => {
-      console.log("profes recibidas:", profesores);
-      this.profesores = profesores;
-    });
-
-    // this.iniciativaService.getIniciativas().subscribe((asignaturas: any) => {
-    //   console.log("iniciativas recibidas:", asignaturas);
-    // });
+  }
 
 
-    this.iniciativas = this.iniciativaService.getIniciativasMock();
-    this.iniciativasFiltradas = this.iniciativas;
-    // this.cursos = this.iniciativaService.Cursos;
-    // this.profesores = this.iniciativaService.Profesores;
-    // this.asignaturas = this.iniciativaService.Asignaturas;
-    // this.ods = this.iniciativaService.Ods;
-    // this.metasOds = this.iniciativaService.MetasOds;
->>>>>>> 8c8b53244e1cc573d1b2e45b83294943df7584e6
+  // Función para cerrar el modal.
+  closeModal() {
+    this.selectedIniciativaId = "0";
   }
 
   openDropdownId: string | null = null;
@@ -302,13 +251,7 @@ export class MainInitiativesInfoComponent {
 
   delete(id: number) {
     console.log("Borrando tarjeta con id: " + id);
-<<<<<<< HEAD
     this.iniciativaService.deleteIniciativa(id);//TODO probar con el postman en casa
-=======
-    // this.iniciativaService.deleteIniciativaById(id);
-    // this.iniciativas = this.iniciativaService.Iniciativas;
-
->>>>>>> 8c8b53244e1cc573d1b2e45b83294943df7584e6
     // this.iniciativasFiltradas = this.iniciativaService.deleteIniciativa(id);
   }
 

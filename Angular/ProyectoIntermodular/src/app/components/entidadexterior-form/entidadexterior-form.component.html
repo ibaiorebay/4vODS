@@ -1,1 +1,74 @@
-<p>entidadexterior-form works!</p>
+<div>
+    <!-- MODAL: Se muestra solo si mostrarModal es true -->
+  <div *ngIf="mostrarModal" class="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background-color: rgba(0, 0, 0, 0.5); z-index: 1050;">
+    <div class="custom-modal shadow p-4 rounded-4 bg-white border" style="width: 100%; max-width: 500px;">
+      <div class="custom-modal-header d-flex justify-content-between align-items-center mb-3">
+        <h5 class="text-primary m-0">➕ Añadir Entidad Exterior</h5>
+        <button class="btn btn-sm btn-outline-secondary" (click)="cerrarModal()">✖</button>
+      </div>
+      <div class="custom-modal-body">
+        <form [formGroup]="form">
+          <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre:</label>
+            <input type="text" class="form-control" formControlName="nombre" />
+          </div>
+          <div *ngIf="nombreFrmControl?.touched && nombreFrmControl?.invalid" class="text-danger small mb-3">
+            <div *ngIf="nombreFrmControl?.errors?.['required']">⚠ El nombre es obligatorio.</div>
+          </div>
+          
+          <div class="mb-3">
+            <label for="descripcion" class="form-label">Descripción:</label>
+            <input type="text" class="form-control" formControlName="descripcion" />
+          </div>
+          <div *ngIf="descripcionFrmControl?.touched && descripcionFrmControl?.invalid" class="text-danger small mb-3">
+            <div *ngIf="descripcionFrmControl?.errors?.['required']">⚠ La descripción es obligatoria.</div>
+          </div>
+
+          <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-success px-4" (click)="save()">Guardar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  
+    <!-- Contenedor principal -->
+    <div class="container mt-4">
+      <!-- Encabezado y botón -->
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="fw-bold">📋 Lista de Entidades Exteriores</h4>
+        <button class="btn btn-outline-primary px-3" (click)="crearEntidadExterior()">➕ Nueva Entidad Exterior</button>
+      </div>
+  
+      <!-- Tabla de entidades exteriores -->
+      <div class="table-responsive shadow-sm rounded-3 overflow-hidden">
+        <table class="table table-striped table-hover align-middle mb-0">
+          <thead class="table-primary text-white">
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Descripción</th>
+              <th class="text-center">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let entidadExt of entidadexterioresOpciones">
+              <td>{{ entidadExt.Id }}</td>
+              <td>{{ entidadExt.Nombre }}</td>
+              <td>{{ entidadExt.Descripcion }}</td>
+              <td class="text-center">
+                <button class="btn btn-sm btn-outline-warning me-2" (click)="editarEntidadExt(entidadExt.Id)">
+                  ✏️ Editar
+                </button>
+                <button class="btn btn-sm btn-outline-danger" (click)="eliminarEntidadExt(entidadExt.Id)">
+                  🗑 Eliminar
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  

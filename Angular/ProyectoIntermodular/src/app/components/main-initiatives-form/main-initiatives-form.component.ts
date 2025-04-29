@@ -4,13 +4,10 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { IniciativaService } from '../../services/iniciativa.service';
 import { Iniciativa } from '../../models/iniciativa';
-<<<<<<< HEAD
 import { ProfesorDTO } from '../../models/profesor-dto';
 import { AsignaturaDTO } from '../../models/asignatura-dto';
 import { EntidadExterior } from '../../models/entidad-exterior';
 import { IniciativaDTO } from '../../models/iniciativa-dto';
-=======
->>>>>>> 8c8b53244e1cc573d1b2e45b83294943df7584e6
 
 
 @Component({
@@ -25,17 +22,10 @@ export class MainInitiativesFormComponent implements OnInit {
   form!: FormGroup;
   idIniciativaAEditar: number | null = null;
 
-<<<<<<< HEAD
   selectedAsignaturasIndex: number[] = [];
   selectedEntidadesExtIndex: number[] = [];
   selectedMetas: any[] = [];
   selectedProfesoresIndex: number[] = [];
-=======
-  selectedAsignaturas: any[] = [];
-  selectedEntidades: any[] = [];
-  selectedMetas: any[] = [];
-  selectedProfesores: number[] = [];
->>>>>>> 8c8b53244e1cc573d1b2e45b83294943df7584e6
 
   asignaturasOptions: AsignaturaDTO[] = [];
   entidadesOptions: EntidadExterior[] = [];
@@ -51,7 +41,6 @@ export class MainInitiativesFormComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private iniciativaService: IniciativaService) {
 
-<<<<<<< HEAD
     // this.metasOptions = this.iniciativaService.Ods;
     this.iniciativaService.getAsignaturas().subscribe((asignaturas: any) => {
       console.log("Asignaturas recibidas:", asignaturas);
@@ -67,12 +56,6 @@ export class MainInitiativesFormComponent implements OnInit {
       console.log("profes recibidas:", profesores);
       this.profesoresOptions = profesores;
     });
-=======
-    // this.asignaturasOptions = this.iniciativaService.Asignaturas;
-    // this.entidadesOptions = this.iniciativaService.EntidadesExternas;
-    // this.metasOptions = this.iniciativaService.Ods;
-    // this.profesoresOptions = this.iniciativaService.Profesores;
->>>>>>> 8c8b53244e1cc573d1b2e45b83294943df7584e6
   }
 
   ngOnInit(): void {
@@ -85,10 +68,7 @@ export class MainInitiativesFormComponent implements OnInit {
       this.iniciativaService.getIniciativaById(this.idIniciativaAEditar).subscribe(
         (iniciativa) => {
           console.log('Iniciativa cargada:', iniciativa);
-<<<<<<< HEAD
           console.log(typeof(iniciativa));
-=======
->>>>>>> 8c8b53244e1cc573d1b2e45b83294943df7584e6
           this.crearFormulario(iniciativa);
         },
         (error) => {
@@ -96,6 +76,9 @@ export class MainInitiativesFormComponent implements OnInit {
           this.crearFormulario(); // En caso de error, creamos un formulario vacío
         }
       );
+
+
+      
     } else {
       this.crearFormulario(); // Nuevo formulario sin datos
     }
@@ -108,125 +91,6 @@ export class MainInitiativesFormComponent implements OnInit {
       horas: [iniciativa?.Horas ?? '', [Validators.required, Validators.min(1), Validators.max(100)]],
       fechaInicio: [iniciativa?.FechaInicio ?? '', Validators.required],
       fechaFin: [iniciativa?.FechaFin ?? '', Validators.required],
-
-      descripcion: [iniciativa?.Descripcion ?? '', [Validators.required, Validators.minLength(10), Validators.maxLength(100)]],
-      tipoIniciativa: [iniciativa?.TipoIniciativa ?? '', Validators.required],
-      productoFinal: [iniciativa?.ProductoFinal ?? '', [Validators.required, Validators.minLength(10), Validators.maxLength(25)]],
-      innovador: [iniciativa?.EsInnovadora ?? null, Validators.required],// Será true o false
-      difusion: [iniciativa?.Difusion ?? '', Validators.required],
-
-      asignaturas: [this.selectedAsignaturas, [Validators.required, this.validarSeleccionMinima]],
-      entidades: [this.selectedEntidades, [Validators.required, this.validarSeleccionMinima]],
-      metas: [this.selectedMetas, [Validators.required, this.validarSeleccionMinima]],
-      profesores: [[], [Validators.required, this.validarSeleccionMinima]],
-    }, {
-      validators: this.validarFechas.bind(this)// Vinculamos el validador personalizado al formulario
-    });
-  }
-  
-  
-  //funcion para el primer input del form, que es seleccionar si es innovador o no
-  selectTemplate(tipoIniciativa: string) {
-    const valorActual = this.form.value.innovador;
-  
-    // Alternar entre true, false y null
-    if (tipoIniciativa === "innovador") {
-      this.form.patchValue({ innovador: valorActual === true ? null : true });//Si valorActual === true (es decir, ya está seleccionado "Innovador"), lo cambiamos a null para deseleccionarlo. Si valorActual !== true (es decir, estaba en false o null), lo cambiamos a true para seleccionarlo.
-    } else {
-      this.form.patchValue({ innovador: valorActual === false ? null : false });//.patchValue({...}) → Es un método de Angular Forms que actualiza uno o varios campos del formulario SIN AFECTAR los demás.
-    }
-
-    this.innovadorFrmControl?.markAsTouched();
-    this.innovadorFrmControl?.updateValueAndValidity();
-  }
-
-  get innovadorFrmControl() {
-    return this.form.get('innovador');
-  }
-
-  get tituloFrmControl() {
-    return this.form.get('titulo');
-  }
-
-  get horasFrmControl() {
-    return this.form.get('horas');
-  }
-
-  get fechaInicioFrmControl() {
-    return this.form.get('fechaInicio');
-  }
-
-  get fechaFinFrmControl() {
-    return this.form.get('fechaFin');
-  }
-
-  get tipoIniciativaFrmControl() {
-    return this.form.get('tipoIniciativa');
-  }
-
-  get descripcionFrmControl() {
-    return this.form.get('descripcion');
-  }
-
-
-  get difusionFrmControl() {
-    return this.form.get('difusion');
-  }
-
-  get asignaturasFrmControl() {
-    return this.form.get('asignaturas');
-  }
-  
-  get entidadesFrmControl() {
-    return this.form.get('entidades');
-  }
-
-  get metasFrmControl() {
-    return this.form.get('metas');
-  }
-
-  get profesoresFrmControl() {
-    return this.form.get('profesores');
-  }
-
-  get productoFinalFrmControl() {
-    return this.form.get('productoFinal');
-  }
-
-
-  //Validador personalizado para fechaFin:
-  validarFechas(form: FormGroup) {
-    const fechaInicio = form.get('fechaInicio')?.value;
-    const fechaFin = form.get('fechaFin')?.value;
-
-    if (fechaInicio && fechaFin && fechaFin < fechaInicio) {
-      return { fechaInvalida: true }; // Devuelve un error si la fecha es incorrecta. fechaInvalida seria una propiedad booleana que tiene el form 
-    }
-    return null; // Todo bien si las fechas son válidas
-  }
-
-  // Validador para validar que al menos una opción esté seleccionada
-  validarSeleccionMinima(control: FormControl) {
-    const valor: any = control.value && control.value.length > 0 ? null : { seleccionRequerida: true };
-    return valor;
-  }
-
-  private convertirFecha(fecha: string): string {
-    const [dia, mes, anio] = fecha.split("-");
-    const dateObj = new Date(+anio, +mes, +dia + 1); //En JavaScript, los meses van del 0 (enero) al 11 (diciembre), por eso se pone mes - 1. El símbolo + convierte strings a números.
-    console.log(dateObj);
-  
-    return dateObj.toISOString().split('T')[0]; // te da yyyy-MM-dd
-  }
-  
-
-  private crearFormulario(iniciativa?: Iniciativa): void {
-    //validarFechas es un validador de formulario a nivel de grupo, no un validador de campo individual. Le estás diciendo a Angular que cada vez que cualquier campo del formulario cambie, se ejecute el validador. Esto se debe a que los validadores de grupo se ejecutan siempre que el formulario se vuelve a evaluar (lo cual pasa cuando cualquier campo cambia).
-    this.form = this.fb.group({
-      titulo: [iniciativa?.Titulo ?? '', [Validators.required, Validators.minLength(5), Validators.maxLength(30)]],
-      horas: [iniciativa?.Horas ?? '', [Validators.required, Validators.min(1), Validators.max(100)]],
-      fechaInicio: [iniciativa?.FechaInicio ? this.convertirFecha(iniciativa.FechaInicio) : '', Validators.required],
-      fechaFin: [iniciativa?.FechaFin ? this.convertirFecha(iniciativa.FechaFin) : '', Validators.required],
 
       descripcion: [iniciativa?.Descripcion ?? '', [Validators.required, Validators.minLength(10), Validators.maxLength(100)]],
       tipoIniciativa: [iniciativa?.TipoIniciativa ?? '', Validators.required],
@@ -330,9 +194,22 @@ export class MainInitiativesFormComponent implements OnInit {
     return valor;
   }
 
+  private convertirFecha(fecha: string): string {
+    const [dia, mes, anio] = fecha.split("-");
+    const dateObj = new Date(+anio, +mes, +dia + 1); //En JavaScript, los meses van del 0 (enero) al 11 (diciembre), por eso se pone mes - 1. El símbolo + convierte strings a números.
+    console.log(dateObj);
+  
+    return dateObj.toISOString().split('T')[0]; // te da yyyy-MM-dd
+  }
+  
+
+
+
+
+
+
   // Funciones para agregar entidades a su lista de entidades correspondientes
   addAsignatura(event: any): void {
-<<<<<<< HEAD
     const selectedId = +event.target.value;//todo ver que hace el +
 
     if (selectedId && !this.selectedAsignaturasIndex.includes(selectedId)) {
@@ -341,21 +218,12 @@ export class MainInitiativesFormComponent implements OnInit {
       // 🔥 Actualizamos el valor del campo 'asignaturas' en el formulario
       this.asignaturasFrmControl?.setValue(this.selectedAsignaturasIndex);
       this.asignaturasFrmControl?.updateValueAndValidity(); // opcional pero recomendable
-=======
-    const selectedAsignatura = this.asignaturasOptions.find(asignatura => asignatura.id == event.target.value);
-    if (selectedAsignatura && !this.selectedAsignaturas.includes(selectedAsignatura)) {
-      this.selectedAsignaturas.push(selectedAsignatura);
-      
-      this.asignaturasFrmControl?.setValue(this.selectedAsignaturas);
-      this.asignaturasFrmControl?.updateValueAndValidity(); 
->>>>>>> 8c8b53244e1cc573d1b2e45b83294943df7584e6
     }
   
     event.target.value = '';
   }
 
   addEntidad(event: any): void {
-<<<<<<< HEAD
     const selectedId = +event.target.value;//todo ver que hace el +
 
     if (selectedId && !this.selectedEntidadesExtIndex.includes(selectedId)) {
@@ -364,14 +232,6 @@ export class MainInitiativesFormComponent implements OnInit {
       // 🔥 Actualizamos el valor del campo 'asignaturas' en el formulario
       this.entidadesFrmControl?.setValue(this.selectedEntidadesExtIndex);
       this.entidadesFrmControl?.updateValueAndValidity(); // opcional pero recomendable
-=======
-    const selectedEntidad = this.entidadesOptions.find(entidad => entidad.id == event.target.value);
-    if (selectedEntidad && !this.selectedEntidades.includes(selectedEntidad)) {
-      this.selectedEntidades.push(selectedEntidad);
-
-      this.entidadesFrmControl?.setValue(this.selectedEntidades);
-      this.entidadesFrmControl?.updateValueAndValidity();
->>>>>>> 8c8b53244e1cc573d1b2e45b83294943df7584e6
     }
   
     event.target.value = '';
@@ -382,7 +242,6 @@ export class MainInitiativesFormComponent implements OnInit {
     if (selectedMeta && !this.selectedMetas.includes(selectedMeta)) {
       this.selectedMetas.push(selectedMeta);
 
-<<<<<<< HEAD
       // 🔥 Actualizamos el valor del campo 'metas' en el formulario
       this.metasFrmControl?.setValue(this.selectedMetas);
       this.metasFrmControl?.updateValueAndValidity(); // opcional pero recomendable
@@ -397,27 +256,12 @@ export class MainInitiativesFormComponent implements OnInit {
       this.selectedProfesoresIndex.push(selectedId);
   
       this.profesoresFrmControl?.setValue(this.selectedProfesoresIndex);
-=======
-      this.metasFrmControl?.setValue(this.selectedMetas);
-      this.metasFrmControl?.updateValueAndValidity(); 
-    }
-  }
-
-  addProfesor(event: any): void { 
-    const selectedId = +event.target.value;
-  
-    if (selectedId && !this.selectedProfesores.includes(selectedId)) {
-      this.selectedProfesores.push(selectedId);
-  
-      this.profesoresFrmControl?.setValue(this.selectedProfesores);
->>>>>>> 8c8b53244e1cc573d1b2e45b83294943df7584e6
       this.profesoresFrmControl?.updateValueAndValidity();
     }
   
     event.target.value = '';
   }
 
-<<<<<<< HEAD
 
 
 
@@ -455,33 +299,6 @@ export class MainInitiativesFormComponent implements OnInit {
   
     this.entidadesFrmControl?.setValue(this.selectedEntidadesExtIndex);
     this.entidadesFrmControl?.updateValueAndValidity();
-=======
-  getNombreProfesor(id: number): string {
-    const profesor = this.profesoresOptions.find(p => p.id === id);
-    return profesor ? profesor.nombre : 'Desconocido';
-  }
-  
-  
-
-  // Funciones para eliminar de la lista seleccionada
-  removeAsignatura(asignatura: any): void {
-    const index = this.selectedAsignaturas.indexOf(asignatura);
-
-    if (index > -1) {
-      this.selectedAsignaturas.splice(index, 1);
-      this.asignaturasFrmControl?.setValue(this.selectedAsignaturas);
-      this.asignaturasFrmControl?.updateValueAndValidity();
-    }
-  }
-
-  removeEntidad(entidad: any): void {
-    const index = this.selectedEntidades.indexOf(entidad);
-    if (index > -1) {
-      this.selectedEntidades.splice(index, 1);
-      this.entidadesFrmControl?.setValue(this.selectedEntidades);
-      this.entidadesFrmControl?.updateValueAndValidity();
-    }
->>>>>>> 8c8b53244e1cc573d1b2e45b83294943df7584e6
   }
 
   removeMeta(meta: any): void {
@@ -493,7 +310,6 @@ export class MainInitiativesFormComponent implements OnInit {
     }
   }
 
-<<<<<<< HEAD
   removeProfesor(id: number): void {
     this.selectedProfesoresIndex = this.selectedProfesoresIndex.filter(pid => pid !== id);
   
@@ -508,16 +324,6 @@ export class MainInitiativesFormComponent implements OnInit {
   //     input.style.display = input.style.display === "none" ? "block" : "none";
   //   }
   // }
-=======
-
-  removeProfesor(id: number): void {
-    this.selectedProfesores = this.selectedProfesores.filter(pid => pid !== id);
-  
-    this.profesoresFrmControl?.setValue(this.selectedProfesores);
-    this.profesoresFrmControl?.updateValueAndValidity();
-  }
-
->>>>>>> 8c8b53244e1cc573d1b2e45b83294943df7584e6
 
   formatearFecha(fecha: Date | string): string {
     const date = new Date(fecha);
@@ -526,20 +332,9 @@ export class MainInitiativesFormComponent implements OnInit {
     const anio = date.getFullYear();
     return `${dia}-${mes}-${anio}`;
   }
-  
-
-  formatearFecha(fecha: Date | string): string {
-    const date = new Date(fecha);
-    const dia = String(date.getDate()).padStart(2, '0');
-    const mes = String(date.getMonth() + 1).padStart(2, '0'); // Meses de 0 a 11
-    const anio = date.getFullYear();
-    return `${dia}-${mes}-${anio}`;
-  }
-  
 
   save() {
     console.log(this.form);
-<<<<<<< HEAD
     console.log(this.form.value.fechaInicio);
     console.log(typeof(this.form.value.fechaInicio));
     this.form.markAllAsTouched();
@@ -555,17 +350,6 @@ export class MainInitiativesFormComponent implements OnInit {
 
       const nuevaIniciativa: IniciativaDTO =  new IniciativaDTO(
         this.idIniciativaAEditar ?? 10,
-=======
-    this.form.markAllAsTouched();
-
-    if (this.form.valid) {
-      // console.log(this.form.value);
-      
-      const datosForm: any = this.form.value;
-
-      const nuevaIniciativa: Iniciativa =  new Iniciativa(
-        this.idIniciativaAEditar ?? 0,
->>>>>>> 8c8b53244e1cc573d1b2e45b83294943df7584e6
         datosForm.titulo,
         datosForm.horas,
         this.formatearFecha(datosForm.fechaInicio),
@@ -582,7 +366,6 @@ export class MainInitiativesFormComponent implements OnInit {
         datosForm.asignaturas,
         datosForm.entidades,
         datosForm.profesores,
-<<<<<<< HEAD
         // datosForm.metas,
         [1],
         // [1],
@@ -601,21 +384,12 @@ export class MainInitiativesFormComponent implements OnInit {
       }
       
 
-=======
-        datosForm.metas,
-      );
-
->>>>>>> 8c8b53244e1cc573d1b2e45b83294943df7584e6
       console.log(nuevaIniciativa);
 
       this.iniciativaService.createIniciativa(nuevaIniciativa).subscribe(
         (response) => console.log("Iniciativa guardada:", response),
         (error) => console.error("Error al guardar la iniciativa:", error)
-<<<<<<< HEAD
       );
-=======
-      );;
->>>>>>> 8c8b53244e1cc573d1b2e45b83294943df7584e6
 
     } else {
       console.log("Formulario inválido");

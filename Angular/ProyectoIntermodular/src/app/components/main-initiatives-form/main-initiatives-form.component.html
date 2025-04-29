@@ -35,17 +35,10 @@
           <div *ngIf="tituloFrmControl?.errors?.['required']">
             ⚠ El titulo es obligatorio.
           </div>
-<<<<<<< HEAD
           <div *ngIf="tituloFrmControl?.errors?.['minlength']">
             ⚠ El titulo no puede tener menos de 5 letras.
           </div>
           <div *ngIf="tituloFrmControl?.errors?.['maxlength']">
-=======
-          <div *ngIf="tituloFrmControl?.errors?.['min']">
-            ⚠ El titulo no puede tener menos de 5 letras.
-          </div>
-          <div *ngIf="tituloFrmControl?.errors?.['max']">
->>>>>>> 8c8b53244e1cc573d1b2e45b83294943df7584e6
             ⚠ El titulo no puede tener mas de 30 letras.
           </div>
         </div>
@@ -118,29 +111,17 @@
         <div class="mb-3">
           <label for="asignaturas">Asignaturas</label>
           <select id="asignaturas" class="form-control" formControlName="asignaturas" (change)="addAsignatura($event)">
-<<<<<<< HEAD
             <option *ngFor="let asignatura of asignaturasOptions" [value]="asignatura.getId">{{ asignatura.NombreAsignatura }}</option><!--[value]="asignatura.id" es usado en la funcion addAsignatura-->
-=======
-            <option *ngFor="let asignatura of asignaturasOptions" [value]="asignatura.id">{{ asignatura.nombre }}</option><!--[value]="asignatura.id" es usado en la funcion addAsignatura-->
->>>>>>> 8c8b53244e1cc573d1b2e45b83294943df7584e6
           </select>
         </div>
         <!-- Badges de Asignaturas Seleccionadas -->
         <div class="mb-3">
           <label>Asignaturas Seleccionadas</label>
-<<<<<<< HEAD
           <div *ngFor="let id of selectedAsignaturasIndex" class="badge-container">
             <span class="badge  badge-primary">
               {{ getNombreAsignatura(id) }}
               <!-- <span class="badge badge-close" (click)="removeAsignatura(asignatura)"> -->
               <span class="badge-close" (click)="removeAsignatura(id)">
-=======
-          <div *ngFor="let asignatura of selectedAsignaturas" class="badge-container">
-            <span class="badge  badge-primary">
-              {{ asignatura.nombre }}
-              <!-- <span class="badge badge-close" (click)="removeAsignatura(asignatura)"> -->
-              <span class="badge-close" (click)="removeAsignatura(asignatura)">
->>>>>>> 8c8b53244e1cc573d1b2e45b83294943df7584e6
                 <img src="../../assets/x.svg" alt="close-icon">
               </span>
             </span>
@@ -155,27 +136,16 @@
         <div class="mb-3">
           <label for="entidades">Entidades Externas</label>
           <select id="entidades" class="form-control" formControlName="entidades" (change)="addEntidad($event)">
-<<<<<<< HEAD
             <option *ngFor="let entidad of entidadesOptions" [value]="entidad.Id">{{ entidad.Nombre }}</option>
-=======
-            <option *ngFor="let entidad of entidadesOptions" [value]="entidad.id">{{ entidad.nombre }}</option>
->>>>>>> 8c8b53244e1cc573d1b2e45b83294943df7584e6
           </select>
         </div>
         <!-- Badges de Entidades Seleccionadas -->
         <div class="mb-3">
           <label>Entidades Seleccionadas</label>
-<<<<<<< HEAD
           <div *ngFor="let id of selectedEntidadesExtIndex" class="badge-container">
             <span class="badge  badge-info">
               {{ getNombreEntidadExt(id) }}
               <span class="badge-close" (click)="removeEntidad(id)">
-=======
-          <div *ngFor="let entidad of selectedEntidades" class="badge-container">
-            <span class="badge  badge-info">
-              {{ entidad.nombre }}
-              <span class="badge-close" (click)="removeEntidad(entidad)">
->>>>>>> 8c8b53244e1cc573d1b2e45b83294943df7584e6
                 <img src="../../assets/x.svg" alt="close-icon">
               </span>
             </span>
@@ -213,19 +183,11 @@
         <div class="mb-3">
           <label for="profesores">Profesores</label>
           <select id="profesores" class="form-control" formControlName="profesores" (change)="addProfesor($event)">
-<<<<<<< HEAD
             <option *ngFor="let profesor of profesoresOptions" [value]="profesor.Id">{{ profesor.Nombre }}</option>
           </select>
         </div>
         <!-- Badges de Profesores Seleccionados -->
         <div *ngFor="let id of selectedProfesoresIndex" class="badge-container">
-=======
-            <option *ngFor="let profesor of profesoresOptions" [value]="profesor.id">{{ profesor.nombre }}</option>
-          </select>
-        </div>
-        <!-- Badges de Profesores Seleccionados -->
-        <div *ngFor="let id of selectedProfesores" class="badge-container">
->>>>>>> 8c8b53244e1cc573d1b2e45b83294943df7584e6
           <span class="badge badge-warning">
             {{ getNombreProfesor(id) }}
             <span class="badge-close" (click)="removeProfesor(id)">
@@ -248,17 +210,10 @@
           <div *ngIf="descripcionFrmControl?.errors?.['required']">
             ⚠ El campo es obligatorio.
           </div>
-<<<<<<< HEAD
           <div *ngIf="descripcionFrmControl?.errors?.['minlength']">
             ⚠ El valor mínimo es 10.
           </div>
           <div *ngIf="descripcionFrmControl?.errors?.['maxlength']">
-=======
-          <div *ngIf="descripcionFrmControl?.errors?.['min']">
-            ⚠ El valor mínimo es 10.
-          </div>
-          <div *ngIf="descripcionFrmControl?.errors?.['max']">
->>>>>>> 8c8b53244e1cc573d1b2e45b83294943df7584e6
             ⚠ El valor máximo es 100.
           </div>
         </div>
@@ -313,17 +268,10 @@
           <div *ngIf="productoFinalFrmControl?.errors?.['required']">
             ⚠ El producto final es obligatorio.
           </div>
-<<<<<<< HEAD
           <div *ngIf="productoFinalFrmControl?.errors?.['minlength']">
             ⚠ El producto final no puede tener menos de 10 letras.
           </div>
           <div *ngIf="productoFinalFrmControl?.errors?.['maxlength']">
-=======
-          <div *ngIf="productoFinalFrmControl?.errors?.['min']">
-            ⚠ El producto final no puede tener menos de 10 letras.
-          </div>
-          <div *ngIf="productoFinalFrmControl?.errors?.['max']">
->>>>>>> 8c8b53244e1cc573d1b2e45b83294943df7584e6
             ⚠ El producto final no puede tener mas de 25 letras.
           </div>
         </div>

@@ -41,14 +41,6 @@ export class ProfesorFormComponent {
     return this.form.get('nombre');
   }
 
-  formatearFecha(fecha: Date | string): string {
-    const date = new Date(fecha);
-    const dia = String(date.getDate()).padStart(2, '0');
-    const mes = String(date.getMonth() + 1).padStart(2, '0');
-    const anio = date.getFullYear();
-    return `${dia}-${mes}-${anio}`;
-  }
-
   crearProfesor(): void {
     this.idProfesorAEditar = null;
     this.crearFormulario(); // reinicia el formulario
@@ -63,6 +55,7 @@ export class ProfesorFormComponent {
     console.log("Editando profesor con id:", id);
     this.idProfesorAEditar = id;
     const profesor = this.profesoresOpciones.find(p => p.Id === id);
+    
     if (profesor) {
       this.crearFormulario(profesor);
       this.mostrarModal = true;
