@@ -1,0 +1,16 @@
+.custom-modal {
+    background-color: #f8f9fa;
+    border-radius: 1rem;
+    max-width: 500px;
+  }
+  
+  .btn-save {
+    background-color: #198754;
+    color: #fff;
+    transition: all 0.3s ease;
+  
+    &:hover {
+      background-color: #157347;
+    }
+  }
+  

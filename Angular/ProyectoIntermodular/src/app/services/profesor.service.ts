@@ -54,8 +54,8 @@ export class ProfesorService {
     return this.http.delete<any>(`${this.apiUrl}/Profesores/${id}`);
   }
 
-  deleteProfesorById(id: number): void {
+  deleteProfesorById(id: number): Observable<void> {
     console.log(id);
-    this.http.delete(`${this.apiUrl}/Profesores/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/Profesores/${id}`);
   }
 }

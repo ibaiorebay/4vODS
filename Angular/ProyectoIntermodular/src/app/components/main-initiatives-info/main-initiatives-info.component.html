@@ -28,7 +28,11 @@
             <h6>Filtro por Profesor:</h6>
             <select [(ngModel)]="filtroProfesor" (change)="filtrarIniciativas()" class="form-control">
                 <option value="Cualquiera"> Cualquiera </option>
+<<<<<<< HEAD
                 <option *ngFor="let profesor of profesoresOpciones" [value]="profesor.Nombre">{{ profesor.Nombre }}</option>
+=======
+                <option *ngFor="let profesor of profesores" [value]="profesor.Id">{{ profesor.Nombre }}</option>
+>>>>>>> 8c8b53244e1cc573d1b2e45b83294943df7584e6
             </select>
         </div>
         <div>
@@ -36,7 +40,11 @@
             <h6>Filtro por curso:</h6>
             <select [(ngModel)]="filtroCurso" (change)="filtrarIniciativas()" class="form-control">
                 <option value="Todos"> Todos </option>
+<<<<<<< HEAD
                 <option *ngFor="let curso of cursosOpciones" [value]="curso.Nombre">{{ curso.Nombre }}</option>
+=======
+                <option *ngFor="let curso of cursos" [value]="curso.Id">{{ curso.Nombre }}</option>
+>>>>>>> 8c8b53244e1cc573d1b2e45b83294943df7584e6
             </select>
         </div>
         <div>
@@ -44,15 +52,24 @@
             <h6>Filtro por Asignatura:</h6>
             <select [(ngModel)]="filtroAsignatura" (change)="filtrarIniciativas()" class="form-control">
                 <option value="Cualquiera"> Cualquiera </option>
+<<<<<<< HEAD
                 <option *ngFor="let asignatura of asignaturasOpciones" [value]="asignatura.NombreAsignatura">{{ asignatura.NombreAsignatura }}</option>
+=======
+                <option *ngFor="let asignatura of asignaturas" [value]="asignatura.getId">{{ asignatura.getNombreAsignatura }}</option>
+>>>>>>> 8c8b53244e1cc573d1b2e45b83294943df7584e6
             </select>
         </div>
         <div>
             <!-- Filtro por número de Ods -->
             <h6>Filtro por número de Ods:</h6>
             <select [(ngModel)]="filtroOds" (change)="filtrarIniciativas()" class="form-control">
+<<<<<<< HEAD
                 <option value="0"> Cualquiera </option>
                 <option *ngFor="let cadaOds of odsOpciones" [value]="cadaOds.Id">{{ cadaOds.Id }} - {{ cadaOds.Nombre }}</option>
+=======
+                <option value=0> Cualquiera </option>
+                <option *ngFor="let cadaOds of ods" [value]=cadaOds.Id>{{ cadaOds.Id }}</option>
+>>>>>>> 8c8b53244e1cc573d1b2e45b83294943df7584e6
             </select>
         </div>
         <div>
@@ -69,7 +86,10 @@
 
 
 <div class="container py-5">
+<<<<<<< HEAD
     <div id="main" style="width: 600px; height: 400px;"></div>
+=======
+>>>>>>> 8c8b53244e1cc573d1b2e45b83294943df7584e6
 
     <div class="row">
         @for(iniciativa of iniciativasFiltradas;track iniciativa){

@@ -2,9 +2,15 @@ import { Routes } from '@angular/router';
 import { MainInitiativesInfoComponent } from './components/main-initiatives-info/main-initiatives-info.component';
 import { MainInitiativesFormComponent } from './components/main-initiatives-form/main-initiatives-form.component';
 import { MainPrincipalComponent } from './components/main-principal/main-principal.component';
+<<<<<<< HEAD
 import { ProfesorFormComponent } from './components/profesor-form/profesor-form.component';
 import { EntidadexteriorFormComponent } from './components/entidadexterior-form/entidadexterior-form.component';
 import { AsignaturaFormComponent } from './components/asignatura-form/asignatura-form.component';
+=======
+import { ProfesorFormComponent } from './profesor-form/profesor-form.component';
+import { EntidadexteriorFormComponent } from './entidadexterior-form/entidadexterior-form.component';
+import { AsignaturaFormComponent } from './asignatura-form/asignatura-form.component';
+>>>>>>> 8c8b53244e1cc573d1b2e45b83294943df7584e6
 
 export const routes: Routes = [
     {path: 'initiatives-info', component: MainInitiativesInfoComponent},

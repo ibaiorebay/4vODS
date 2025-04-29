@@ -1,58 +1,62 @@
 <div>
-  <div class="custom-modal">
-    <div class="custom-modal-header">
-      <h5>Añadir Profesor</h5>
+  <!-- MODAL: Se muestra solo si mostrarModal es true -->
+<div *ngIf="mostrarModal" class="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background-color: rgba(0, 0, 0, 0.5); z-index: 1050;">
+  <div class="custom-modal shadow p-4 rounded-4 bg-white border" style="width: 100%; max-width: 500px;">
+    <div class="custom-modal-header d-flex justify-content-between align-items-center mb-3">
+      <h5 class="text-primary m-0">➕ Añadir Profesor</h5>
+      <button class="btn btn-sm btn-outline-secondary" (click)="cerrarModal()">✖</button>
     </div>
     <div class="custom-modal-body">
       <form [formGroup]="form">
         <div class="mb-3">
-          <label for="nombre">Nombre:</label>
-          <input type="text" class="form-control" formControlName="nombre">
+          <label for="nombre" class="form-label">Nombre:</label>
+          <input type="text" class="form-control" formControlName="nombre" />
         </div>
-        <!-- Mensajes de error -->
-        <div *ngIf="nombreFrmControl?.touched && nombreFrmControl?.invalid">
-          <div *ngIf="nombreFrmControl?.errors?.['required']">
-            ⚠ El nombre es obligatorio.
-          </div>
+        <div *ngIf="nombreFrmControl?.touched && nombreFrmControl?.invalid" class="text-danger small mb-3">
+          <div *ngIf="nombreFrmControl?.errors?.['required']">⚠ El nombre es obligatorio.</div>
         </div>
-        <button class="btn btn-save" (click)="save()">Guardar</button>
+        <div class="d-flex justify-content-end">
+          <button type="button" class="btn btn-success px-4" (click)="save()">Guardar</button>
+        </div>
       </form>
     </div>
   </div>
+</div>
 
 
+  <!-- Contenedor principal -->
   <div class="container mt-4">
-    <!-- Botón para crear un nuevo profesor -->
+    <!-- Encabezado y botón -->
     <div class="d-flex justify-content-between align-items-center mb-3">
-      <h4>Lista de Profesores</h4>
-      <button class="btn btn-primary" (click)="crearProfesor()">Nuevo Profesor</button>
+      <h4 class="fw-bold">📋 Lista de Profesores</h4>
+      <button class="btn btn-outline-primary px-3" (click)="crearProfesor()">➕ Nuevo Profesor</button>
     </div>
+
     <!-- Tabla de profesores -->
-    <div class="table-responsive">
-      <table class="table table-striped table-hover align-middle">
-        <thead class="table-dark">
+    <div class="table-responsive shadow-sm rounded-3 overflow-hidden">
+      <table class="table table-striped table-hover align-middle mb-0">
+        <thead class="table-primary text-white">
           <tr>
             <th>ID</th>
             <th>Nombre</th>
-            <th>Acciones</th>
+            <th class="text-center">Acciones</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let profesor of profesoresOpciones">
             <td>{{ profesor.Id }}</td>
             <td>{{ profesor.Nombre }}</td>
-            <td>
-              <button class="btn btn-sm btn-warning me-2" (click)="editarProfesor(profesor.Id)">
-                Editar
+            <td class="text-center">
+              <button class="btn btn-sm btn-outline-warning me-2" (click)="editarProfesor(profesor.Id)">
+                ✏️ Editar
               </button>
-              <button class="btn btn-sm btn-danger" (click)="eliminarProfesor(profesor.Id)">
-                Eliminar
+              <button class="btn btn-sm btn-outline-danger" (click)="eliminarProfesor(profesor.Id)">
+                🗑 Eliminar
               </button>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
-  </div>    
+  </div>
 </div>
-    

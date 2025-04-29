@@ -20,6 +20,7 @@ export class Iniciativa {
     private profesores: Profesor[];
     private metas: Meta[];
 
+<<<<<<< HEAD
     // private ultimoId = 2;
 
     constructor(id: number, titulo: string, horas: number, fechaInicio: string, fechaFin: string, descripcion: string, tipoIniciativa: string, productoFinal: string, esInnovadora: number, difusion: string, asignaturas: Asignatura[], entidadesExteriores: EntidadExterior[], profesores: Profesor[], metas: Meta[]) {
@@ -34,11 +35,26 @@ export class Iniciativa {
         this.productO_FINAL = productoFinal;
         this.esInnovadora = esInnovadora;
         this.difusion = difusion;
+=======
+    private ultimoId = 2;
+>>>>>>> 8c8b53244e1cc573d1b2e45b83294943df7584e6
 
-        this.asignaturas = asignaturas;
-        this.entidadesExteriores = entidadesExteriores;
-        this.profesores = profesores;
-        this.metas = metas;
+    constructor(id: number, titulo:string, horas: number, fechaInicio: string, fechaFin: string, descripcion: string, tipoIniciativa: string, productoFinal: string, esInnovadora: number, difusion: string, asignaturas: Asignatura[], entidadesExteriores: EntidadExterior[], profesores: Profesor[], metas:Meta[]) {
+       this.iD_INICIATIVA = this.ultimoId += 1;
+       this.titulo = titulo;
+       this.horas = horas;
+       this.fechA_INICIO = fechaInicio;
+       this.fechA_FIN = fechaFin;
+       this.descripcion = descripcion;
+       this.tipo = tipoIniciativa;
+       this.productO_FINAL = productoFinal;
+       this.esInnovadora = esInnovadora;
+       this.difusion = difusion;
+
+       this.asignaturas = asignaturas;
+       this.entidadesExteriores = entidadesExteriores;
+       this.profesores = profesores;
+       this.metas = metas;
     }
 
     get Id(): number {
