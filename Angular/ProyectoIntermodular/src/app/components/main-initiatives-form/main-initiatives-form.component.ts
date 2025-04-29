@@ -76,6 +76,9 @@ export class MainInitiativesFormComponent implements OnInit {
           this.crearFormulario(); // En caso de error, creamos un formulario vacío
         }
       );
+
+
+      
     } else {
       this.crearFormulario(); // Nuevo formulario sin datos
     }

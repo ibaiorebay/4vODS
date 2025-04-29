@@ -1,20 +1,20 @@
 export class EntidadExterior {
-    private id: number;
+    private iD_ENTIDAD: number;
     private nombre: string;
     private descripcion: string;
 
     constructor(id: number, nombre: string, descripcion: string) {
-        this.id = id;
+        this.iD_ENTIDAD = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
     }
 
     get Id(): number {
-        return this.id;
+        return this.iD_ENTIDAD;
     }
 
     set Id(id: number) {
-        this.id = id;
+        this.iD_ENTIDAD = id;
     }
 
     get Nombre(): string {
