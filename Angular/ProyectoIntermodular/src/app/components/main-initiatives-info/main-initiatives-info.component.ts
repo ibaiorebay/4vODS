@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IniciativaService } from '../../services/iniciativa.service';
 import { Iniciativa } from '../../models/iniciativa';
@@ -7,7 +7,16 @@ import { Meta } from '../../models/meta';
 import { EntidadExterior } from '../../models/entidad-exterior';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Ods } from '../../models/ods';
+import { Profesor } from '../../models/profesor';
+import { Curso } from '../../models/curso';
+import * as echarts from 'echarts';
+import { ProfesorDTO } from '../../models/profesor-dto';
+import { AsignaturaDTO } from '../../models/asignatura-dto';
+import { OdsDTO } from '../../models/ods-dto';
+import { MetaDTO } from '../../models/meta-dto';
 
+type EChartsOption = echarts.EChartsOption;
 
 @Component({
   selector: 'app-main-initiatives-info',
@@ -16,15 +25,18 @@ import { Router } from '@angular/router';
   templateUrl: './main-initiatives-info.component.html',
   styleUrl: './main-initiatives-info.component.scss'
 })
-export class MainInitiativesInfoComponent {
+export class MainInitiativesInfoComponent implements AfterViewInit {
+
   iniciativas: Iniciativa[] = [];
   iniciativasFiltradas: Iniciativa[] = [];
   isDropdownOpen = false; // Estado del menú desplegable
-  cursos: string[] = [];
-  profesores: string[] = [];
-  asignaturas: string[] = [];
-  ods: string[] = [];
-  metasOds: any;
+
+  cursosOpciones: Curso[] = [];
+  profesoresOpciones: ProfesorDTO[] = [];
+  asignaturasOpciones: AsignaturaDTO[] = [];
+  odsOpciones: OdsDTO[] = [];
+  todasLasMetasOpciones: MetaDTO[] = [];
+  metasSegunOdsOpciones: MetaDTO[] = [];
   filtroInnovador = false;
   
   constructor(private iniciativaService: IniciativaService, private router: Router) {
@@ -33,21 +45,59 @@ export class MainInitiativesInfoComponent {
 
   ngOnInit(): void {
     // Cargar todas las iniciativas
-    // this.iniciativaService.getIniciativas().subscribe((data) => {
-    //   this.iniciativas = data;
-    //   this.iniciativasFiltradas = data;
-    //   console.log(this.iniciativas);
-    // });
-    // this.iniciativas = this.iniciativaService.Iniciativas;
+    this.iniciativaService.getIniciativas().subscribe((data) => {
+      this.iniciativas = data;
+      this.iniciativasFiltradas = data;
+      console.log(this.iniciativas);
+    });
 
+    this.iniciativaService.getAsignaturas().subscribe((asignaturas: any) => {
+      console.log("Asignaturas recibidas:", asignaturas);
+      this.asignaturasOpciones = asignaturas;
+    });
 
-    this.iniciativas = this.iniciativaService.getIniciativasMock();
-    this.iniciativasFiltradas = this.iniciativas;
-    this.cursos = this.iniciativaService.Cursos;
-    this.profesores = this.iniciativaService.Profesores;
-    this.asignaturas = this.iniciativaService.Asignaturas;
-    this.ods = this.iniciativaService.Ods;
-    this.metasOds = this.iniciativaService.MetasOds;
+    this.iniciativaService.getMetas().subscribe((metas: any) => {
+      console.log("metas recibidas:", metas);
+      this.todasLasMetasOpciones = metas;
+    });
+
+    this.iniciativaService.getCursos().subscribe((cursos: any) => {
+      console.log("cursos recibidas:", cursos);
+      this.cursosOpciones = cursos;
+    });
+
+    this.iniciativaService.getOds().subscribe((ods: OdsDTO[]) => {
+      console.log("ods recibidas:", ods); 
+      this.odsOpciones = ods;
+    });
+
+    this.iniciativaService.getProfesores().subscribe((profesores: any) => {
+      console.log("profes recibidas:", profesores);
+      this.profesoresOpciones = profesores;
+    });
+
+  }
+
+  ngAfterViewInit(): void {
+    const chartDom = document.getElementById('main')!;
+    const myChart = echarts.init(chartDom);
+    const option: EChartsOption = {
+      xAxis: {
+        type: 'category',
+        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [
+        {
+          data: [120, 200, 150, 80, 70, 110, 130],
+          type: 'bar'
+        }
+      ]
+    };
+
+    myChart.setOption(option);
   }
 
 
@@ -83,24 +133,34 @@ export class MainInitiativesInfoComponent {
 
   obtenerNombresCursos(asignaturas: Asignatura[]): string {
     const repetidos: string[] = [];
-    const result = asignaturas && asignaturas.length > 0
-      ? asignaturas.map(asignatura => asignatura.getNombreCurso).filter(curso => {
-        if (repetidos.includes(curso)) {
-          return false;
-        } else {
-          repetidos.push(curso);
-          return true;
-        }
-      }).join(', ')
-      : 'Sin Asignaturas';
 
-    return result;
+    const result2 = asignaturas.map(asignatura => {
+      const cursoObj = this.cursosOpciones.find(curso => curso.Id == asignatura.IdCurso);
+
+      //Mi solucion
+      // if(cursoObj == undefined) return;
+      // if (repetidos.includes(cursoObj.Nombre)) {
+      //   return;
+      // } else {
+      //   repetidos.push(cursoObj.Nombre);
+      //   return cursoObj.Nombre;
+      // }
+
+      if (!cursoObj || repetidos.includes(cursoObj.Nombre)) {
+        return;
+      }
+
+      repetidos.push(cursoObj.Nombre);
+      return cursoObj.Nombre;
+    }).filter(Boolean).join(", ");//.filter(Boolean) Es una forma abreviada de decir: .filter(valor => Boolean(valor)) Filtrar (dejar pasar) solo los valores que sean "truthy", o sea, que no sean:undefined null false 0 '' (string vacío) NaN
+        
+    return result2;
   }
 
   obtenerModulosYCursos(asignaturas: Asignatura[]): string {
     let result = asignaturas && asignaturas.length > 0
-      ? asignaturas.map(asignatura => `${asignatura.getNombreAsignatura} de ${asignatura.getNombreCurso}`).join(', ')
-      : 'Sin Asignaturas';
+      ? asignaturas.map(asignatura => `${asignatura.NombreAsignatura} de ${asignatura.NombreCurso}`).join(', ')
+      : 'Sin Módulos/Asignaturas';
     
     return result;
   }
@@ -120,7 +180,7 @@ export class MainInitiativesInfoComponent {
   }
 
   obtenerMetas(metas: Meta[]): string {
-    let result = metas.map(meta => `${meta.NumeroOds}.${meta.CaracterMeta}`).join(', ');
+    let result = metas.map(meta => `${meta.NumeroOds}.${meta.NumeroMeta}`).join(', ');
     return result;
   }
 
@@ -139,6 +199,9 @@ export class MainInitiativesInfoComponent {
   filtroMeta: string = "0";
   filtrarIniciativas(tipoIniciativa?: string) {
 
+    // Filtrar metas segun el ODS seleccionado
+    this.metasSegunOdsOpciones = this.todasLasMetasOpciones.filter(meta => meta.NumeroOds.toString() == this.filtroOds);
+
     tipoIniciativa? this.filtroTipoIniciativa = tipoIniciativa : "Todos";
 
     this.iniciativasFiltradas = this.iniciativas.filter(iniciativa => {
@@ -152,15 +215,18 @@ export class MainInitiativesInfoComponent {
   
       // Filtrar por curso dentro de Asignaturas
       const coincideCurso = this.filtroCurso === 'Todos' || 
-                            iniciativa.Asignaturas.some(asignatura => asignatura.getNombreCurso === this.filtroCurso);
+                            iniciativa.Asignaturas.some(asignatura => asignatura.NombreCurso === this.filtroCurso);
   
       // Filtrar por profesor dentro de Profesores
       const coincideProfesor = this.filtroProfesor === 'Cualquiera' || 
-                               iniciativa.Profesores.some(profesor => profesor.NombreCompleto === this.filtroProfesor);
+                               iniciativa.Profesores.some(profesor => profesor.Nombre === this.filtroProfesor);
+                               console.log(this.filtroProfesor);
+                               console.log(coincideProfesor);
+                               console.log();
                                
       // Filtrar por profesor dentro de Profesores
       const coincideAsignatura = this.filtroAsignatura === 'Cualquiera' || 
-                              iniciativa.Asignaturas.some(asignatura => asignatura.getNombreAsignatura === this.filtroAsignatura);
+                              iniciativa.Asignaturas.some(asignatura => asignatura.NombreAsignatura === this.filtroAsignatura);
 
       // Filtrar por numero de ods dentro de Metas
       const coincideOds = this.filtroOds === "0" || 
@@ -179,17 +245,15 @@ export class MainInitiativesInfoComponent {
 
 
   
-  edit(iniciativaId: number) {
+  edit(idIniciativaAEditar: number) {
     console.log("Editando tarjeta");
-    this.router.navigate(['/initiatives-form', iniciativaId]);
+    this.router.navigate(['/initiatives-form', idIniciativaAEditar]);
   }
 
   delete(id: number) {
     console.log("Borrando tarjeta con id: " + id);
-    // this.iniciativaService.deleteIniciativaById(Number(id));
-    // this.iniciativas = this.iniciativaService.Iniciativas;
-
-    // this.iniciativasFiltradas = this.iniciativaService.deleteIniciativa(Number(id));
+    this.iniciativaService.deleteIniciativa(id);//TODO probar con el postman en casa
+    // this.iniciativasFiltradas = this.iniciativaService.deleteIniciativa(id);
   }
 
 
