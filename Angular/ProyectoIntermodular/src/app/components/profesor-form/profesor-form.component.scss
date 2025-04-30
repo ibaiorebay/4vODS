@@ -13,4 +13,17 @@
       background-color: #157347;
     }
   }
+  form{
+    input{
+      &:invalid{
+        border-color: red;
+    }
+    &:valid{
+        border-color: green;
+    }
+    }
+  }
+  #error{
+    color: red;
+  }
   

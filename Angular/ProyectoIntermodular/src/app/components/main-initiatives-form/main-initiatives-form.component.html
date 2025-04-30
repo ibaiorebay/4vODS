@@ -22,31 +22,31 @@
         <!-- Mensajes de error -->
         <div *ngIf="innovadorFrmControl?.touched && innovadorFrmControl?.invalid">
           <div *ngIf="innovadorFrmControl?.errors?.['required']">
-            ⚠ Tenés que seleccionar si la iniciativa es innovadora o no.
+            <p class="error">⚠ Tenés que seleccionar si la iniciativa es innovadora o no.</p>
           </div>
         </div>
 
         <div class="mb-3">
           <label for="titulo">Título de Iniciativa</label>
-          <input id="titulo" type="text" class="form-control" formControlName="titulo">
+          <input id="titulo" type="text" class="form-control" formControlName="titulo" required minlength="5" maxlength="30">
         </div>
         <!-- Mensajes de error -->
         <div *ngIf="tituloFrmControl?.touched && tituloFrmControl?.invalid">
           <div *ngIf="tituloFrmControl?.errors?.['required']">
-            ⚠ El titulo es obligatorio.
+            <p class="error">⚠ El titulo es obligatorio.</p> 
           </div>
           <div *ngIf="tituloFrmControl?.errors?.['minlength']">
-            ⚠ El titulo no puede tener menos de 5 letras.
+            <p class="error">⚠ El titulo no puede tener menos de 5 letras.</p>
           </div>
           <div *ngIf="tituloFrmControl?.errors?.['maxlength']">
-            ⚠ El titulo no puede tener mas de 30 letras.
+            <p class="error">⚠ El titulo no puede tener mas de 30 letras.</p>
           </div>
         </div>
 
         <div class="mb-3">
           <label>Tipo de proyecto</label>
           <div class="d-inline-flex flex-column me-5">
-            <input type="radio" id="opcion1" formControlName="tipoIniciativa" name="tipoIniciativa" class="custom-radio" value="Charla">
+            <input type="radio" id="opcion1" formControlName="tipoIniciativa" name="tipoIniciativa" class="custom-radio" value="Charla" required>
             <label for="opcion1">Charla</label>
         
             <input type="radio" id="opcion2" formControlName="tipoIniciativa" name="tipoIniciativa" class="custom-radio" value="Taller">
@@ -70,40 +70,40 @@
         <!-- Mensajes de error -->
         <div *ngIf="tipoIniciativaFrmControl?.touched && tipoIniciativaFrmControl?.invalid">
           <div *ngIf="tipoIniciativaFrmControl?.errors?.['required']">
-            ⚠ Tenés que seleccionar un tipo de iniciativa.
+            <p class="error">⚠ Tenés que seleccionar un tipo de iniciativa.</p>
           </div>
         </div>
       
 
         <div class="mb-3">
           <label for="horas">Horas</label>
-          <input id="horas" type="number" class="form-control" formControlName="horas">
+          <input id="horas" type="number" class="form-control" formControlName="horas" required min="1" max="100">
         </div>
         <!-- Mensajes de error -->
         <div *ngIf="horasFrmControl?.touched && horasFrmControl?.invalid">
           <div *ngIf="horasFrmControl?.errors?.['required']">
-            ⚠ El campo es obligatorio.
+            <p class="error">⚠ El campo es obligatorio.</p>
           </div>
           <div *ngIf="horasFrmControl?.errors?.['min']">
-            ⚠ El valor mínimo es 1.
+            <p class="error">⚠ El valor mínimo es 1.</p>
           </div>
           <div *ngIf="horasFrmControl?.errors?.['max']">
-            ⚠ El valor máximo es 100.
+            <p class="error">⚠ El valor máximo es 100.</p>
           </div>
         </div>
 
         <div class="d-flex">
             <div class="mb-3 me-5">
               <label for="fechaInicio">Fecha Inicio</label>
-              <input id="fechaInicio" type="date" class="form-control" formControlName="fechaInicio">
+              <input id="fechaInicio" type="date" class="form-control" formControlName="fechaInicio" required>
             </div>
             <div class="mb-3">
               <label for="fechaFin">Fecha Fin</label>
-              <input id="fechaFin" type="date" class="form-control" formControlName="fechaFin">
+              <input id="fechaFin" type="date" class="form-control" formControlName="fechaFin" required>
             </div>
         </div>
         <div *ngIf="form.hasError('fechaInvalida')">
-          ⚠ La fecha de fin no puede ser anterior a la fecha de inicio.
+          <p class="error">⚠ La fecha de fin no puede ser anterior a la fecha de inicio.</p>
         </div>
         
         
@@ -128,7 +128,7 @@
           </div>
         </div>
         <div *ngIf="asignaturasFrmControl?.errors?.['seleccionRequerida'] && asignaturasFrmControl?.touched">
-          ⚠ Tenés que seleccionar al menos una asignatura.
+          <p class="error">⚠ Tenés que seleccionar al menos una asignatura.</p>
         </div>
          
 
@@ -152,7 +152,7 @@
           </div>
         </div>
         <div *ngIf="entidadesFrmControl?.errors?.['seleccionRequerida'] && entidadesFrmControl?.touched">
-          ⚠ Tenés que seleccionar al menos una entidad exterior.
+          <p class="error">⚠ Tenés que seleccionar al menos una entidad exterior.</p>
         </div>
 
         <!-- Select para Metas de la ODS -->
@@ -175,7 +175,7 @@
           </div>
         </div>
         <div *ngIf="metasFrmControl?.errors?.['seleccionRequerida'] && metasFrmControl?.touched">
-          ⚠ Tenés que seleccionar al menos una meta.
+          <p class="error">⚠ Tenés que seleccionar al menos una meta.</p>
         </div>
 
 
@@ -197,24 +197,24 @@
         </div>
         <!--Mensaje de error-->
         <div *ngIf="profesoresFrmControl?.errors?.['seleccionRequerida'] && profesoresFrmControl?.touched">
-          ⚠ Tenés que seleccionar al menos un profesor.
+          <p class="error">⚠ Tenés que seleccionar al menos un profesor.</p>
         </div>
 
         <!-- Descripcion -->
         <div class="mb-3">
           <label>Descripción</label>
-          <textarea class="d-block form-control" formControlName="descripcion"></textarea>
+          <textarea class="d-block form-control" formControlName="descripcion" required minlength="10" maxlength="100"></textarea>
         </div>
         <!-- Mensajes de error -->
         <div *ngIf="descripcionFrmControl?.touched && descripcionFrmControl?.invalid">
           <div *ngIf="descripcionFrmControl?.errors?.['required']">
-            ⚠ El campo es obligatorio.
+            <p class="error">⚠ El campo es obligatorio.</p>
           </div>
           <div *ngIf="descripcionFrmControl?.errors?.['minlength']">
-            ⚠ El valor mínimo es 10.
+            <p class="error">⚠ El valor mínimo es 10.</p>
           </div>
           <div *ngIf="descripcionFrmControl?.errors?.['maxlength']">
-            ⚠ El valor máximo es 100.
+            <p class="error">⚠ El valor máximo es 100.</p>
           </div>
         </div>
 
@@ -227,7 +227,7 @@
           <div class="social-option">
               <!-- <input type="checkbox" id="linkedin" class="social-checkbox" (click)="toggleInput('linkedin')"> -->
               <!-- <label for="linkedin" class="mb-0"> Linkedin</label> -->
-              <input type="text" class="social-input" placeholder="Ingresa tu enlace de Linkedin" formControlName="difusion">
+              <input type="text" class="social-input" placeholder="Ingresa tu enlace de Linkedin" formControlName="difusion" required>
               <!-- <input type="text" id="linkedin-link" class="social-input" placeholder="Ingresa tu enlace de Linkedin" style="display: none;"> -->
           </div>
 
@@ -252,7 +252,7 @@
         <!-- Mensajes de error -->
         <div *ngIf="difusionFrmControl?.touched && difusionFrmControl?.invalid">
           <div *ngIf="difusionFrmControl?.errors?.['required']">
-            ⚠ El linkedin es obligatorio.
+            <p class="error">⚠ El linkedin es obligatorio.</p>
           </div>
         </div>
 
@@ -261,18 +261,18 @@
 
         <div class="mb-3">
           <label for="titulo">Producto final</label>
-          <input id="productoFinal" type="text" class="form-control" formControlName="productoFinal">
+          <input id="productoFinal" type="text" class="form-control" formControlName="productoFinal" required minlength="10" maxlength="25">
         </div>
         <!-- Mensajes de error -->
         <div *ngIf="productoFinalFrmControl?.touched && productoFinalFrmControl?.invalid">
           <div *ngIf="productoFinalFrmControl?.errors?.['required']">
-            ⚠ El producto final es obligatorio.
+            <p class="error">⚠ El producto final es obligatorio.</p>
           </div>
           <div *ngIf="productoFinalFrmControl?.errors?.['minlength']">
-            ⚠ El producto final no puede tener menos de 10 letras.
+            <p class="error">⚠ El producto final no puede tener menos de 10 letras.</p>
           </div>
           <div *ngIf="productoFinalFrmControl?.errors?.['maxlength']">
-            ⚠ El producto final no puede tener mas de 25 letras.
+            <p class="error">⚠ El producto final no puede tener mas de 25 letras.</p>
           </div>
         </div>
 
