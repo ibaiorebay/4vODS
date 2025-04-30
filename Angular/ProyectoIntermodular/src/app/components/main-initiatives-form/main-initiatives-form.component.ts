@@ -274,7 +274,7 @@ export class MainInitiativesFormComponent implements OnInit {
 
   //Funcion para pintar el nombre de profesor en las badges de los profes seleccionados
   getNombreAsignatura(id: number): string {
-    const asignatura = this.asignaturasOptions.find(asig => asig.getId === id);
+    const asignatura = this.asignaturasOptions.find(asig => asig.Id === id);
     return asignatura ? asignatura.NombreAsignatura : 'Desconocido';
   }
   

@@ -57,7 +57,13 @@ export class EntidadexteriorFormComponent {
       this.mostrarModal = false;
     }
   
-    editarEntidadExt(id: number): void {
+    editarEntidadExt(id: number | undefined): void {
+
+      if (id === undefined) {
+        console.warn("ID no válido para editar asignatura");
+        return;
+      }
+
       console.log("Editando entidadExt con id:", id);
       this.idEntidadeExtAEditar = id;
       const entidadExterior = this.entidadexterioresOpciones.find(entidadExt => entidadExt.Id === id);
@@ -68,7 +74,13 @@ export class EntidadexteriorFormComponent {
       }
     }
   
-    eliminarEntidadExt(id: number): void {
+    eliminarEntidadExt(id: number | undefined): void {
+
+      if (id === undefined) {
+        console.warn("ID no válido para editar asignatura");
+        return;
+      }
+      
       console.log("Borrando entidadExt con id:", id);
       this.entidadExteriorService.deleteEntidadExt(id).subscribe(() => {
         this.entidadexterioresOpciones = this.entidadexterioresOpciones.filter(p => p.Id !== id);
@@ -87,7 +99,7 @@ export class EntidadexteriorFormComponent {
       let nuevaEntidadExt: EntidadExterior;
   
       if (this.idEntidadeExtAEditar !== null) {
-        nuevaEntidadExt = new EntidadExterior(this.idEntidadeExtAEditar, datosForm.nombre, datosForm.descripcion);
+        nuevaEntidadExt = new EntidadExterior(datosForm.nombre, datosForm.descripcion, this.idEntidadeExtAEditar);
   
         console.log("Actualizando entidadExt:", nuevaEntidadExt);
         this.entidadExteriorService.updateEntidadExt(this.idEntidadeExtAEditar, nuevaEntidadExt).subscribe(
@@ -100,7 +112,7 @@ export class EntidadexteriorFormComponent {
   
       } else {
         // Puedes generar un ID con lógica temporal si no lo proporciona el backend
-        nuevaEntidadExt = new EntidadExterior(Date.now(), datosForm.nombre, datosForm.descripcion);
+        nuevaEntidadExt = new EntidadExterior(datosForm.nombre, datosForm.descripcion);
   
         console.log("Creando nueva entidadExt:", nuevaEntidadExt);
         this.entidadExteriorService.createEntidadExt(nuevaEntidadExt).subscribe(

@@ -92,7 +92,7 @@ export class IniciativaService {
         asignaturaData.nombrE_CURSO,
         asignaturaData.nombre
       )) : [],
-      data.iD_ENTIDADs.length > 0 ? data.iD_ENTIDADs.map((entidadData: any) => new EntidadExterior(entidadData.iD_ENTIDAD, entidadData.nombre, entidadData.descripcion)) : [],
+      data.iD_ENTIDADs.length > 0 ? data.iD_ENTIDADs.map((entidadData: any) => new EntidadExterior(entidadData.nombre, entidadData.descripcion, entidadData.iD_ENTIDAD,)) : [],
       data.iD_PROFESORs.length > 0 ? data.iD_PROFESORs.map((profesorData: any) => new Profesor(
           profesorData.iD_PROFESOR,
           profesorData.nombre,
@@ -115,9 +115,9 @@ export class IniciativaService {
 
   private mapToAsignaturaDTO(data: any): AsignaturaDTO {
     const asignatura = new AsignaturaDTO(
-      data.iD_ASIGNATURA,
       data.iD_CURSO,
-      data.nombre
+      data.nombre,
+      data.iD_ASIGNATURA
     );
     return asignatura;
   }
@@ -157,9 +157,9 @@ export class IniciativaService {
 
   private mapToEntidadExterior(data: any): EntidadExterior {
     const entidadExterior = new EntidadExterior(
-      data.iD_ENTIDAD,
       data.nombre,
-      data.descripcion
+      data.descripcion,
+      data.iD_ENTIDAD
     );
     return entidadExterior;
   }
