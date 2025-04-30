@@ -1,15 +1,15 @@
 export class EntidadExterior {
-    private iD_ENTIDAD: number;
+    private iD_ENTIDAD: number | undefined;
     private nombre: string;
     private descripcion: string;
 
-    constructor(id: number, nombre: string, descripcion: string) {
-        this.iD_ENTIDAD = id;
+    constructor(nombre: string, descripcion: string, id?: number) {
         this.nombre = nombre;
         this.descripcion = descripcion;
+        this.iD_ENTIDAD = id? id : undefined;
     }
 
-    get Id(): number {
+    get Id(): number | undefined {
         return this.iD_ENTIDAD;
     }
 

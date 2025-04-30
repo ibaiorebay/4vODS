@@ -58,10 +58,10 @@
               <td>{{ entidadExt.Nombre }}</td>
               <td>{{ entidadExt.Descripcion }}</td>
               <td class="text-center">
-                <button class="btn btn-sm btn-outline-warning me-2" (click)="editarEntidadExt(entidadExt.Id)">
+                <button *ngIf="entidadExt.Id !== undefined" class="btn btn-sm btn-outline-warning me-2" (click)="editarEntidadExt(entidadExt.Id)">
                   ✏️ Editar
                 </button>
-                <button class="btn btn-sm btn-outline-danger" (click)="eliminarEntidadExt(entidadExt.Id)">
+                <button *ngIf="entidadExt.Id !== undefined" class="btn btn-sm btn-outline-danger" (click)="eliminarEntidadExt(entidadExt.Id)">
                   🗑 Eliminar
                 </button>
               </td>

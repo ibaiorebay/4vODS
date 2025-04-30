@@ -51,11 +51,19 @@ export class ProfesorFormComponent {
     this.mostrarModal = false;
   }
 
+  mostrarModalError: boolean = false;
+  mensajeError: string = "";
+  mostrarErrorModal(mensaje: string): void {
+    this.mensajeError = mensaje;
+    this.mostrarModalError = true;
+  }
+  
+
   editarProfesor(id: number): void {
     console.log("Editando profesor con id:", id);
     this.idProfesorAEditar = id;
     const profesor = this.profesoresOpciones.find(p => p.Id === id);
-    
+
     if (profesor) {
       this.crearFormulario(profesor);
       this.mostrarModal = true;
@@ -63,9 +71,35 @@ export class ProfesorFormComponent {
   }
 
   eliminarProfesor(id: number): void {
-    console.log("Borrando profesor con id:", id);
-    this.profesorService.deleteProfesorById(id).subscribe(() => {
-      this.profesoresOpciones = this.profesoresOpciones.filter(p => p.Id !== id);
+    // console.log("Borrando profesor con id:", id);
+    // this.profesorService.deleteProfesorById(id).subscribe(() => {
+    //   this.profesoresOpciones = this.profesoresOpciones.filter(p => p.Id !== id);
+    // },
+    // error: (err) => {
+    //     if (err.error?.includes("a foreign key constraint fails")) {
+    //       this.mostrarErrorModal("No se puede borrar la asignatura porque está asociada a una iniciativa.");
+    //     } else {
+    //       console.error("Error al eliminar:", err);
+    //     }
+    //   }
+    // });
+    if (id === undefined) return;
+
+    this.profesorService.deleteProfesorById(id).subscribe({
+      next: () => {
+        this.profesoresOpciones = this.profesoresOpciones.filter(profesor => profesor.Id !== id);
+      },
+      error: (err) => {
+        // const errorString = JSON.stringify(err.error);
+        const errorString = err.error?.toString() || "";
+
+        console.log("Error al eliminar profesor:", errorString);
+        if (errorString.includes("a foreign key constraint fails")) {
+          this.mostrarErrorModal("No se puede borrar la asignatura porque está asociada a una iniciativa.");
+        } else {
+          console.error("Error al eliminar:", err);
+        }
+      }
     });
   }
 

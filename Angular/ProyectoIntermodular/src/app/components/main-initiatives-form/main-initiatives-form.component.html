@@ -111,7 +111,7 @@
         <div class="mb-3">
           <label for="asignaturas">Asignaturas</label>
           <select id="asignaturas" class="form-control" formControlName="asignaturas" (change)="addAsignatura($event)">
-            <option *ngFor="let asignatura of asignaturasOptions" [value]="asignatura.getId">{{ asignatura.NombreAsignatura }}</option><!--[value]="asignatura.id" es usado en la funcion addAsignatura-->
+            <option *ngFor="let asignatura of asignaturasOptions" [value]="asignatura.Id">{{ asignatura.NombreAsignatura }}</option><!--[value]="asignatura.id" es usado en la funcion addAsignatura-->
           </select>
         </div>
         <!-- Badges de Asignaturas Seleccionadas -->
