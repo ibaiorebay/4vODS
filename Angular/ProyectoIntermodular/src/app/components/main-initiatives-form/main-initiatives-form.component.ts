@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IniciativaService } from '../../services/iniciativa.service';
 import { Iniciativa } from '../../models/iniciativa';
 import { ProfesorDTO } from '../../models/profesor-dto';
@@ -39,7 +39,7 @@ export class MainInitiativesFormComponent implements OnInit {
     { id: 3, nombre: 'Meta 3' }
   ];
 
-  constructor(private fb: FormBuilder, private route: ActivatedRoute, private iniciativaService: IniciativaService) {
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private iniciativaService: IniciativaService, private router: Router) {
 
     // this.metasOptions = this.iniciativaService.Ods;
     this.iniciativaService.getAsignaturas().subscribe((asignaturas: any) => {
@@ -387,7 +387,7 @@ export class MainInitiativesFormComponent implements OnInit {
       console.log(nuevaIniciativa);
 
       this.iniciativaService.createIniciativa(nuevaIniciativa).subscribe(
-        (response) => console.log("Iniciativa guardada:", response),
+        (response) => {console.log("Iniciativa guardada:", response); this.router.navigate(['/initiatives-info']).then(()=> window.location.reload());},
         (error) => console.error("Error al guardar la iniciativa:", error)
       );
 

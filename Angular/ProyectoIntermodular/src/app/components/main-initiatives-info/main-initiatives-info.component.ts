@@ -1,4 +1,4 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IniciativaService } from '../../services/iniciativa.service';
 import { Iniciativa } from '../../models/iniciativa';
@@ -39,7 +39,7 @@ export class MainInitiativesInfoComponent implements AfterViewInit {
   metasSegunOdsOpciones: MetaDTO[] = [];
   filtroInnovador = false;
   
-  constructor(private iniciativaService: IniciativaService, private router: Router) {
+  constructor(private iniciativaService: IniciativaService, private router: Router, private cd: ChangeDetectorRef) {
     
   }
 
@@ -196,6 +196,7 @@ export class MainInitiativesInfoComponent implements AfterViewInit {
   filtroAsignatura: string = 'Cualquiera';
   filtroOds: string = "0";
   filtroMeta: string = "0";
+  filtroDimension: string = "Cualquiera";
   filtrarIniciativas(tipoIniciativa?: string) {
 
     // Filtrar metas segun el ODS seleccionado
@@ -235,10 +236,14 @@ export class MainInitiativesInfoComponent implements AfterViewInit {
       // const coincideMeta = this.filtroOds === "0" || 
       //                         iniciativa.Metas.some(meta => `` === this.filtroMeta);
 
+      //Filtrar por dimensión
+      const coincideDimension = this.filtroDimension === "Cualquiera" ||
+                                  iniciativa.Metas.some(meta => meta.DimensionODS.toLowerCase() === this.filtroDimension.toLowerCase())
+
       // Filtro por innovador (si el toggle está activado)
       const coincideInnovador = !this.filtroInnovador || iniciativa.EsInnovadora == 1;//antes true
   
-      return coincideTipo && coincideTitulo && coincideCurso && coincideProfesor && coincideAsignatura && coincideOds && coincideInnovador;
+      return coincideTipo && coincideTitulo && coincideCurso && coincideProfesor && coincideAsignatura && coincideOds && coincideDimension && coincideInnovador;
     });
   }
 
@@ -251,7 +256,12 @@ export class MainInitiativesInfoComponent implements AfterViewInit {
 
   delete(id: number) {
     console.log("Borrando tarjeta con id: " + id);
-    this.iniciativaService.deleteIniciativa(id);//TODO probar con el postman en casa
+    this.iniciativaService.deleteIniciativa(id).subscribe(() => {
+      this.iniciativas = this.iniciativas.filter(i => i.Id !== id);
+      this.iniciativasFiltradas = this.iniciativasFiltradas.filter(i => i.Id !== id);
+      this.cd.detectChanges();
+    });
+    //this.iniciativaService.deleteIniciativa(id);//TODO probar con el postman en casa
     // this.iniciativasFiltradas = this.iniciativaService.deleteIniciativa(id);
   }
 
