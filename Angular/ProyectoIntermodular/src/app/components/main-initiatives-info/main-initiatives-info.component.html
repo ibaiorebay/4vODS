@@ -63,13 +63,26 @@
                 <option *ngFor="let cadaMeta of metasSegunOdsOpciones" [value]="cadaMeta.Id" >{{ cadaMeta.NumeroOds }}.{{ cadaMeta.NumeroMeta}} - {{cadaMeta.Descripcion}}</option>
             </select>
         </div>
+        <div>
+            <!--Filtro por dimension-->
+            <h6>Filtro por Dimension:</h6>
+            <select [(ngModel)]="filtroDimension" (change)="filtrarIniciativas()" class="form-control">
+                <option value="Cualquiera">Cualquiera</option>
+                <option value="Economica">Económica</option>
+                <option value="Social">Social</option>
+                <option value="Medioambiental">Medioambiental</option>
+            </select>
+        </div>
     </div>
 
 </div>
 
+<div class="container">
+    <button class="btn btn-info" disabled>Iniciativas encontradas: {{iniciativasFiltradas.length}}</button>
+</div>
 
 <div class="container py-5">
-    <div id="main" style="width: 600px; height: 400px;"></div>
+    
     <div class="row">
         @for(iniciativa of iniciativasFiltradas;track iniciativa){
         <div class="col-lg-4 col-md-6 mb-4">

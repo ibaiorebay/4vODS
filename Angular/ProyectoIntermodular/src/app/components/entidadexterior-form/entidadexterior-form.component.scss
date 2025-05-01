@@ -1,0 +1,21 @@
+form{
+    input{
+        &:invalid{
+            border-color: red;
+        }
+        &:valid{
+            border-color: green;
+        }
+    }
+    textarea{
+        &:invalid{
+            border-color: red;
+        }
+        &:valid{
+            border-color: green;
+        }
+    }
+}
+.error{
+    color:red;
+}

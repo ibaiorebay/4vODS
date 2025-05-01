@@ -61,6 +61,20 @@ $shadow-color: rgba(0, 0, 0, 0.2);
                             box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.4);
                             outline: none;
                         }
+                        &:invalid{
+                            border-color: red;
+                        }
+                        &:valid{
+                            border-color: green;
+                        }
+                    }
+                    textarea{
+                        &:invalid{
+                            border-color: red;
+                        }
+                        &:valid{
+                            border-color: green;
+                        }
                     }
                 }
 
@@ -262,5 +276,8 @@ $shadow-color: rgba(0, 0, 0, 0.2);
         border: 1px solid #ccc;
         border-radius: 5px;
         // display: none;
+    }
+    .error{
+        color:red;
     }
     
