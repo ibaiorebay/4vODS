@@ -13,6 +13,7 @@ namespace API.DTO.Iniciativa
         public string? PRODUCTO_FINAL { get; set; }
         public bool NUEVA { get; set; }
         public List<string> DIFUSION { get; set; }
+        public int? ID_CURSOESCOLAR { get; set; }
 
         // 🔹 Ahora solo aceptamos listas de enteros (IDs)
         public List<int>? ID_ASIGNATURAs { get; set; }

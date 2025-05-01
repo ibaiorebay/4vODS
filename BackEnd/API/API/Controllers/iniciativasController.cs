@@ -9,6 +9,7 @@ using API.DTO;
 using API.DTO.Iniciativa;
 using API.DTO.Asignatura;
 
+
 namespace API.Controllers
 {
     [Route("api/iniciativas")]
@@ -45,7 +46,7 @@ namespace API.Controllers
                     PRODUCTO_FINAL = i.PRODUCTO_FINAL,
                     NUEVA = i.NUEVA,
                     DIFUSION = i.difusiones.Select(i => i.LINK).ToList(),
-
+                    CURSOESCOLAR = i.ID_CURSOESCOLARNavigation.DESCRIPCION,
                     ID_ASIGNATURAs = i.ID_ASIGNATURAs.Select(ia => new AsignaturaDTO
                     {
                         ID_ASIGNATURA = ia.ID_ASIGNATURA,
@@ -85,6 +86,70 @@ namespace API.Controllers
 
             return iniciativas;
         }
+        // GET: api/iniciativas/5
+        [HttpGet("{id}", Name = "GetIniciativaById")]
+        public async Task<ActionResult<IniciativaDTO>> GetIniciativaById(int id)
+        {
+            var iniciativas = await _context.iniciativas
+                 .Include(i => i.ID_ASIGNATURAs)
+                     .ThenInclude(a => a.ID_CURSONavigation) // Incluye curso en asignaturas
+                 .Include(i => i.ID_ENTIDADs)
+                 .Include(i => i.ID_METAs)
+                     .ThenInclude(m => m.ID_ODSNavigation) // Incluye información del ODS
+                 .Include(i => i.ID_PROFESORs)
+                 .Where(i=>i.ID_INICIATIVA==id)
+                 .Select(i => new IniciativaDTO
+                 {
+                     ID_INICIATIVA = i.ID_INICIATIVA,
+                     TITULO = i.TITULO,
+                     HORAS = i.HORAS,
+                     FECHA_INICIO = i.FECHA_INICIO,
+                     FECHA_FIN = i.FECHA_FIN,
+                     DESCRIPCION = i.DESCRIPCION,
+                     TIPO = i.TIPO,
+                     PRODUCTO_FINAL = i.PRODUCTO_FINAL,
+                     NUEVA = i.NUEVA,
+                     DIFUSION = i.difusiones.Select(i => i.LINK).ToList(),
+                     CURSOESCOLAR = i.ID_CURSOESCOLARNavigation.DESCRIPCION,
+                     ID_ASIGNATURAs = i.ID_ASIGNATURAs.Select(ia => new AsignaturaDTO
+                     {
+                         ID_ASIGNATURA = ia.ID_ASIGNATURA,
+                         ID_CURSO = ia.ID_CURSO,
+                         NOMBRE = ia.NOMBRE,
+                         NOMBRE_CURSO = ia.ID_CURSONavigation.NOMBRE
+                     }).ToList(),
+
+                     ID_ENTIDADs = i.ID_ENTIDADs.Select(e => new entidad
+                     {
+                         ID_ENTIDAD = e.ID_ENTIDAD,
+                         NOMBRE = e.NOMBRE,
+                         DESCRIPCION = e.DESCRIPCION
+                     }).ToList(),
+
+                     ID_PROFESORs = i.ID_PROFESORs.Select(p => new profesore
+                     {
+                         ID_PROFESOR = p.ID_PROFESOR,
+                         NOMBRE = p.NOMBRE,
+                         APELLIDO1 = p.APELLIDO1,
+                         APELLIDO2 = p.APELLIDO2,
+                         FECHA_NACIMIENTO = p.FECHA_NACIMIENTO
+                     }).ToList(),
+
+                     ID_METAs = i.ID_METAs.Select(im => new MetasDTO
+                     {
+                         ID_META = im.ID_META,
+                         ID_ODS = im.ID_ODS,
+                         DESCRIPCION_META = im.DESCRIPCION,
+                         NOMBRE_ODS = im.ID_ODSNavigation.NOMBRE,
+                         DESCRIPCION_ODS = im.ID_ODSNavigation.DESCRIPCION,
+                         DIMENSION_ODS = im.ID_ODSNavigation.DIMENSION
+                     }).ToList()
+
+                 })
+                 .FirstOrDefaultAsync();
+
+            return iniciativas;
+        }
 
         // INDICADOR1
         [HttpGet("IniciativasCurso/{nombreCurso}")]
@@ -97,7 +162,7 @@ namespace API.Controllers
                 .Include(i => i.ID_METAs)
                     .ThenInclude(m => m.ID_ODSNavigation) // Incluye información del ODS
                 .Include(i => i.ID_PROFESORs)
-                .Where(i => i.ID_ASIGNATURAs.Any(ia => ia.ID_CURSONavigation.NOMBRE.ToLower() == nombreCurso.ToLower()))
+                .Where(i=> i.ID_CURSOESCOLARNavigation.DESCRIPCION==nombreCurso)
                 .Select(i => new IniciativaDTO
                 {
                     ID_INICIATIVA = i.ID_INICIATIVA,
@@ -110,7 +175,7 @@ namespace API.Controllers
                     PRODUCTO_FINAL = i.PRODUCTO_FINAL,
                     NUEVA = i.NUEVA,
                     DIFUSION = i.difusiones.Select(i => i.LINK).ToList(),
-
+                    CURSOESCOLAR = i.ID_CURSOESCOLARNavigation.DESCRIPCION,
                     ID_ASIGNATURAs = i.ID_ASIGNATURAs.Select(ia => new AsignaturaDTO
                     {
                         ID_ASIGNATURA = ia.ID_ASIGNATURA,
@@ -176,7 +241,7 @@ namespace API.Controllers
                     PRODUCTO_FINAL = i.PRODUCTO_FINAL,
                     NUEVA = i.NUEVA,
                     DIFUSION = i.difusiones.Select(i => i.LINK).ToList(),
-
+                    CURSOESCOLAR = i.ID_CURSOESCOLARNavigation.DESCRIPCION,
                     ID_ASIGNATURAs = i.ID_ASIGNATURAs.Select(ia => new AsignaturaDTO
                     {
                         ID_ASIGNATURA = ia.ID_ASIGNATURA,
@@ -238,7 +303,7 @@ namespace API.Controllers
                     PRODUCTO_FINAL = i.PRODUCTO_FINAL,
                     NUEVA = i.NUEVA,
                     DIFUSION = i.difusiones.Select(i => i.LINK).ToList(),
-
+                    CURSOESCOLAR = i.ID_CURSOESCOLARNavigation.DESCRIPCION,
                     ID_ASIGNATURAs = i.ID_ASIGNATURAs.Select(ia => new AsignaturaDTO
                     {
                         ID_ASIGNATURA = ia.ID_ASIGNATURA,
@@ -301,7 +366,7 @@ namespace API.Controllers
                     PRODUCTO_FINAL = i.PRODUCTO_FINAL,
                     NUEVA = i.NUEVA,
                     DIFUSION = i.difusiones.Select(i => i.LINK).ToList(),
-
+                    CURSOESCOLAR = i.ID_CURSOESCOLARNavigation.DESCRIPCION,
                     ID_ASIGNATURAs = i.ID_ASIGNATURAs.Select(ia => new AsignaturaDTO
                     {
                         ID_ASIGNATURA = ia.ID_ASIGNATURA,
@@ -374,24 +439,6 @@ namespace API.Controllers
         }
 
 
-        // GET: api/iniciativas/5
-        [HttpGet("{id}", Name = "GetIniciativaById")]
-        public async Task<ActionResult<iniciativa>> GetIniciativaById(int id)
-        {
-            var iniciativa = await _context.iniciativas
-                .Include(i => i.ID_ASIGNATURAs)
-                .Include(i => i.ID_ENTIDADs)
-                .Include(i => i.ID_METAs)
-                .Include(i => i.ID_PROFESORs)
-                .FirstOrDefaultAsync(i => i.ID_INICIATIVA == id);
-
-            if (iniciativa == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(iniciativa);
-        }
 
 
         // POST: api/iniciativas
@@ -430,6 +477,10 @@ namespace API.Controllers
                         difusiones.Add(new difusion(nuevaIniciativa.ID_INICIATIVA, item));
                     }
                     _context.difusiones.AddRange(difusiones);
+                }
+                if (iniciativaDto.ID_CURSOESCOLAR!= null)
+                {
+                    nuevaIniciativa.ID_CURSOESCOLAR = iniciativaDto.ID_CURSOESCOLAR;
                 }
                 if (iniciativaDto.ID_ASIGNATURAs != null)
                 {
@@ -519,6 +570,10 @@ namespace API.Controllers
                         difusiones.Add(new difusion(iniciativaExistente.ID_INICIATIVA, item));
                     }
                     _context.difusiones.AddRange(difusiones);
+                }
+                if (iniciativaDTO.ID_CURSOESCOLAR != null)
+                {
+                    iniciativaExistente.ID_CURSOESCOLAR = iniciativaDTO.ID_CURSOESCOLAR;
                 }
 
                 if (iniciativaDTO.ID_ASIGNATURAs != null)
@@ -625,6 +680,7 @@ namespace API.Controllers
                     FECHA_FIN = i.FECHA_FIN,
                     FECHA_INICIO = i.FECHA_INICIO,
                     HORAS = i.HORAS,
+                    CURSOESCOLAR = i.ID_CURSOESCOLARNavigation.DESCRIPCION,
                     ID_ASIGNATURAs = i.ID_ASIGNATURAs.Select(ia => new AsignaturaDTO
                     {
                         ID_ASIGNATURA = ia.ID_ASIGNATURA,

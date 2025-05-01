@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace API.Models;
 
@@ -23,6 +24,7 @@ public partial class iniciativa
 
     public bool NUEVA { get; set; }
     public int? ID_CURSOESCOLAR { get; set; } // FK
+    [JsonIgnore]
     public virtual cursoEscolar ID_CURSOESCOLARNavigation { get; set; } // Navigation property
 
 

@@ -23,6 +23,8 @@ namespace API.DTO
 
         public bool NUEVA { get; set; }
 
+        public string? CURSOESCOLAR { get; set; }
+
         public List<string> DIFUSION { get; set; }
 
         public virtual List<AsignaturaDTO> ID_ASIGNATURAs { get; set; }
