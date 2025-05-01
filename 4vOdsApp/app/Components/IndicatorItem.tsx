@@ -3,6 +3,14 @@ import { View, Text, StyleSheet, Modal, Pressable, TouchableOpacity } from 'reac
 import Indicador1 from './Indicadores/Indicador1';
 import Indicador2 from './Indicadores/Indicador2';
 import Indicador3 from './Indicadores/Indicador3';
+import Indicador4 from './Indicadores/Indicador4';
+import Indicador6 from './Indicadores/Indicador6';
+import Indicador7 from './Indicadores/Indicador7';
+import Indicador8 from './Indicadores/Indicador8';
+import Indicador9 from './Indicadores/Indicador9';
+import Indicador10 from './Indicadores/Indicador10';
+import Indicador11 from './Indicadores/Indicador11';
+import Indicador12 from './Indicadores/Indicador12';
 
 interface IndicatorCardProps {
     nombre: string;
@@ -31,6 +39,15 @@ const IndicatorItem: React.FC<IndicatorCardProps> = ({ nombre, numero }) => {
                         {numero === 1 && <Indicador1 />}
                         {numero === 2 && <Indicador2 />}
                         {numero === 3 && <Indicador3 />}
+                        {numero === 4 && <Indicador4 />}
+                        {numero === 5 && <Text>Indicador 5</Text>} 
+                        {numero === 6 && <Indicador6 />}
+                        {numero === 7 && <Indicador7 />}
+                        {numero === 8 && <Indicador8 />}
+                        {numero === 9 && <Indicador9 />}
+                        {numero === 10 && <Indicador10 />}
+                        {numero === 11 && <Indicador11 />}
+                        {numero === 12 && <Indicador12 />}
                         <Pressable onPress={() => setIsModalOpen(false)} style={styles.closeButton}>
                             <Text style={styles.closeButtonText}>Cerrar</Text>
                         </Pressable>

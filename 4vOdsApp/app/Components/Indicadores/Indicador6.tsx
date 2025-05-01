@@ -5,7 +5,7 @@ import { View, Text, FlatList, ActivityIndicator, TextInput } from 'react-native
 import InitiativeCard from '../InitiativeItem';
 import { useAsignaturas } from '@/app/Hooks/UseAsignaturas';
 
-const Indicador3 = () => {
+const Indicador6 = () => {
     const { initiatives, loading } = useInitiatives();
     const { asignaturas } = useAsignaturas();
 
@@ -29,12 +29,9 @@ const Indicador3 = () => {
                 renderItem={({ item }) =>
                     <View style={{ backgroundColor: '#e3f2fd', padding: 12, borderRadius: 12, marginBottom: 20, marginHorizontal: 16, elevation: 5, shadowColor: '#1e88e5', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.15, shadowRadius: 6, borderColor: '#90caf9', borderWidth: 1 }}>
                         <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Iniciativa: {item.titulo}</Text>
-                        {item.iD_ASIGNATURAs.map(asignatura =>
-                            <Text key={asignatura.toString()} style={{ fontSize: 12 }}>Ciclo: {asignaturas.find(a => a.iD_ASIGNATURA === asignatura.iD_ASIGNATURA)?.nombrE_CURSO}</Text>
-                        )}
-                        {item.iD_ASIGNATURAs.map(asignatura =>
-                            <Text key={asignatura.toString()} style={{ fontSize: 12, marginLeft : 10}}>Módulos: {asignaturas.find(a => a.iD_ASIGNATURA === asignatura.iD_ASIGNATURA)?.nombre}</Text>
-                        )}
+                        {item.iD_ENTIDADs.map(entidad => (
+                            <Text key={entidad.toString()} style={{ fontSize: 12 }}>Entidad: {entidad.nombre}</Text>
+                        ))}
                     </View>
                 }
             />
@@ -42,6 +39,6 @@ const Indicador3 = () => {
     );
 };
 
-export default Indicador3;
+export default Indicador6;
 
 
