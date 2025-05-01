@@ -42,14 +42,6 @@ const InitiativeCard: React.FC<InitiativeCardProps> = ({ iniciativa }) => {
           <Text style={styles.dateText}>Fin: {iniciativa.fecha_FIN}</Text>
         </View>
       </View>
-
-      <View style={styles.odsContainer}>
-        <View style={styles.odsList}>
-          {metas.map(meta => (
-            <Image key={meta?.iD_META} source={{ uri: `assets/images/ods/${meta?.iD_ODS}.png` }} style={styles.odsImage} />
-          ))}
-        </View>
-      </View>
     </Link>
   );
 };

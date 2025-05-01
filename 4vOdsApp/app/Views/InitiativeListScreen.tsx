@@ -5,6 +5,7 @@ import InitiativeCard from '../Components/InitiativeItem';
 import { Iniciativa } from '../Models/Iniciativa';
 import { useNavigation } from 'expo-router';
 import { useMetas } from '../Hooks/UseMetas';
+import IndicatorItem from '../Components/IndicatorItem';
 
 interface InitiativeListScreenProps { }
 
@@ -27,14 +28,15 @@ const InitiativeListScreen: React.FC<InitiativeListScreenProps> = () => {
   return (
     <View>
       <View style={styles.buttonContainer}>
-            <View style={styles.buttons}>
-              <Button title="Iniciativas" onPress={() => setIsInitiatives(true)}/>
-            </View>
-            <View style={styles.buttons}>
-              <Button title="Indicadores" onPress={() => setIsInitiatives(false)}/>
-            </View>
-          </View>
+        <View style={styles.buttons}>
+          <Button title="Iniciativas" onPress={() => setIsInitiatives(true)} disabled = {isInitiatives}/>
+        </View>
+        <View style={styles.buttons}>
+          <Button title="Indicadores" onPress={() => setIsInitiatives(false)} disabled = {!isInitiatives} />
+        </View>
+      </View>
       {isInitiatives ? (
+        // Vista de lista de iniciativas
         <ScrollView>
           <TextInput
             style={styles.searchInput}
@@ -47,10 +49,23 @@ const InitiativeListScreen: React.FC<InitiativeListScreenProps> = () => {
             <InitiativeCard key={iniciativa.iD_INICIATIVA} iniciativa={iniciativa} />
           ))}
         </ScrollView>
-      ):
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <Text style={{fontSize: 20, fontWeight: 'bold'}}>No hay indicadores disponibles</Text>
-      </View>
+      ) :
+        // Vista de lista de indicadores (hardcodeados porque a dos días de la presentación no se sabía a ciencia cierta
+        // si la api podía recibir peticiones desde ip o solo desde localhost)
+        // TODO barra de busqueda de indicadores funcional
+        <View>
+          <TextInput
+            style={styles.searchInput}
+            placeholder="Buscar indicador"
+            onChangeText={(text) => setSearchTerm(text)}
+            value={searchTerm}
+          />
+          <ScrollView>
+            <IndicatorItem nombre="Iniciativas de curso" numero={1} />
+            <IndicatorItem nombre="Número de iniciativas" numero={2} />
+            <IndicatorItem nombre="Ciclo de iniciativas, modulos involucrados" numero={3} />
+          </ScrollView>
+        </View>
       }
     </View>
   );
