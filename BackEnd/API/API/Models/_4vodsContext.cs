@@ -29,6 +29,8 @@ public partial class _4vodsContext : DbContext
     public virtual DbSet<od> ods { get; set; }
 
     public virtual DbSet<profesore> profesores { get; set; }
+    public virtual DbSet<difusion> difusiones { get; set; }
+    public virtual DbSet<cursoEscolar> cursosEscolares { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -92,7 +94,17 @@ public partial class _4vodsContext : DbContext
                 .HasColumnType("int(11)");
             entity.Property(e => e.NOMBRE).HasMaxLength(255);
         });
+        modelBuilder.Entity<cursoEscolar>(entity =>
+        {
+            entity.HasKey(e => e.ID_CURSOESCOLAR).HasName("PRIMARY");
 
+            entity.ToTable("cursoEscolar");
+
+            entity.Property(e => e.ID_CURSOESCOLAR)
+                .ValueGeneratedOnAdd()
+                .HasColumnType("int(11)");
+            entity.Property(e => e.DESCRIPCION).HasMaxLength(255);
+        });
         modelBuilder.Entity<entidad>(entity =>
         {
             entity.HasKey(e => e.ID_ENTIDAD).HasName("PRIMARY");
@@ -128,6 +140,26 @@ public partial class _4vodsContext : DbContext
                     });
         });
 
+        modelBuilder.Entity<difusion>(entity =>
+        {
+            entity.HasKey(e => e.ID_DIFUSION).HasName("PRIMARY");
+
+            entity.ToTable("difusion");
+
+            entity.Property(e => e.ID_DIFUSION)
+                .ValueGeneratedOnAdd()
+                .HasColumnType("int(11)");
+            entity.Property(e => e.LINK).HasColumnType("text");
+            entity.Property(e => e.ID_INICIATIVA).HasColumnType("int(11)");
+
+            entity.HasOne<iniciativa>()
+                .WithMany(p => p.difusiones)
+                .HasForeignKey(e => e.ID_INICIATIVA)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("difusion_ibfk_1");
+
+        });
+
         modelBuilder.Entity<iniciativa>(entity =>
         {
             entity.HasKey(e => e.ID_INICIATIVA).HasName("PRIMARY");
@@ -136,11 +168,17 @@ public partial class _4vodsContext : DbContext
                  .HasColumnType("int(11)")
                  .ValueGeneratedOnAdd();
             entity.Property(e => e.DESCRIPCION).HasColumnType("text");
-            entity.Property(e => e.DIFUSION).HasColumnType("text");
             entity.Property(e => e.HORAS).HasColumnType("int(11)");
             entity.Property(e => e.PRODUCTO_FINAL).HasColumnType("text");
             entity.Property(e => e.TIPO).HasMaxLength(50);
             entity.Property(e => e.TITULO).HasMaxLength(255);
+            entity.HasIndex(e => e.ID_CURSOESCOLAR, "ID_CURSOESCOLAR");
+
+            entity.HasOne(d => d.ID_CURSOESCOLARNavigation)
+                .WithMany(p => p.iniciativas)
+                .HasForeignKey(d => d.ID_CURSOESCOLAR)
+                .OnDelete(DeleteBehavior.ClientSetNull) 
+                .HasConstraintName("iniciativa_ibfk_cursoEscolar");
 
             entity.HasMany(d => d.ID_METAs).WithMany(p => p.ID_INICIATIVAs)
                 .UsingEntity<Dictionary<string, object>>(
@@ -163,6 +201,7 @@ public partial class _4vodsContext : DbContext
                         j.IndexerProperty<int>("ID_INICIATIVA").HasColumnType("int(11)");
                         j.IndexerProperty<int>("ID_META").HasColumnType("int(11)");
                     });
+            
         });
 
         modelBuilder.Entity<meta>(entity =>

@@ -25,7 +25,7 @@ namespace API.Controllers
         public async Task<ActionResult<IEnumerable<entidad>>> GetEntidades()
         {
             var entidades = await _context.entidads.ToListAsync();
-            return Ok(entidades);
+            return entidades;
         }
 
         [HttpPost]

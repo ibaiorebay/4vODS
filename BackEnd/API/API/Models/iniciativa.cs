@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace API.Models;
 
@@ -22,8 +23,10 @@ public partial class iniciativa
     public string? PRODUCTO_FINAL { get; set; }
 
     public bool NUEVA { get; set; }
+    public int? ID_CURSOESCOLAR { get; set; } // FK
+    [JsonIgnore]
+    public virtual cursoEscolar ID_CURSOESCOLARNavigation { get; set; } // Navigation property
 
-    public string? DIFUSION { get; set; }
 
     public virtual ICollection<asignatura> ID_ASIGNATURAs { get; set; } = new List<asignatura>();
 
@@ -32,4 +35,6 @@ public partial class iniciativa
     public virtual ICollection<meta> ID_METAs { get; set; } = new List<meta>();
 
     public virtual ICollection<profesore> ID_PROFESORs { get; set; } = new List<profesore>();
+    public virtual ICollection<difusion> difusiones { get; set; } = new List<difusion>();
+
 }

@@ -4,6 +4,7 @@ using API.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(_4vodsContext))]
-    partial class _4vodsContextModelSnapshot : ModelSnapshot
+    [Migration("20250429090412_columnaDifusionElim")]
+    partial class columnaDifusionElim
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -63,24 +66,6 @@ namespace API.Migrations
                         .HasName("PRIMARY");
 
                     b.ToTable("curso", (string)null);
-                });
-
-            modelBuilder.Entity("API.Models.cursoEscolar", b =>
-                {
-                    b.Property<int>("ID_CURSOESCOLAR")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int(11)");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("ID_CURSOESCOLAR"));
-
-                    b.Property<string>("DESCRIPCION")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
-
-                    b.HasKey("ID_CURSOESCOLAR")
-                        .HasName("PRIMARY");
-
-                    b.ToTable("cursoEscolar", (string)null);
                 });
 
             modelBuilder.Entity("API.Models.difusion", b =>
@@ -147,9 +132,6 @@ namespace API.Migrations
                     b.Property<int?>("HORAS")
                         .HasColumnType("int(11)");
 
-                    b.Property<int?>("ID_CURSOESCOLAR")
-                        .HasColumnType("int(11)");
-
                     b.Property<bool>("NUEVA")
                         .HasColumnType("tinyint(1)");
 
@@ -166,8 +148,6 @@ namespace API.Migrations
 
                     b.HasKey("ID_INICIATIVA")
                         .HasName("PRIMARY");
-
-                    b.HasIndex(new[] { "ID_CURSOESCOLAR" }, "ID_CURSOESCOLAR");
 
                     b.ToTable("iniciativas");
                 });
@@ -337,16 +317,6 @@ namespace API.Migrations
                         .HasConstraintName("difusion_ibfk_1");
                 });
 
-            modelBuilder.Entity("API.Models.iniciativa", b =>
-                {
-                    b.HasOne("API.Models.cursoEscolar", "ID_CURSOESCOLARNavigation")
-                        .WithMany("iniciativas")
-                        .HasForeignKey("ID_CURSOESCOLAR")
-                        .HasConstraintName("iniciativa_ibfk_cursoEscolar");
-
-                    b.Navigation("ID_CURSOESCOLARNavigation");
-                });
-
             modelBuilder.Entity("API.Models.meta", b =>
                 {
                     b.HasOne("API.Models.od", "ID_ODSNavigation")
@@ -420,11 +390,6 @@ namespace API.Migrations
             modelBuilder.Entity("API.Models.curso", b =>
                 {
                     b.Navigation("asignaturas");
-                });
-
-            modelBuilder.Entity("API.Models.cursoEscolar", b =>
-                {
-                    b.Navigation("iniciativas");
                 });
 
             modelBuilder.Entity("API.Models.iniciativa", b =>
