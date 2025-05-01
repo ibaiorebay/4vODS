@@ -22,9 +22,15 @@ export const useMetas = () => {
     loadMockData();
   }, []);
 
+  const findMetaById = (id: number): Meta | undefined => {
+    return metas.find(meta => meta.iD_META === id);
+  };
+
   return {
     metas,
     loading,
-    error
+    error,
+    findMetaById
   };
 };
+

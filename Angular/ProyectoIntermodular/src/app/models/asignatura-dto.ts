@@ -1,36 +1,37 @@
 export class AsignaturaDTO {
-    private id: number;
-    private idCurso: number;
-    private nombreAsignatura: string;
 
-    constructor(id: number, idCurso: number, nombreAsignatura: string) {
-        this.id = id;
-        this.idCurso = idCurso;
-        this.nombreAsignatura = nombreAsignatura;
+    private iD_ASIGNATURA: number | undefined;
+    private iD_CURSO: number;
+    private nombre: string;
+
+    constructor(idCurso: number, nombreAsignatura: string, id?: number) {
+        this.iD_CURSO = idCurso;
+        this.nombre = nombreAsignatura;
+        this.iD_ASIGNATURA = id? id : undefined;
     }
     
-    get getId(): number {
-        return this.id;
+    get Id(): number | undefined {
+        return this.iD_ASIGNATURA;
     }
 
-    set setId(id: number) {
-        this.id = id;
+    set Id(id: number) {
+        this.iD_ASIGNATURA = id;
     }
 
     get IdCurso(): number {
-        return this.idCurso;
+        return this.iD_CURSO;
     }   
 
-    public setIdCurso(idCurso: number): void {
-        this.idCurso = idCurso;
+    set IdCurso(idCurso: number) {
+        this.iD_CURSO = idCurso;
     }
 
     get NombreAsignatura(): string {
-        return this.nombreAsignatura;
+        return this.nombre;
     }
 
     set NombreAsignatura(nombreAsignatura: string) {
-        this.nombreAsignatura = nombreAsignatura;
+        this.nombre = nombreAsignatura;
     }
 
 }
