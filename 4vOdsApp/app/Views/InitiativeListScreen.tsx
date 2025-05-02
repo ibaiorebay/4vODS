@@ -60,10 +60,19 @@ const InitiativeListScreen: React.FC<InitiativeListScreenProps> = () => {
             onChangeText={(text) => setSearchTerm(text)}
             value={searchTerm}
           />
-          <ScrollView>
+          <ScrollView style={{ maxHeight: 650 }}>
             <IndicatorItem nombre="Iniciativas de curso" numero={1} />
             <IndicatorItem nombre="Número de iniciativas" numero={2} />
             <IndicatorItem nombre="Ciclo de iniciativas, modulos involucrados" numero={3} />
+            <IndicatorItem nombre="Descripción de iniciativas" numero={4} />
+            <IndicatorItem nombre="Objetivos de iniciativas" numero={5} />
+            <IndicatorItem nombre="Entidades involucradas" numero={6} /> 
+            <IndicatorItem nombre="Difusión de la iniciativa" numero={7} />
+            <IndicatorItem nombre="Tipo de la iniciativa" numero={8} />
+            <IndicatorItem nombre="Dimensión de la iniciativa" numero={9} />
+            <IndicatorItem nombre="Personas involucradas" numero={10} />
+            <IndicatorItem nombre="Iniciativas nuevas / innovadoras" numero={11} />
+            <IndicatorItem nombre="Horas invertidas" numero={12} />
           </ScrollView>
         </View>
       }

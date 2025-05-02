@@ -1,71 +1,60 @@
-<div class="filters bg-light">
-    <div class="w-100 d-flex align-items-center mb-4">
+<div class="filters">
+    <div class="d-flex flex-wrap gap-4 align-items-center justify-content-between">
         <div>
-            <!-- Filtro de tipos de poyecto -->
             <h6>Tipo de Iniciativa:</h6>
-            <button
-                *ngFor="let type of ['Todos', 'Charla', 'Taller', 'Salida', 'Proyecto', 'Acciones Internas', 'Otros']"
-                [class.active]="filtroTipoIniciativa === type" (click)="filtrarIniciativas(type)" class="mx-3 btn">
-                {{ type === 'Todos' ? 'Todos' : type }}
-            </button>
+            <div class="d-flex flex-wrap">
+                <button
+                    *ngFor="let type of ['Todos', 'Charla', 'Taller', 'Salida', 'Proyecto', 'Acciones Internas', 'Otros']"
+                    [class.active]="filtroTipoIniciativa === type" (click)="filtrarIniciativas(type)" class="btn">
+                    {{ type === 'Todos' ? 'Todos' : type }}
+                </button>
+            </div>
         </div>
-        <div class="border-start ms-4 ps-4">
+
+        <div>
             <h6>Innovador:</h6>
             <label class="toggle-container">
-                <input type="checkbox" (change)="toggle()">
+                <input type="checkbox" (change)="toggle()" />
                 <span class="slider"></span>
             </label>
         </div>
     </div>
-    <div class="w-100 d-flex justify-content-between gap-4 align-items-center">
+
+    <div class="d-flex flex-wrap gap-4 justify-content-between align-items-start">
         <div>
             <h6>Filtro por nombre:</h6>
             <input type="text" [(ngModel)]="filtroTitulo" (input)="filtrarIniciativas()"
-                placeholder="Buscar por título de iniciativa..." class="form-control">
+                placeholder="Buscar por título de iniciativa..." class="form-control" />
         </div>
+
         <div>
-            <!-- Filtro por Profesores -->
             <h6>Filtro por Profesor:</h6>
             <select [(ngModel)]="filtroProfesor" (change)="filtrarIniciativas()" class="form-control">
-                <option value="Cualquiera"> Cualquiera </option>
-                <option *ngFor="let profesor of profesoresOpciones" [value]="profesor.Nombre">{{ profesor.Nombre }}</option>
+                <option value="Cualquiera">Cualquiera</option>
+                <option *ngFor="let profesor of profesoresOpciones" [value]="profesor.Nombre">{{ profesor.Nombre }}
+                </option>
             </select>
         </div>
+
         <div>
             <!-- Filtro por curso -->
             <h6>Filtro por clase/curso:</h6>
             <select [(ngModel)]="filtroCurso" (change)="filtrarIniciativas()" class="form-control">
-                <option value="Todos"> Todos </option>
+                <option value="Todos">Todos</option>
                 <option *ngFor="let curso of cursosOpciones" [value]="curso.Nombre">{{ curso.Nombre }}</option>
             </select>
         </div>
+
         <div>
-            <!-- Filtro por nombre abreviado de asignatura -->
             <h6>Filtro por Asignatura:</h6>
             <select [(ngModel)]="filtroAsignatura" (change)="filtrarIniciativas()" class="form-control">
-                <option value="Cualquiera"> Cualquiera </option>
-                <option *ngFor="let asignatura of asignaturasOpciones" [value]="asignatura.NombreAsignatura">{{ asignatura.NombreAsignatura }}</option>
+                <option value="Cualquiera">Cualquiera</option>
+                <option *ngFor="let asignatura of asignaturasOpciones" [value]="asignatura.NombreAsignatura">{{
+                    asignatura.NombreAsignatura }}</option>
             </select>
         </div>
         <div>
-            <!-- Filtro por número de Ods -->
-            <h6>Filtro por número de Ods:</h6>
-            <select [(ngModel)]="filtroOds" (change)="filtrarIniciativas()" class="form-control">
-                <option value="0"> Cualquiera </option>
-                <option *ngFor="let cadaOds of odsOpciones" [value]="cadaOds.Id">{{ cadaOds.Id }} - {{ cadaOds.Nombre }}</option>
-            </select>
-        </div>
-        <div>
-            <!-- Filtro por número de meta de la ods seleccionada -->
-            <h6>Filtro por número de meta:</h6>
-            <select [(ngModel)]="filtroMeta" (change)="filtrarIniciativas()" class="form-control" [disabled]="filtroOds == '0'">
-                <option value="0"> Cualquiera </option>
-                <option *ngFor="let cadaMeta of metasSegunOdsOpciones" [value]="cadaMeta.Id" >{{ cadaMeta.NumeroOds }}.{{ cadaMeta.NumeroMeta}} - {{cadaMeta.Descripcion}}</option>
-            </select>
-        </div>
-        <div>
-            <!--Filtro por dimension-->
-            <h6>Filtro por Dimension:</h6>
+            <h6>Filtro por Dimensión:</h6>
             <select [(ngModel)]="filtroDimension" (change)="filtrarIniciativas()" class="form-control">
                 <option value="Cualquiera">Cualquiera</option>
                 <option value="Economica">Económica</option>
@@ -74,15 +63,46 @@
             </select>
         </div>
     </div>
+    <div>
+        <!-- ✅ BLOQUE MEJORADO: Filtro por número de ODS y Meta -->
+        <div class="ods-meta-group">
+            <div class="row">
+                <div class="col-md-4">
+                    <h6>ODS:</h6>
+                    <select [(ngModel)]="filtroOds" (change)="filtrarIniciativas()" class="form-control">
+                        <option value="0">Cualquiera</option>
+                        <option *ngFor="let cadaOds of odsOpciones" [value]="cadaOds.Id">
+                            {{ cadaOds.Id }} - {{ cadaOds.Nombre }}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-md-8">
+                    <h6>Meta:</h6>
+                    <select [(ngModel)]="filtroMeta" (change)="filtrarIniciativas()" class="form-control"
+                        [disabled]="filtroOds == '0'">
+                        <option value="0">Cualquiera</option>
+                        <option *ngFor="let cadaMeta of metasSegunOdsOpciones" [value]="cadaMeta.Id">
+                            {{ cadaMeta.NumeroOds }}.{{ cadaMeta.NumeroMeta }} - {{ cadaMeta.Descripcion }}
+                        </option>
+                    </select>
+                </div>
 
+            </div>
+            <div>
+
+            </div>
+        </div>
+    </div>
 </div>
+
+
 
 <div class="container">
     <button class="btn btn-info" disabled>Iniciativas encontradas: {{iniciativasFiltradas.length}}</button>
 </div>
 
 <div class="container py-5">
-    
+
     <div class="row">
         @for(iniciativa of iniciativasFiltradas;track iniciativa){
         <div class="col-lg-4 col-md-6 mb-4">
@@ -121,9 +141,6 @@
                         class="btn btn-outline-dark btn-sm d-flex align-items-center gap-2">
                         <img src="../../assets/eye.svg" alt="eye-icon"> Ver detalles
                     </a>
-                    <!-- <a class="text-decoration-none" href="#">
-                        <img src="../../../assets/linkedin.svg" alt="linkedin-icon" class="cursor-pointer">
-                    </a> -->
                     <div>
                         <a *ngFor="let red of getDifusionIcons(iniciativa.Difusion)" [href]="red.url" class="text-decoration-none ms-3 " target="_blank">
                             <img [src]="red.icon" [alt]="red.alt" class="cursor-pointer" />
