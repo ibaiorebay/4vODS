@@ -14,9 +14,12 @@
         <div>
             <h6>Innovador:</h6>
             <label class="toggle-container">
-                <input type="checkbox" (change)="toggle()" />
+                <input type="checkbox" (change)="toggle()" id="innovador" />
                 <span class="slider"></span>
             </label>
+        </div>
+        <div>
+            <button class="btn" (click)="limpiarFiltros()">Limpiar filtros</button>
         </div>
     </div>
 

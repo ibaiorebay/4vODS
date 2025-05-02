@@ -269,4 +269,17 @@ export class MainInitiativesInfoComponent {
         return 'badge';
     }
   }
+  limpiarFiltros(){
+  this.filtroTipoIniciativa = 'Todos';
+  this.filtroTitulo = '';
+  this.filtroCurso = 'Todos';
+  this.filtroProfesor = 'Cualquiera';
+  this.filtroAsignatura = 'Cualquiera';
+  this.filtroOds = "0";
+  this.filtroMeta = "0";
+  this.filtroDimension = "Cualquiera";
+  if (this.filtroInnovador === true){
+    document.getElementById("innovador")?.click();
+  }
+  }
 } 
