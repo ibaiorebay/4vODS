@@ -278,6 +278,7 @@ export class MainInitiativesInfoComponent {
   this.filtroOds = "0";
   this.filtroMeta = "0";
   this.filtroDimension = "Cualquiera";
+  this.filtrarIniciativas();
   if (this.filtroInnovador === true){
     document.getElementById("innovador")?.click();
   }
