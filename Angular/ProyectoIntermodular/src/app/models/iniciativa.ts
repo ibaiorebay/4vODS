@@ -13,14 +13,15 @@ export class Iniciativa {
     private tipo: string;
     private productO_FINAL: string = "";
     private esInnovadora: number;
-    private difusion: string = "";//redes sociales
+    private cursoEscolar: string;
+    private difusion: string[];//redes sociales
 
     private asignaturas: Asignatura[];
     private entidadesExteriores: EntidadExterior[];
     private profesores: Profesor[];
     private metas: Meta[];
 
-    constructor(id: number, titulo: string, horas: number, fechaInicio: string, fechaFin: string, descripcion: string, tipoIniciativa: string, productoFinal: string, esInnovadora: number, difusion: string, asignaturas: Asignatura[], entidadesExteriores: EntidadExterior[], profesores: Profesor[], metas: Meta[]) {
+    constructor(id: number, titulo: string, horas: number, fechaInicio: string, fechaFin: string, descripcion: string, tipoIniciativa: string, productoFinal: string, esInnovadora: number, difusion: string[], asignaturas: Asignatura[], entidadesExteriores: EntidadExterior[], profesores: Profesor[], metas: Meta[], cursoEscolar: string) {
         this.iD_INICIATIVA = id;
         this.titulo = titulo;
         this.horas = horas;
@@ -30,6 +31,7 @@ export class Iniciativa {
         this.tipo = tipoIniciativa;
         this.productO_FINAL = productoFinal;
         this.esInnovadora = esInnovadora;
+        this.cursoEscolar = cursoEscolar;
         this.difusion = difusion;
 
         this.asignaturas = asignaturas;
@@ -110,11 +112,19 @@ export class Iniciativa {
         this.esInnovadora = esInnovadora;
     }
 
-    get Difusion(): string {
+    get CursoEscolar(): string {
+        return this.cursoEscolar;
+    }
+
+    set CursoEscolar(cursoEscolar: string) {
+        this.cursoEscolar = cursoEscolar;
+    }
+
+    get Difusion(): string[] {
         return this.difusion;
     }
 
-    set Difusion(difusion: string) {
+    set Difusion(difusion: string[]) {
         this.difusion = difusion;
     }
 

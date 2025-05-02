@@ -1,0 +1,65 @@
+<div>
+    <!-- MODAL: Se muestra solo si mostrarModal es true -->
+  <div *ngIf="mostrarModal" class="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background-color: rgba(0, 0, 0, 0.5); z-index: 1050;">
+    <div class="custom-modal shadow p-4 rounded-4 bg-white border" style="width: 100%; max-width: 500px;">
+      <div class="custom-modal-header d-flex justify-content-between align-items-center mb-3">
+        <h5 class="text-primary m-0">➕ Añadir Curso Escolar</h5>
+        <button class="btn btn-sm btn-outline-secondary" (click)="cerrarModal()">✖</button>
+      </div>
+      <div class="custom-modal-body">
+        <form [formGroup]="form">
+          <div class="mb-3">
+            <label for="descripcion" class="form-label">Descripción:</label>
+            <input type="text" class="form-control" formControlName="descripcion" required/>
+          </div>
+          <div *ngIf="descripcionFrmControl?.touched && descripcionFrmControl?.invalid" class="text-danger small mb-3">
+            <div *ngIf="descripcionFrmControl?.errors?.['required']"><p class="error">⚠ La descripción es obligatoria.</p></div>
+          </div>
+
+          <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-success px-4" (click)="save()">Guardar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  
+    <!-- Contenedor principal -->
+    <div class="container mt-4">
+      <!-- Encabezado y botón -->
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="fw-bold">📋 Lista de Cursos Escolares</h4>
+        <button class="btn btn-outline-primary px-3" (click)="crearCursoEscolar()">➕ Nuevo Curso Escolar</button>
+      </div>
+  
+      <!-- Tabla de cursos escolares -->
+      <div class="table-responsive shadow-sm rounded-3 overflow-hidden">
+        <table class="table table-striped table-hover align-middle mb-0">
+          <thead class="table-primary text-white">
+            <tr>
+              <th>ID</th>
+              <th>Descripción de Curso Escolar</th>
+              <th class="text-center">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let cursoEscolar of cursosEscolaresOpciones">
+              <td>{{ cursoEscolar.Id }}</td>
+              <td>{{ cursoEscolar.Descripcion }}</td>
+              <td class="text-center">
+                <button *ngIf="cursoEscolar.Id !== undefined" class="btn btn-sm btn-outline-warning me-2" (click)="editarCursoEscolar(cursoEscolar.Id)">
+                  ✏️ Editar
+                </button>
+                <button *ngIf="cursoEscolar.Id !== undefined" class="btn btn-sm btn-outline-danger" (click)="eliminarCursoEscolar(cursoEscolar.Id)">
+                  🗑 Eliminar
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+

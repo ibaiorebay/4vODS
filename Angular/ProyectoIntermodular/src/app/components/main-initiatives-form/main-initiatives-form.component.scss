@@ -100,11 +100,11 @@ $shadow-color: rgba(0, 0, 0, 0.2);
     }
 }
 
-  /* Estilos de los badges */
+/* Estilos de los badges */
 .badge-container {
     display: inline-block;
-  }
-  
+}
+
   .badge {
     margin-right: 5px;
     display: inline-flex;
@@ -205,8 +205,8 @@ $shadow-color: rgba(0, 0, 0, 0.2);
 }
 
   
-  
-  .template-card {
+
+.template-card {
     display: inline-flex;
     flex-direction: column;
     width: 45%;
@@ -217,67 +217,75 @@ $shadow-color: rgba(0, 0, 0, 0.2);
     padding: 0.7rem 1rem;
     cursor: pointer;
     transition: all 0.2s ease;
-    
+
     &:hover {
-      border-color: #007bff;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        border-color: #007bff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
     &.selected {
         border: 2px solid #007bff;
         background-color: rgba(0, 123, 255, 0.1);
     }
-      
+        
     &:not(.selected) {
         filter: grayscale(80%);
         opacity: 0.6;
     }
-    
-  }
 
-    .subtitle {
-        font-size: .7rem;
-        margin-bottom: 0;
-    }   
+}
 
-
+.subtitle {
+    font-size: .7rem;
+    margin-bottom: 0;
+}   
 
 
 
 
 
-    .social-container {
-        display: flex;
-        flex-direction: column;
-    }
-    
-    .social-option {
-        height: 32px;
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        margin-bottom: 15px;
-    }
-    
-    .social-checkbox {
-        width: 1.5rem !important;
-        height: 1.5rem;
-    }
-    
-    .social-checkbox + label {
-        cursor: pointer;
-    }
-    
-    .social-input {
-        width: 80% !important;
-        height: 2rem;
-        // margin-left: auto;
-        // padding: 8px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        // display: none;
-    }
-    .error{
-        color:red;
-    }
-    
+
+
+.social-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.social-option {
+    height: 32px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 15px;
+}
+
+.social-checkbox {
+    width: 1.5rem !important;
+    height: 1.5rem;
+}
+
+.social-checkbox + label {
+    cursor: pointer;
+}
+
+.social-input {
+    width: 80% !important;
+    height: 2rem;
+    margin-left: auto;
+    // padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    // display: none;
+}
+
+.error {
+    color:red;
+}
+
+
+
+
+.contenedor-ods-metas {
+    display: flex;
+    gap: 50px;
+}

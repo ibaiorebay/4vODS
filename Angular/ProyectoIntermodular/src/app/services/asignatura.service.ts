@@ -46,15 +46,15 @@ export class AsignaturaService {
     }
   
     // Crear una nueva Asignatura
-    createAsignatura(entidadExt: AsignaturaDTO): Observable<AsignaturaDTO> {
-      return this.http.post<AsignaturaDTO>(this.apiUrl + "/Asignaturas", entidadExt).pipe(
+    createAsignatura(asignatura: AsignaturaDTO): Observable<AsignaturaDTO> {
+      return this.http.post<AsignaturaDTO>(this.apiUrl + "/Asignaturas", asignatura).pipe(
         tap(res => console.log('Respuesta del backend:', res))
       );
     }
   
     // Actualizar una Asignatura
-    updateAsignatura(id: number, entidadExt: AsignaturaDTO): Observable<AsignaturaDTO> {
-      return this.http.put<AsignaturaDTO>(`${this.apiUrl}/Asignaturas/${id}`, entidadExt);
+    updateAsignatura(id: number, asignatura: AsignaturaDTO): Observable<AsignaturaDTO> {
+      return this.http.put<AsignaturaDTO>(`${this.apiUrl}/Asignaturas/${id}`, asignatura);
     }
   
     // Eliminar una Asignatura

@@ -11,6 +11,7 @@ import { ProfesorDTO } from '../models/profesor-dto';
 import { AsignaturaDTO } from '../models/asignatura-dto';
 import { OdsDTO } from '../models/ods-dto';
 import { MetaDTO } from '../models/meta-dto';
+import { CursoEscolar } from '../models/curso-escolar';
 
 
 @Injectable({
@@ -71,7 +72,11 @@ export class IniciativaService {
     );
   }
 
-
+  getCursosEscolares(): Observable<CursoEscolar[]> {
+    return this.http.get<CursoEscolar[]>(this.apiUrl + "/CursoEscolar").pipe(
+      map(data => data.map(item => this.mapToCursoEscolar(item))) 
+    );
+  }
 
   // Función para mapear un objeto de la API a una instancia de la clase `Iniciativa`
   private mapToIniciativa(data: any): Iniciativa {
@@ -107,7 +112,8 @@ export class IniciativaService {
         metaData.descripcioN_ODS,
         metaData.dimensioN_ODS,
         metaData.descripcioN_META
-      )) : []
+      )) : [],
+      data.cursoescolar
     );
 
     return iniciativa;
@@ -162,6 +168,14 @@ export class IniciativaService {
       data.iD_ENTIDAD
     );
     return entidadExterior;
+  }
+
+  private mapToCursoEscolar(data: any): CursoEscolar {
+    const cursoEscolar = new CursoEscolar(
+      data.descripcion,
+      data.iD_CURSOESCOLAR
+    );
+    return cursoEscolar;
   }
 
 

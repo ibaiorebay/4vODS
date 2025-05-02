@@ -8,12 +8,15 @@ import { ProfesorDTO } from '../../models/profesor-dto';
 import { AsignaturaDTO } from '../../models/asignatura-dto';
 import { EntidadExterior } from '../../models/entidad-exterior';
 import { IniciativaDTO } from '../../models/iniciativa-dto';
-
+import { OdsDTO } from '../../models/ods-dto';
+import { MetaDTO } from '../../models/meta-dto';
+import { CursoEscolar } from '../../models/curso-escolar';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-main-initiatives-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule],
   templateUrl: './main-initiatives-form.component.html',
   styleUrl: './main-initiatives-form.component.scss'
 })
@@ -24,24 +27,19 @@ export class MainInitiativesFormComponent implements OnInit {
 
   selectedAsignaturasIndex: number[] = [];
   selectedEntidadesExtIndex: number[] = [];
-  selectedMetas: any[] = [];
+  selectedMetasIndex: number[] = [];
   selectedProfesoresIndex: number[] = [];
 
   asignaturasOptions: AsignaturaDTO[] = [];
   entidadesOptions: EntidadExterior[] = [];
-  // metasOptions: string[] = [];
   profesoresOptions: ProfesorDTO[] = [];//crisComment: uso profesor DTO porque la api solo devuelve nombre y id
-
-
-  metasOptions = [
-    { id: 1, nombre: 'Meta 1' },
-    { id: 2, nombre: 'Meta 2' },
-    { id: 3, nombre: 'Meta 3' }
-  ];
+  odsOpciones: OdsDTO[] = [];
+  todasLasMetasOpciones: MetaDTO[] = [];
+  metasSegunOdsOpciones: MetaDTO[] = [];
+  cursosEscolaresOpciones: CursoEscolar[] = [];
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private iniciativaService: IniciativaService, private router: Router) {
 
-    // this.metasOptions = this.iniciativaService.Ods;
     this.iniciativaService.getAsignaturas().subscribe((asignaturas: any) => {
       console.log("Asignaturas recibidas:", asignaturas);
       this.asignaturasOptions = asignaturas;
@@ -56,19 +54,34 @@ export class MainInitiativesFormComponent implements OnInit {
       console.log("profes recibidas:", profesores);
       this.profesoresOptions = profesores;
     });
+
+    this.iniciativaService.getOds().subscribe((ods: OdsDTO[]) => {
+      console.log("ods recibidas:", ods); 
+      this.odsOpciones = ods;
+    });
+
+    this.iniciativaService.getMetas().subscribe((metas: any) => {
+      console.log("metas recibidas:", metas);
+      this.todasLasMetasOpciones = metas;
+    });
+
+    this.iniciativaService.getCursosEscolares().subscribe((cursosEscolares: any) => {
+      console.log("cursos escolares recibidos:", cursosEscolares);
+      this.cursosEscolaresOpciones = cursosEscolares;
+    });
+    
   }
+
 
   ngOnInit(): void {
     const idParam = this.route.snapshot.paramMap.get('id');
 
     if (idParam) {
       this.idIniciativaAEditar = parseInt(idParam, 10);
-      console.log('Iniciativa ID:', this.idIniciativaAEditar);
 
       this.iniciativaService.getIniciativaById(this.idIniciativaAEditar).subscribe(
         (iniciativa) => {
           console.log('Iniciativa cargada:', iniciativa);
-          console.log(typeof(iniciativa));
           this.crearFormulario(iniciativa);
         },
         (error) => {
@@ -76,39 +89,66 @@ export class MainInitiativesFormComponent implements OnInit {
           this.crearFormulario(); // En caso de error, creamos un formulario vacío
         }
       );
-
-
       
     } else {
       this.crearFormulario(); // Nuevo formulario sin datos
     }
   }
 
-  private crearFormulario(iniciativa?: any): void {
+  private crearFormulario(iniciativa?: Iniciativa): void {
+
+    // Asignamos los IDs para que se muestren preseleccionados
+    this.selectedAsignaturasIndex = iniciativa?.Asignaturas?.map((a: any) => a.Id) || [];
+    this.selectedEntidadesExtIndex = iniciativa?.EntidadesExteriores?.map((e: any) => e.Id) || [];
+    this.selectedProfesoresIndex = iniciativa?.Profesores?.map((p: any) => p.Id) || [];
+    this.selectedMetasIndex = iniciativa?.Metas.map((m: any) => m.NumeroMeta) || [];
+
+    const linkedinUrl = iniciativa?.Difusion?.find(url => url.includes("linkedin")) ?? "";
+    const facebookUrl = iniciativa?.Difusion?.find(url => url.includes("facebook")) ?? "";
+    const twitterUrl = iniciativa?.Difusion?.find(url => url.includes("twitter")) ?? "";
+    const instagramUrl = iniciativa?.Difusion?.find(url => url.includes("instagram")) ?? "";
+
     //validarFechas es un validador de formulario a nivel de grupo, no un validador de campo individual. Le estás diciendo a Angular que cada vez que cualquier campo del formulario cambie, se ejecute el validador. Esto se debe a que los validadores de grupo se ejecutan siempre que el formulario se vuelve a evaluar (lo cual pasa cuando cualquier campo cambia).
     this.form = this.fb.group({
       titulo: [iniciativa?.Titulo ?? '', [Validators.required, Validators.minLength(5), Validators.maxLength(30)]],
       horas: [iniciativa?.Horas ?? '', [Validators.required, Validators.min(1), Validators.max(100)]],
-      fechaInicio: [iniciativa?.FechaInicio ?? '', Validators.required],
-      fechaFin: [iniciativa?.FechaFin ?? '', Validators.required],
+      fechaInicio: [iniciativa?.FechaInicio? this.convertirFecha(iniciativa.FechaInicio) : '', Validators.required],
+      fechaFin: [iniciativa?.FechaFin? this.convertirFecha(iniciativa.FechaFin) : '', Validators.required],
 
       descripcion: [iniciativa?.Descripcion ?? '', [Validators.required, Validators.minLength(10), Validators.maxLength(100)]],
       tipoIniciativa: [iniciativa?.TipoIniciativa ?? '', Validators.required],
       productoFinal: [iniciativa?.ProductoFinal ?? '', [Validators.required, Validators.minLength(10), Validators.maxLength(25)]],
       innovador: [iniciativa?.EsInnovadora ?? null, Validators.required],// Será true o false
-      difusion: [iniciativa?.Difusion ?? '', Validators.required],
+      difusionLinkedin: [linkedinUrl ?? "", Validators.required],
+      difusionFacebook: [facebookUrl ?? ""],
+      difusionTwitter: [twitterUrl ?? ""],
+      difusionInstagram: [instagramUrl ?? ""],
+      cursoEscolar: [iniciativa? this.cursosEscolaresOpciones.find(curso => curso.Descripcion == iniciativa?.CursoEscolar)?.Id : "", Validators.required],
 
-      asignaturas: [[], [Validators.required, this.validarSeleccionMinima]],
-      entidades: [[], [Validators.required, this.validarSeleccionMinima]],
-      metas: [this.selectedMetas, [Validators.required, this.validarSeleccionMinima]],
-      profesores: [[], [Validators.required, this.validarSeleccionMinima]],
+      asignaturas: [this.selectedAsignaturasIndex, [Validators.required, this.validarSeleccionMinima]],
+      entidades: [this.selectedEntidadesExtIndex, [Validators.required, this.validarSeleccionMinima]],
+      profesores: [this.selectedProfesoresIndex, [Validators.required, this.validarSeleccionMinima]],
+      ods: [[]],
+      metas: [this.selectedMetasIndex, [Validators.required, this.validarSeleccionMinima]],
     }, {
       validators: this.validarFechas.bind(this)// Vinculamos el validador personalizado al formulario
     });
+
+    (document.getElementById("linkedin") as HTMLInputElement).checked = this.difusionLinkedinFrmControl?.value !== "" ? true : false;
+    this.difusionLinkedinFrmControl?.value !== "" ? this.toggleInput("linkedin") : null;
+
+    (document.getElementById("facebook") as HTMLInputElement).checked = this.difusionFacebookFrmControl?.value !== "" ? true : false;
+    this.difusionFacebookFrmControl?.value !== "" ? this.toggleInput("facebook") : null;
+
+    (document.getElementById("twitter") as HTMLInputElement).checked = this.difusionTwitterFrmControl?.value !== "" ? true : false;
+    this.difusionTwitterFrmControl?.value !== "" ? this.toggleInput("twitter") : null;
+
+    (document.getElementById("instagram") as HTMLInputElement).checked = this.difusionInstagramFrmControl?.value !== "" ? true : false;
+    this.difusionInstagramFrmControl?.value !== "" ? this.toggleInput("instagram") : null;
   }
   
   
-  //funcion para el primer input del form, que es seleccionar si es innovador o no
+  //Funcion para el primer input del form, que es seleccionar si es innovador o no
   selectTemplate(tipoIniciativa: string) {
     const valorActual = this.form.value.innovador;
   
@@ -152,9 +192,24 @@ export class MainInitiativesFormComponent implements OnInit {
   }
 
 
-  get difusionFrmControl() {
-    return this.form.get('difusion');
+  get difusionLinkedinFrmControl() {
+    return this.form.get('difusionLinkedin');
   }
+
+  get difusionFacebookFrmControl() {
+    return this.form.get('difusionFacebook');
+  }
+
+  get difusionTwitterFrmControl() {
+    return this.form.get('difusionTwitter');
+  }
+
+  get difusionInstagramFrmControl() {
+    return this.form.get('difusionInstagram');
+  }
+
+
+
 
   get asignaturasFrmControl() {
     return this.form.get('asignaturas');
@@ -163,19 +218,22 @@ export class MainInitiativesFormComponent implements OnInit {
   get entidadesFrmControl() {
     return this.form.get('entidades');
   }
-
-  get metasFrmControl() {
-    return this.form.get('metas');
-  }
-
+  
   get profesoresFrmControl() {
     return this.form.get('profesores');
   }
-
+  
   get productoFinalFrmControl() {
     return this.form.get('productoFinal');
   }
-
+  
+  get metasFrmControl() {
+    return this.form.get('metas')!;
+  }
+  
+  get odsFrmControl() {
+    return this.form.get('ods')!;
+  }
 
   //Validador personalizado para fechaFin:
   validarFechas(form: FormGroup) {
@@ -204,10 +262,6 @@ export class MainInitiativesFormComponent implements OnInit {
   
 
 
-
-
-
-
   // Funciones para agregar entidades a su lista de entidades correspondientes
   addAsignatura(event: any): void {
     const selectedId = +event.target.value;//todo ver que hace el +
@@ -224,12 +278,12 @@ export class MainInitiativesFormComponent implements OnInit {
   }
 
   addEntidad(event: any): void {
-    const selectedId = +event.target.value;//todo ver que hace el +
+    const selectedId = +event.target.value;
 
     if (selectedId && !this.selectedEntidadesExtIndex.includes(selectedId)) {
       this.selectedEntidadesExtIndex.push(selectedId);
   
-      // 🔥 Actualizamos el valor del campo 'asignaturas' en el formulario
+      //Actualizamos el valor del campo 'asignaturas' en el formulario
       this.entidadesFrmControl?.setValue(this.selectedEntidadesExtIndex);
       this.entidadesFrmControl?.updateValueAndValidity(); // opcional pero recomendable
     }
@@ -238,19 +292,21 @@ export class MainInitiativesFormComponent implements OnInit {
   }
 
   addMeta(event: any): void {
-    const selectedMeta = this.metasOptions.find(meta => meta.id == event.target.value);
-    if (selectedMeta && !this.selectedMetas.includes(selectedMeta)) {
-      this.selectedMetas.push(selectedMeta);
-
-      // 🔥 Actualizamos el valor del campo 'metas' en el formulario
-      this.metasFrmControl?.setValue(this.selectedMetas);
-      this.metasFrmControl?.updateValueAndValidity(); // opcional pero recomendable
+    const selectedId = +event.target.value;
+  
+    if (selectedId && !this.selectedMetasIndex.includes(selectedId)) {
+      this.selectedMetasIndex.push(selectedId);
+  
+      this.metasFrmControl?.setValue(this.selectedMetasIndex);
+      this.metasFrmControl?.updateValueAndValidity();
     }
+  
+    event.target.value = '';
   }
 
 
   addProfesor(event: any): void { 
-    const selectedId = +event.target.value;//todo ver que hace el +
+    const selectedId = +event.target.value;
   
     if (selectedId && !this.selectedProfesoresIndex.includes(selectedId)) {
       this.selectedProfesoresIndex.push(selectedId);
@@ -266,22 +322,25 @@ export class MainInitiativesFormComponent implements OnInit {
 
 
 
-  //Funcion para pintar el nombre de profesor en las badges de los profes seleccionados
+  //Funciones para pintar el nombre en las badgeseleccionados
   getNombreProfesor(id: number): string {
     const profesor = this.profesoresOptions.find(p => p.Id === id);
     return profesor ? profesor.Nombre : 'Desconocido';
   }
 
-  //Funcion para pintar el nombre de profesor en las badges de los profes seleccionados
   getNombreAsignatura(id: number): string {
     const asignatura = this.asignaturasOptions.find(asig => asig.Id === id);
     return asignatura ? asignatura.NombreAsignatura : 'Desconocido';
   }
   
-  //Funcion para pintar el nombre de profesor en las badges de los profes seleccionados
   getNombreEntidadExt(id: number): string {
     const entidadExterior = this.entidadesOptions.find(entExt => entExt.Id === id);
     return entidadExterior ? entidadExterior.Nombre : 'Desconocido';
+  }
+
+  getNumeroOdsMeta(id: number): string {
+    const meta = this.todasLasMetasOpciones.find(meta => meta.NumeroMeta === id);
+    return meta ? meta.Id : 'Desconocido';
   }
   
 
@@ -301,13 +360,11 @@ export class MainInitiativesFormComponent implements OnInit {
     this.entidadesFrmControl?.updateValueAndValidity();
   }
 
-  removeMeta(meta: any): void {
-    const index = this.selectedMetas.indexOf(meta);
-    if (index > -1) {
-      this.selectedMetas.splice(index, 1);
-      this.metasFrmControl?.setValue(this.selectedMetas);
-      this.metasFrmControl?.updateValueAndValidity();
-    }
+  removeMeta(id: number): void {
+    this.selectedMetasIndex = this.selectedMetasIndex.filter(metaId => metaId !== id);
+  
+    this.metasFrmControl?.setValue(this.selectedMetasIndex);
+    this.metasFrmControl?.updateValueAndValidity();
   }
 
   removeProfesor(id: number): void {
@@ -318,12 +375,20 @@ export class MainInitiativesFormComponent implements OnInit {
   }
 
   // Función para mostrar u ocultar los inputs de los checkbox de las redes sociales
-  // toggleInput(id: string) {
-  //   const input = document.getElementById(id + "-link");
-  //   if (input) {
-  //     input.style.display = input.style.display === "none" ? "block" : "none";
-  //   }
-  // }
+  toggleInput(id: string) {
+    const input = document.getElementById(id + "-link");
+    if (input) {
+      input.style.display = input.style.display === "none" ? "block" : "none";
+    }
+  }
+
+
+  filtrarMetasSegunOds(): void {
+    console.log("ODS seleccionado:", this.odsFrmControl.value);
+    // Filtrar metas segun el ODS seleccionado
+    this.metasSegunOdsOpciones = this.todasLasMetasOpciones.filter(meta => meta.NumeroOds.toString() == this.odsFrmControl.value.toString());
+  }
+  
 
   formatearFecha(fecha: Date | string): string {
     const date = new Date(fecha);
@@ -333,17 +398,35 @@ export class MainInitiativesFormComponent implements OnInit {
     return `${dia}-${mes}-${anio}`;
   }
 
+
+  private obtenerRedesConValor(): string[] {
+    const redes = ['Linkedin', 'Facebook', 'Twitter', 'Instagram'];
+    return redes
+      .map(red => {
+        const valor = this.form.get(`difusion${red}`)?.value?.trim();
+        return valor ? valor : null;
+      })
+      .filter((item) => item !== null);
+  }
+
+  public LimitarFechas() {
+    const fechaInicio = this.form.get('fechaInicio')?.value;
+    const fechaFin = this.form.get('fechaFin')?.value;
+
+    if (fechaInicio && fechaFin) {
+      const fechaInicioDate = new Date(fechaInicio);
+      const fechaFinDate = new Date(fechaFin);
+
+      if (fechaFinDate < fechaInicioDate) {
+        this.form.get('fechaFin')?.setValue(fechaInicio); // Establece la fecha de fin como la de inicio si es menor
+      }
+    }
+  }
+  
+
   save() {
     console.log(this.form);
-    console.log(this.form.value.fechaInicio);
-    console.log(typeof(this.form.value.fechaInicio));
     this.form.markAllAsTouched();
-
-    console.log(this.selectedAsignaturasIndex);
-    console.log(this.selectedEntidadesExtIndex);
-    console.log(this.selectedProfesoresIndex);
-    // console.log(this.selectedMetas);
-
 
     if (this.form.valid) {
       const datosForm: any = this.form.value;
@@ -354,25 +437,17 @@ export class MainInitiativesFormComponent implements OnInit {
         datosForm.horas,
         this.formatearFecha(datosForm.fechaInicio),
         this.formatearFecha(datosForm.fechaFin),
-        
         datosForm.descripcion,
         datosForm.tipoIniciativa,
         datosForm.productoFinal,//text que dice a quien esta dirigido
-        
         datosForm.innovador,
-        
-        datosForm.difusion,//redes sociales
-        
+        this.obtenerRedesConValor(),//redes sociales
         datosForm.asignaturas,
         datosForm.entidades,
         datosForm.profesores,
-        // datosForm.metas,
-        [1],
-        // [1],
-        // [1],
-        // [1]
+        datosForm.metas,
+        datosForm.cursoEscolar
       );
-
 
       if(this.idIniciativaAEditar !== null) {
         this.iniciativaService.updateIniciativa(this.idIniciativaAEditar, nuevaIniciativa).subscribe(
@@ -383,9 +458,7 @@ export class MainInitiativesFormComponent implements OnInit {
         return;
       }
       
-
       console.log(nuevaIniciativa);
-
       this.iniciativaService.createIniciativa(nuevaIniciativa).subscribe(
         (response) => {console.log("Iniciativa guardada:", response); this.router.navigate(['/initiatives-info']).then(()=> window.location.reload());},
         (error) => console.error("Error al guardar la iniciativa:", error)

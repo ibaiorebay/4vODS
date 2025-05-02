@@ -5,6 +5,7 @@ import { MainPrincipalComponent } from './components/main-principal/main-princip
 import { ProfesorFormComponent } from './components/profesor-form/profesor-form.component';
 import { EntidadexteriorFormComponent } from './components/entidadexterior-form/entidadexterior-form.component';
 import { AsignaturaFormComponent } from './components/asignatura-form/asignatura-form.component';
+import { CursoEscolarComponent } from './components/curso-escolar/curso-escolar.component';
 
 export const routes: Routes = [
     {path: 'initiatives-info', component: MainInitiativesInfoComponent},
@@ -13,5 +14,6 @@ export const routes: Routes = [
     {path: 'profesor-form', component: ProfesorFormComponent},
     {path: 'entidadexterior-form', component: EntidadexteriorFormComponent},
     {path: 'asignatura-form', component: AsignaturaFormComponent},
+    {path: 'curso-escolar-form', component: CursoEscolarComponent},
     {path: 'main', component: MainPrincipalComponent},
 ];

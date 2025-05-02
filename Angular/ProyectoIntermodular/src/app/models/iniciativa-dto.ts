@@ -1,8 +1,3 @@
-import { EntidadExterior } from "./entidad-exterior";
-import { Profesor } from "./profesor";
-import { Asignatura } from "./asignatura";
-import { Meta } from "./meta";
-
 //crisComment: me cree esta clase para hacer post de una Iniciativa
 export class IniciativaDTO {
     private iD_INICIATIVA: number;
@@ -12,9 +7,10 @@ export class IniciativaDTO {
     private fechA_FIN: string;
     private descripcion: string;
     private tipo: string;
-    private productO_FINAL: string = "";
+    private productO_FINAL: string;
     private nueva: number;
-    private difusion: string = "";//redes sociales
+    private difusion: string[];//redes sociales
+    private iD_CURSOESCOLAR: number;
 
     private iD_ASIGNATURAs: number[];
     private iD_ENTIDADs: number[];
@@ -23,7 +19,7 @@ export class IniciativaDTO {
 
     private static ultimoId: number = 2;
 
-    constructor(id: any, titulo: string, horas: number, fechaInicio: string, fechaFin: string, descripcion: string, tipoIniciativa: string, productoFinal: string, esInnovadora: number, difusion: string, asignaturas: number[], entidadesExteriores: number[], profesores: number[], metas: number[]) {
+    constructor(id: any, titulo: string, horas: number, fechaInicio: string, fechaFin: string, descripcion: string, tipoIniciativa: string, productoFinal: string, esInnovadora: number, difusion: string[], asignaturas: number[], entidadesExteriores: number[], profesores: number[], metas: number[], iD_CURSOESCOLAR?: number) {
         this.iD_INICIATIVA = id !== null ? id : IniciativaDTO.ultimoId++;
         this.titulo = titulo;
         this.horas = horas;
@@ -39,6 +35,8 @@ export class IniciativaDTO {
         this.iD_ENTIDADs = entidadesExteriores;
         this.iD_PROFESORs = profesores;
         this.iD_METAs = metas;
+
+        this.iD_CURSOESCOLAR = iD_CURSOESCOLAR !== undefined ? iD_CURSOESCOLAR : 0; // Asignar un valor por defecto si no se proporciona
     }
 
     get Id(): number {
@@ -113,15 +111,21 @@ export class IniciativaDTO {
         this.nueva = esInnovadora;
     }
 
-    get Difusion(): string {
+    get Difusion(): string[] {
         return this.difusion;
     }
 
-    set Difusion(difusion: string) {
+    set Difusion(difusion: string[]) {
         this.difusion = difusion;
     }
 
+    get IdAnioEscolar(): number {
+        return this.iD_CURSOESCOLAR;
+    }
 
+    set IdAnioEscolar(idAnioEscolar: number) {
+        this.iD_CURSOESCOLAR = idAnioEscolar;
+    }
 
     get Asignaturas(): number[] {
         return this.iD_ASIGNATURAs;

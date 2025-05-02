@@ -93,7 +93,15 @@
         </div>
 
         <div class="d-flex">
-            <div class="mb-3 me-5">
+            <!-- Select para cursos escolares -->
+            <div class="mb-3">
+              <label for="cursoEscolar">Curso escolar: </label>
+              <select id="cursoEscolar" class="form-control" formControlName="cursoEscolar" (change)="LimitarFechas()">
+                <option *ngFor="let cursoEscolar of cursosEscolaresOpciones" [value]="cursoEscolar.Id">{{ cursoEscolar.Descripcion }}</option>
+              </select>
+            </div>
+
+            <div class="mb-3 mx-5">
               <label for="fechaInicio">Fecha Inicio</label>
               <input id="fechaInicio" type="date" class="form-control" formControlName="fechaInicio" required>
             </div>
@@ -106,42 +114,66 @@
           <p class="error">⚠ La fecha de fin no puede ser anterior a la fecha de inicio.</p>
         </div>
         
+
+        <!-- Select para Profesores -->
+        <div class="mb-3 mt-3">
+          <label for="profesores">Profesores</label>
+          <select id="profesores" class="form-control" formControlName="profesores" (change)="addProfesor($event)">
+            <option *ngFor="let profesor of profesoresOptions" [value]="profesor.Id">{{ profesor.Nombre }}</option>
+          </select>
+        </div>
+        <!-- Badges de Profesores Seleccionados -->
+        <div *ngIf="selectedProfesoresIndex.length > 0" class="mb-4 d-flex">
+          <label class="me-3">Profesores seleccionados:</label>
+          <div *ngFor="let id of selectedProfesoresIndex" class="badge-container">
+            <span class="badge badge-warning">
+              {{ getNombreProfesor(id) }}
+              <span class="badge-close" (click)="removeProfesor(id)">
+                <img src="../../assets/x.svg" alt="close-icon">
+              </span>
+            </span>
+          </div>
+        </div>
+        <!-- Mensaje de error-->
+        <div *ngIf="profesoresFrmControl?.errors?.['seleccionRequerida'] && profesoresFrmControl?.touched" class="mb-4">
+          <p class="error">⚠ Tenés que seleccionar al menos un profesor.</p>
+        </div>
+
         
         <!-- Select para Asignaturas -->
-        <div class="mb-3">
+        <div class="mb-3 mt-3">
           <label for="asignaturas">Asignaturas</label>
           <select id="asignaturas" class="form-control" formControlName="asignaturas" (change)="addAsignatura($event)">
             <option *ngFor="let asignatura of asignaturasOptions" [value]="asignatura.Id">{{ asignatura.NombreAsignatura }}</option><!--[value]="asignatura.id" es usado en la funcion addAsignatura-->
           </select>
         </div>
         <!-- Badges de Asignaturas Seleccionadas -->
-        <div class="mb-3">
-          <label>Asignaturas Seleccionadas</label>
+        <div *ngIf="selectedAsignaturasIndex.length > 0" class="mb-4 d-flex">
+          <label class="me-3">Asignaturas seleccionadas:</label>
           <div *ngFor="let id of selectedAsignaturasIndex" class="badge-container">
             <span class="badge  badge-primary">
               {{ getNombreAsignatura(id) }}
-              <!-- <span class="badge badge-close" (click)="removeAsignatura(asignatura)"> -->
               <span class="badge-close" (click)="removeAsignatura(id)">
                 <img src="../../assets/x.svg" alt="close-icon">
               </span>
             </span>
           </div>
         </div>
-        <div *ngIf="asignaturasFrmControl?.errors?.['seleccionRequerida'] && asignaturasFrmControl?.touched">
+        <div *ngIf="asignaturasFrmControl?.errors?.['seleccionRequerida'] && asignaturasFrmControl?.touched" class="mb-4">
           <p class="error">⚠ Tenés que seleccionar al menos una asignatura.</p>
         </div>
          
 
         <!-- Select para Entidades -->
-        <div class="mb-3">
+        <div class="mb-3 mt-3">
           <label for="entidades">Entidades Externas</label>
           <select id="entidades" class="form-control" formControlName="entidades" (change)="addEntidad($event)">
             <option *ngFor="let entidad of entidadesOptions" [value]="entidad.Id">{{ entidad.Nombre }}</option>
           </select>
         </div>
         <!-- Badges de Entidades Seleccionadas -->
-        <div class="mb-3">
-          <label>Entidades Seleccionadas</label>
+        <div *ngIf="selectedEntidadesExtIndex.length > 0" class="mb-4 d-flex">
+          <label class="me-3">Entidades seleccionadas:</label>
           <div *ngFor="let id of selectedEntidadesExtIndex" class="badge-container">
             <span class="badge  badge-info">
               {{ getNombreEntidadExt(id) }}
@@ -151,57 +183,47 @@
             </span>
           </div>
         </div>
-        <div *ngIf="entidadesFrmControl?.errors?.['seleccionRequerida'] && entidadesFrmControl?.touched">
+        <div *ngIf="entidadesFrmControl?.errors?.['seleccionRequerida'] && entidadesFrmControl?.touched" class="mb-4">
           <p class="error">⚠ Tenés que seleccionar al menos una entidad exterior.</p>
         </div>
 
-        <!-- Select para Metas de la ODS -->
-        <div class="mb-3">
-          <label for="metas">Metas de la ODS</label>
-          <select id="metas" class="form-control" formControlName="metas" (change)="addMeta($event)">
-            <option *ngFor="let meta of metasOptions" [value]="meta.id">{{ meta.nombre }}</option>
-          </select>
+
+
+        <div class="mb-3 mt-3 contenedor-ods-metas">
+          <!-- Select para ODS -->
+          <div class="contenedor-ods">
+            <label for="ods">Selecciona una Ods:</label>
+            <select id="ods" class="form-control" formControlName="ods" (change)="filtrarMetasSegunOds()">
+              <option *ngFor="let cadaOds of odsOpciones" [value]="cadaOds.Id">{{ cadaOds.Id }} - {{ cadaOds.Nombre }}</option>
+            </select>
+          </div>
+          <!-- Select para Metas segun ODS seleccionada -->
+          <div class="contenedor-metas">
+            <label for="metas">Metas de la ODS seleccionada</label>
+            <select id="metas" class="form-control" formControlName="metas" (change)="addMeta($event)">
+              <option *ngFor="let cadaMeta of metasSegunOdsOpciones" [value]="cadaMeta.NumeroMeta">{{ cadaMeta.NumeroMeta}} - {{cadaMeta.Descripcion}}</option>
+            </select>
+          </div>
         </div>
         <!-- Badges de Metas Seleccionadas -->
-        <div class="mb-3">
-          <label>Metas Seleccionadas</label>
-          <div *ngFor="let meta of selectedMetas" class="badge-container">
+        <div *ngIf="selectedMetasIndex.length > 0" class="mb-4 d-flex">
+          <label class="me-3">Metas seleccionadas:</label>
+          <div *ngFor="let id of selectedMetasIndex" class="badge-container">
             <span class="badge  badge-success d-inline-block">
-              {{ meta.nombre }}
-              <span class="badge-close" (click)="removeMeta(meta)">
+              {{ getNumeroOdsMeta(id) }}
+              <span class="badge-close" (click)="removeMeta(id)">
                 <img src="../../assets/x.svg" alt="close-icon">
               </span>
             </span>
           </div>
         </div>
-        <div *ngIf="metasFrmControl?.errors?.['seleccionRequerida'] && metasFrmControl?.touched">
+        <div *ngIf="metasFrmControl?.errors?.['seleccionRequerida'] && metasFrmControl?.touched" class="mb-4">
           <p class="error">⚠ Tenés que seleccionar al menos una meta.</p>
         </div>
 
 
-        <!-- Select para Profesores -->
-        <div class="mb-3">
-          <label for="profesores">Profesores</label>
-          <select id="profesores" class="form-control" formControlName="profesores" (change)="addProfesor($event)">
-            <option *ngFor="let profesor of profesoresOptions" [value]="profesor.Id">{{ profesor.Nombre }}</option>
-          </select>
-        </div>
-        <!-- Badges de Profesores Seleccionados -->
-        <div *ngFor="let id of selectedProfesoresIndex" class="badge-container">
-          <span class="badge badge-warning">
-            {{ getNombreProfesor(id) }}
-            <span class="badge-close" (click)="removeProfesor(id)">
-              <img src="../../assets/x.svg" alt="close-icon">
-            </span>
-          </span>
-        </div>
-        <!--Mensaje de error-->
-        <div *ngIf="profesoresFrmControl?.errors?.['seleccionRequerida'] && profesoresFrmControl?.touched">
-          <p class="error">⚠ Tenés que seleccionar al menos un profesor.</p>
-        </div>
-
         <!-- Descripcion -->
-        <div class="mb-3">
+        <div class="mb-3 mt-3">
           <label>Descripción</label>
           <textarea class="d-block form-control" formControlName="descripcion" required minlength="10" maxlength="100"></textarea>
         </div>
@@ -221,37 +243,35 @@
 
         <!-- Redes sociales inputs -->
         <div class="social-container mb-3 mt-4">
-          <!-- <label class="form-title">Selecciona tus redes sociales:</label> -->
-          <label class="form-title">Ingresa tu difusión vía Linkedin:</label>
+          <label class="form-title">Selecciona tus redes sociales:</label>
           
           <div class="social-option">
-              <!-- <input type="checkbox" id="linkedin" class="social-checkbox" (click)="toggleInput('linkedin')"> -->
-              <!-- <label for="linkedin" class="mb-0"> Linkedin</label> -->
-              <input type="text" class="social-input" placeholder="Ingresa tu enlace de Linkedin" formControlName="difusion" required>
-              <!-- <input type="text" id="linkedin-link" class="social-input" placeholder="Ingresa tu enlace de Linkedin" style="display: none;"> -->
+            <input type="checkbox" id="linkedin" class="social-checkbox" (click)="toggleInput('linkedin')">
+            <label for="linkedin" class="mb-0"> Linkedin</label>
+            <input type="text" id="linkedin-link" formControlName="difusionLinkedin" class="social-input" placeholder="Ingresa tu enlace de Linkedin" style="display: none;">
           </div>
 
-          <!-- <div class="social-option">
-              <input type="checkbox" id="facebook" class="social-checkbox" (click)="toggleInput('facebook')">
-              <label for="facebook" class="mb-0"> Facebook</label>
-              <input type="text" id="facebook-link" class="social-input" placeholder="Ingresa tu enlace de Facebook" style="display: none;">
+          <div class="social-option">
+            <input type="checkbox" id="facebook" class="social-checkbox" (click)="toggleInput('facebook')">
+            <label for="facebook" class="mb-0"> Facebook</label>
+            <input type="text" id="facebook-link" formControlName="difusionFacebook" class="social-input" placeholder="Ingresa tu enlace de Facebook" style="display: none;">
           </div>
       
           <div class="social-option">
-              <input type="checkbox" id="twitter" class="social-checkbox" (click)="toggleInput('twitter')">
-              <label for="twitter" class="mb-0"> Twitter</label>
-              <input type="text" id="twitter-link" class="social-input" placeholder="Ingresa tu enlace de Twitter" style="display: none;">
+            <input type="checkbox" id="twitter" class="social-checkbox" (click)="toggleInput('twitter')">
+            <label for="twitter" class="mb-0"> Twitter</label>
+            <input type="text" id="twitter-link" formControlName="difusionTwitter" class="social-input" placeholder="Ingresa tu enlace de Twitter" style="display: none;">
           </div>
       
           <div class="social-option">
-              <input type="checkbox" id="instagram" class="social-checkbox" (click)="toggleInput('instagram')">
-              <label for="instagram" class="mb-0"> Instagram</label>
-              <input type="text" id="instagram-link" class="social-input" placeholder="Ingresa tu enlace de Instagram" style="display: none;">
-          </div> -->
+            <input type="checkbox" id="instagram" class="social-checkbox" (click)="toggleInput('instagram')">
+            <label for="instagram" class="mb-0"> Instagram</label>
+            <input type="text" id="instagram-link" formControlName="difusionInstagram" class="social-input" placeholder="Ingresa tu enlace de Instagram" style="display: none;">
+          </div>
         </div>
         <!-- Mensajes de error -->
-        <div *ngIf="difusionFrmControl?.touched && difusionFrmControl?.invalid">
-          <div *ngIf="difusionFrmControl?.errors?.['required']">
+        <div *ngIf="difusionLinkedinFrmControl?.touched && difusionLinkedinFrmControl?.invalid">
+          <div *ngIf="difusionLinkedinFrmControl?.errors?.['required']">
             <p class="error">⚠ El linkedin es obligatorio.</p>
           </div>
         </div>

@@ -10,10 +10,15 @@ INSERT INTO METAS (ID_META, ID_ODS, DESCRIPCION) VALUES
 (2, 2, 'Asegurar el acceso a alimentos seguros, nutritivos y suficientes.'),
 (3, 3, 'Reducir la mortalidad infantil y mejorar la salud global.');
 
+-- Insertar datos en la tabla cursoescolar
+INSERT INTO CURSOESCOLAR (ID_CURSOESCOLAR, DESCRIPCION) VALUES
+(1, '2024-2025'),
+(2, '2025-2026');
+
 -- Insertar datos en la tabla INICIATIVAS
-INSERT INTO INICIATIVAS (ID_INICIATIVA, TITULO, HORAS, FECHA_INICIO, FECHA_FIN, DESCRIPCION, TIPO, PRODUCTO_FINAL, NUEVA, DIFUSION) VALUES
-(1, 'Banco de Alimentos', 50, '01-03-2024', '01-06-2024', 'Iniciativa para recolectar alimentos para comunidades vulnerables.', 'Proyecto', 'Reporte de impacto', TRUE, 'Redes sociales y prensa'),
-(2, 'Charla Nutrición', 10, '15-04-2024', '15-04-2024', 'Charla educativa sobre nutrición y hábitos saludables.', 'Charla', 'Material informativo', TRUE, 'Escuelas y redes sociales');
+INSERT INTO INICIATIVAS (ID_INICIATIVA, TITULO, HORAS, FECHA_INICIO, FECHA_FIN, DESCRIPCION, TIPO, PRODUCTO_FINAL, NUEVA, ID_CURSOESCOLAR) VALUES
+(1, 'Banco de Alimentos', 50, '01-03-2024', '01-06-2024', 'Iniciativa para recolectar alimentos para comunidades vulnerables.', 'Proyecto', 'Reporte de impacto', TRUE, 1),
+(2, 'Charla Nutrición', 10, '15-04-2024', '15-04-2024', 'Charla educativa sobre nutrición y hábitos saludables.', 'Charla', 'Material informativo', TRUE, 2);
 
 -- Insertar datos en la tabla METAS_INICIATIVA
 INSERT INTO METAS_INICIATIVA (ID_INICIATIVA, ID_META) VALUES

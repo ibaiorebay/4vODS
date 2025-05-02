@@ -7,16 +7,13 @@ import { Meta } from '../../models/meta';
 import { EntidadExterior } from '../../models/entidad-exterior';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Ods } from '../../models/ods';
-import { Profesor } from '../../models/profesor';
 import { Curso } from '../../models/curso';
-import * as echarts from 'echarts';
 import { ProfesorDTO } from '../../models/profesor-dto';
 import { AsignaturaDTO } from '../../models/asignatura-dto';
 import { OdsDTO } from '../../models/ods-dto';
 import { MetaDTO } from '../../models/meta-dto';
+import { Profesor } from '../../models/profesor';
 
-type EChartsOption = echarts.EChartsOption;
 
 @Component({
   selector: 'app-main-initiatives-info',
@@ -25,11 +22,11 @@ type EChartsOption = echarts.EChartsOption;
   templateUrl: './main-initiatives-info.component.html',
   styleUrl: './main-initiatives-info.component.scss'
 })
-export class MainInitiativesInfoComponent implements AfterViewInit {
+export class MainInitiativesInfoComponent {
 
   iniciativas: Iniciativa[] = [];
   iniciativasFiltradas: Iniciativa[] = [];
-  isDropdownOpen = false; // Estado del menú desplegable
+  isDropdownOpen = false;//Estado del menú desplegable de editar y eliminar
 
   cursosOpciones: Curso[] = [];
   profesoresOpciones: ProfesorDTO[] = [];
@@ -44,7 +41,7 @@ export class MainInitiativesInfoComponent implements AfterViewInit {
   }
 
   ngOnInit(): void {
-    // Cargar todas las iniciativas
+    // Cargamos todas las iniciativas
     this.iniciativaService.getIniciativas().subscribe((data) => {
       this.iniciativas = data;
       this.iniciativasFiltradas = data;
@@ -78,29 +75,6 @@ export class MainInitiativesInfoComponent implements AfterViewInit {
 
   }
 
-  ngAfterViewInit(): void {
-    const chartDom = document.getElementById('main')!;
-    const myChart = echarts.init(chartDom);
-    const option: EChartsOption = {
-      xAxis: {
-        type: 'category',
-        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-      },
-      yAxis: {
-        type: 'value'
-      },
-      series: [
-        {
-          data: [120, 200, 150, 80, 70, 110, 130],
-          type: 'bar'
-        }
-      ]
-    };
-
-    myChart.setOption(option);
-  }
-
-
   // Función para cerrar el modal.
   closeModal() {
     this.selectedIniciativaId = "0";
@@ -120,7 +94,7 @@ export class MainInitiativesInfoComponent implements AfterViewInit {
   // Función para manejar la apertura del modal con la iniciativa seleccionada.
   openModalDetailsCard(id: string, iniciativa: any) {
     this.selectedIniciativaId = id; 
-    this.selectedIniciativa = iniciativa; // Establecemos los detalles de la iniciativa seleccionada.
+    this.selectedIniciativa = iniciativa;
     console.log(this.selectedIniciativa);
   }
 
@@ -130,20 +104,15 @@ export class MainInitiativesInfoComponent implements AfterViewInit {
     this.filtrarIniciativas();
   }
 
+  obtenerNombreProfesores(profesores: Profesor[]): string {
+    return profesores.map(profesor => profesor.Nombre).join(", ");
+  }
+
   obtenerNombresCursos(asignaturas: Asignatura[]): string {
     const repetidos: string[] = [];
 
     const result2 = asignaturas.map(asignatura => {
       const cursoObj = this.cursosOpciones.find(curso => curso.Id == asignatura.IdCurso);
-
-      //Mi solucion
-      // if(cursoObj == undefined) return;
-      // if (repetidos.includes(cursoObj.Nombre)) {
-      //   return;
-      // } else {
-      //   repetidos.push(cursoObj.Nombre);
-      //   return cursoObj.Nombre;
-      // }
 
       if (!cursoObj || repetidos.includes(cursoObj.Nombre)) {
         return;
@@ -187,6 +156,23 @@ export class MainInitiativesInfoComponent implements AfterViewInit {
     let result = EntidadesExteriores.map(entidadExt => entidadExt.Nombre).join(', ');
     return result;
   }
+
+  getDifusionIcons(difusiones: string[]): { url: string, icon: string, alt: string }[] {
+    const redes = [
+      { nombre: 'linkedin', icon: 'linkedin.svg', alt: 'linkedin-icon' },
+      { nombre: 'facebook', icon: 'face.svg', alt: 'facebook-icon' },
+      { nombre: 'twitter', icon: 'twitter-x.svg', alt: 'twitter-icon' },
+      { nombre: 'instagram', icon: 'instagram.svg', alt: 'instagram-icon' }
+    ];
+  
+    return difusiones.map(link => {
+      const red = redes.find(r => link.toLowerCase().includes(r.nombre));
+      return red
+        ? { url: link, icon: `../../../assets/${red.icon}`, alt: red.alt }
+        : { url: link, icon: '../../../assets/enlace.svg', alt: 'enlace-icon' }; // fallback genérico
+    });
+  }
+  
 
 
   filtroTipoIniciativa: string = 'Todos';
@@ -261,8 +247,6 @@ export class MainInitiativesInfoComponent implements AfterViewInit {
       this.iniciativasFiltradas = this.iniciativasFiltradas.filter(i => i.Id !== id);
       this.cd.detectChanges();
     });
-    //this.iniciativaService.deleteIniciativa(id);//TODO probar con el postman en casa
-    // this.iniciativasFiltradas = this.iniciativaService.deleteIniciativa(id);
   }
 
 
