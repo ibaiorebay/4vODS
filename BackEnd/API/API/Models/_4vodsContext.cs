@@ -153,10 +153,11 @@ public partial class _4vodsContext : DbContext
             entity.Property(e => e.ID_INICIATIVA).HasColumnType("int(11)");
 
             entity.HasOne<iniciativa>()
-                .WithMany(p => p.difusiones)
-                .HasForeignKey(e => e.ID_INICIATIVA)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("difusion_ibfk_1");
+             .WithMany(p => p.difusiones)
+             .HasForeignKey(e => e.ID_INICIATIVA)
+             .OnDelete(DeleteBehavior.Cascade)
+             .HasConstraintName("difusion_ibfk_1");
+
 
         });
 
