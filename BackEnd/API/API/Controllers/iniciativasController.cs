@@ -652,9 +652,7 @@ namespace API.Controllers
 
             return NoContent();
         }
-
-
-
+        // INDICADOR 8
         [HttpGet("entidadesExternas/{id}")]
         public async Task<ActionResult<IEnumerable<entidad>>> GetEntidadesExternas(int id)
         {
@@ -666,6 +664,55 @@ namespace API.Controllers
             return entidades;
         }
 
+        // INDICADOR 9
+        [HttpGet("horasIniciativas/{id}")]
+
+        public async Task<ActionResult<int>> GetHorasIniciativas(int id)
+        {
+            var iniciativa = await _context.iniciativas
+                .FirstOrDefaultAsync(i => i.ID_INICIATIVA == id);
+
+            if (iniciativa == null)
+            {
+                return NotFound();
+            }
+
+            return iniciativa.HORAS ?? 0;
+        }
+
+        // INDICADOR 10
+        [HttpGet("tipoIniciativas/{id}")]
+
+        public async Task<ActionResult<string>> GetTipoInicativas(int id)
+        {
+            var iniciativa = await _context.iniciativas
+                .FirstOrDefaultAsync(i => i.ID_INICIATIVA == id);
+
+            if (iniciativa == null)
+            {
+                return NotFound();
+            }
+
+            return iniciativa.TIPO ?? "";
+        }
+
+        // INDICADOR 11
+        [HttpGet("difusionIniciativas/{id}")]
+
+        public async Task<ActionResult<List<string>>> GetDifusionInicativas(int id)
+        {
+            var iniciativa = await _context.iniciativas
+                .FirstOrDefaultAsync(i => i.ID_INICIATIVA == id);
+
+            if (iniciativa == null)
+            {
+                return NotFound();
+            }
+
+            return iniciativa.difusiones.Select(d => d.LINK).ToList();
+        }
+
+        // INDICADOR 12
         [HttpGet("IniciativasNuevas/{id}")]
         public async Task<ActionResult<IEnumerable<IniciativaDTO>>> GetIniciativasNuevas(int id)
         {
@@ -676,11 +723,11 @@ namespace API.Controllers
                 {
                     ID_INICIATIVA = i.ID_INICIATIVA,
                     DESCRIPCION = i.DESCRIPCION,
-                    DIFUSION = i.difusiones.Select(i => i.LINK).ToList(),
+                    DIFUSION = i.difusiones.Select(d => d.LINK).ToList()
+                    ,
                     FECHA_FIN = i.FECHA_FIN,
                     FECHA_INICIO = i.FECHA_INICIO,
                     HORAS = i.HORAS,
-                    CURSOESCOLAR = i.ID_CURSOESCOLARNavigation.DESCRIPCION,
                     ID_ASIGNATURAs = i.ID_ASIGNATURAs.Select(ia => new AsignaturaDTO
                     {
                         ID_ASIGNATURA = ia.ID_ASIGNATURA,
@@ -711,12 +758,38 @@ namespace API.Controllers
             return iniciativas;
         }
 
-        //[HttpGet("horas/{id}")]
-        //public async Task<ActionResult<int>> GetHorasIniciativas(int id)
-        //{
-        //    var horas = await _context.iniciativas.Where(ini => ini.ID_INICIATIVA == id).Select(ini => ini.HORAS).FirstOrDefault();
+        // INDICADOR 13
+        [HttpGet("cursosModulosIniciativa/{id}")]
+        public async Task<ActionResult<IEnumerable<object>>> GetCursosYModulosPorIniciativa(int id)
+        {
+            var iniciativa = await _context.iniciativas
+                .Include(i => i.ID_ASIGNATURAs)
+                    .ThenInclude(a => a.ID_CURSONavigation)
+                .FirstOrDefaultAsync(i => i.ID_INICIATIVA == id);
 
-        //    return horas;
-        //}
+            if (iniciativa == null)
+            {
+                return NotFound();
+            }
+
+            var asignaturas = iniciativa.ID_ASIGNATURAs.ToList();
+
+            var cursos = asignaturas
+                .Where(a => a.ID_CURSONavigation != null) // Evita nulls
+                .GroupBy(a => new { a.ID_CURSO, a.ID_CURSONavigation.NOMBRE })
+                .Select(g => new
+                {
+                    ID_CURSO = g.Key.ID_CURSO,
+                    NOMBRE_CURSO = g.Key.NOMBRE,
+                    MODULOS = g.Select(a => new
+                    {
+                        a.ID_ASIGNATURA,
+                        a.NOMBRE
+                    }).ToList()
+                })
+                .ToList();
+
+            return Ok(cursos);
+        }
     }
 }
